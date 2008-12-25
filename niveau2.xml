@@ -580,51 +580,6 @@
 				<posY>35</posY>
 			</ennemi>
 			<ennemi num="1.9.1">
-				<name>blue1</name>
-				<posX>355</posX>
-				<posY>50</posY>
-			</ennemi>	
-			<ennemi num="1.9.1">
-				<name>red1</name>
-				<posX>450</posX>
-				<posY>50</posY>
-			</ennemi>	
-			<ennemi num="1.9.1">
-				<name>blue1</name>
-				<posX>205</posX>
-				<posY>30</posY>
-			</ennemi>	
-			<ennemi num="1.9.1">
-				<name>blue1</name>
-				<posX>450</posX>
-				<posY>30</posY>
-			</ennemi>
-			<ennemi num="1.9.1">
-				<name>blue1</name>
-				<posX>350</posX>
-				<posY>170</posY>
-			</ennemi>
-			<ennemi num="1.9.1">
-				<name>red1</name>
-				<posX>300</posX>
-				<posY>250</posY>
-			</ennemi>	
-			<ennemi num="1.9.1">
-				<name>blue1</name>
-				<posX>300</posX>
-				<posY>150</posY>
-			</ennemi>
-			<ennemi num="1.9.1">
-				<name>red1</name>
-				<posX>300</posX>
-				<posY>270</posY>
-			</ennemi>
-			<ennemi num="1.9.1">
-				<name>blue1</name>
-				<posX>300</posX>
-				<posY>170</posY>
-			</ennemi>
-			<ennemi num="1.9.1">
 				<name>red1</name>
 				<posX>325</posX>
 				<posY>250</posY>

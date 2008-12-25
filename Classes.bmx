@@ -48,7 +48,7 @@ Type TPlayer Extends TShip
 		Else 'gameover
 			
 		EndIf 
-		PlaySound(soundExplosion,channelExplosion)			
+		If Not soundOff Then PlaySound(soundExplosion,channelExplosion)			
 		TPlayer.Spawn(px,py)
 		For Local Ally:TAlly = EachIn AllyList
 			Ally.mothership = TPlayer(PlayerList.Last()) 
@@ -123,7 +123,7 @@ Type TPlayer Extends TShip
 		
 		If KeyDown(KEY_SPACE) And Not TBomb.bombing And player.bombs > 0
 			TBomb.playerShoot(player.x,player.y)
-			PlaySound soundBomb1
+			If Not soundOff Then PlaySound soundBomb1
 			player.bombs:-1
 			player.invincibleTimer = MilliSecs() + 3000
 		EndIf 
@@ -769,8 +769,8 @@ Type TBonus Extends TGameObject
 			bonus.y:+bonus.speed
 			If bonus.dir = 0 Then bonus.x:-bonus.speed
 			If bonus.dir = 1 Then bonus.x:+bonus.speed
-			If bonus.x < leftedge Then bonus.dir = 1-bonus.dir '; Enemy.x = GraphicsHeight() + 64 
-			If bonus.x > rightedge Then bonus.dir = 1-bonus.dir 'Enemy.x = -70 ; 
+			If bonus.x < leftedge Then bonus.dir = 1-bonus.dir ; bonus.x = leftEdge '; Enemy.x = GraphicsHeight() + 64 
+			If bonus.x > rightedge Then bonus.dir = 1-bonus.dir ; bonus.x = rightEdge 'Enemy.x = -70 ; 
 			If bonus.y > GraphicsHeight() + 60 Then bonus.y = -60		
 			If slowmo Then bonus.speed :* 2
 		Next
@@ -836,7 +836,7 @@ Type TBonusOneUp Extends TBonus
 			DrawImage (bonusLifeImage,bonus.x,bonus.y,bonusFrame)
 			If bonus.x > Player.x-Player.xv/2 And bonus.x < Player.x+Player.xv/2 And bonus.y > Player.y-16 And bonus.y < Player.y+16
 				BonusList.Remove(bonus)
-				lives:+1
+				If Lives < 5 Then lives:+1
 			EndIf 
 			bonuscount:+1
 		Next
@@ -953,6 +953,6 @@ End Type
 'todo : régler la duplication de code des bonus (voir l'utilisation de super) // fait à moitié
 ' faire les collisions avec collideimage parce que les tests ont l'air un peu foireux // pour l'instant ça va en fait
 'mettre les bonus dans les ennemis et pas aléatoirement // fait à moitié
-' les tirs des alliés rebondissent pas bien
+
 
 'vérifier si y a le test pour les balles qui partent vers le haut
