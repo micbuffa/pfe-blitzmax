@@ -30,6 +30,7 @@ Global channelAlly4:TChannel = AllocChannel()
 Global channelAlly5:TChannel = AllocChannel()
 Global channelAlly6:TChannel = AllocChannel()
 
+Global soundOff = False 'son éteint ?
 
 Function initChannels()
 	SetChannelVolume channelExplosion,0.3

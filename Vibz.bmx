@@ -8,7 +8,7 @@ Graphics 800,600,0,60
 Global Kills       'We're going to store how many kills we get instead of a score on this game.
 Global Lives       'This is a variable storing how many lives the player has left.
 Global debugMode = False 'mode invincible
-Global soundOff = False 'son éteint ?
+
 Global maxLives% = 3 'vies du joueur au début
 Global maxPowerLevel% = 5 'puissance maximale du joueur
 Global maxBombs% = 5 'nombre maximum de bombes du joueur
@@ -71,6 +71,16 @@ Function clearLists()
 	tbomb.bombing = False ; 
 End Function 
 
+Function clearLevelLists()
+	ClearList AllyBulletList
+	ClearList PlayerBulletList
+	ClearList ExplosionList
+	ClearList EnemyBulletList
+	ClearList BonusList
+	ClearList Sparks
+	tbomb.bombing = False ;
+End Function
+
 Function printTests()
 	If timer < MilliSecs()
 		Print "-------"
@@ -103,8 +113,11 @@ Include "Shoot.bmx"
 initChannels() 'initialisation des sons
 
 Global timer% = MilliSecs() + 5000 ' sert pour les phases de début et de fin de niveau
-TStages.Create()	
-Local Stage:TStages = TStages(StagesList.First())
+' Ajout des niveaux (inutile ?)
+TStages.CreateFromFile("niveau0.xml")	
+TStages.CreateFromFile("niveau1.xml")
+TStages.CreateFromFile("niveau2.xml")
+'Local Stage:TStages = TStages(StagesList.First())
 Local endStage = TStages.Update(mapY)		
 
 Repeat ' This is the main loop!!!!
@@ -112,13 +125,18 @@ Repeat ' This is the main loop!!!!
 	Cls
 	
 	loopsCount :+1
+	If KeyHit(KEY_S) Then soundOff = Not soundOff
 
 	SetAlpha 1
 'Menu ------------	
 
 	If play = 0 'Or endStage  = 1
-		StagesList.remove(Stage) 'suppression du niveau en cours
-		ResumeChannel channelBG 'mise en route de la musique du menu
+		StagesList.clear() 'suppression du niveau en cours (inutile ?)
+		If Not soundOff 
+			ResumeChannel channelBG 'mise en route de la musique du menu
+		Else
+			PauseChannel channelBG
+		EndIf
 		AutoMidHandle(False) 'pour le menu, les images sont gérées en fonction de leur coin supérieur gauche
 		menu() 'la fonction qui affiche le menu 
 		SetAlpha 1
@@ -135,15 +153,18 @@ Repeat ' This is the main loop!!!!
 			PauseChannel channelBG 'musique du menu en pause
 			clearLists() 'réinitialisation de toutes les listes du jeu
 			TPlayer.Spawn() 'création du joueur
-			TStages.Create()	'création du niveau
+			'TStages.Create()	'création du niveau
+			TStages.CreateFromFile("niveau0.xml")
+			TStages.CreateFromFile("niveau1.xml")	
+			TStages.CreateFromFile("niveau2.xml")
 			endStage = 0 'le niveau n'est pas fini
 			kills = 0 'le score est à 0
 			mapY = 0 ' remise à 0 de la variable de scrolling
 			resumeGameChannels() ' activation des sons du jeu 
 			play = 2 ' correspond à la phase de jeu
 			pause = True ' le jeu commence par un compte à rebours, en mode pause
-			PlaySound(soundStart) ' les sons de démarrage
-			PlaySound(soundStart2)
+			If Not soundOff Then PlaySound(soundStart) ' les sons de démarrage
+			If Not soundOff Then PlaySound(soundStart2)
 			timer = MilliSecs() + 3000 'le timer du compte à rebours
 			timeorigine = MilliSecs()/1000 ' l'instant du démarrage du jeu
 		EndIf
@@ -157,14 +178,13 @@ Repeat ' This is the main loop!!!!
 	If play >= 2 'And endStage  = 0
 		Local Player:TPlayer = TPlayer.getPlayer()
 		If endStage = 1 And play = 2 Then timer = MilliSecs()+5000; play = 4
-		If lives <= 0 And play = 2 Then timer = MilliSecs()+5000; PlaySound(soundGameOver); play = 3
-			If KeyHit(KEY_S) 
-			soundOff = Not soundOff
+		If lives <= 0 And play = 2 Then timer = MilliSecs()+5000; play = 3 ; If Not soundOff Then PlaySound(soundGameOver)
+			
 			If soundOff 
 				pauseGameChannels 
 			Else 
 				resumeGameChannels
-			EndIf
+			'EndIf
 		EndIf
 		background()
 		
@@ -194,6 +214,7 @@ Repeat ' This is the main loop!!!!
 		SetColor 255,255,255
 		DrawImage leftImage,75,300
 		DrawImage rightImage,rightedge+75,300
+		
 		
 		'dessin du stock de slowMotion
 
@@ -225,9 +246,16 @@ Repeat ' This is the main loop!!!!
 		Next
 		SetColor 200,0,255
 		SetImageFont arial16
-		'DrawText "Lives:",1,400
-		DrawText Lives,65,375
-		DrawText player.bombs,65,470
+		'vies et bombes
+		For Local k=1 To Lives
+			DrawImage noteImage,23*k,380
+		Next 
+		For Local k=1 To Player.Bombs
+			DrawImage cleDeSolImage,23*k,480
+		Next 
+		'DrawImage cleDeSolImage
+		'DrawText Lives,65,375
+		'DrawText player.bombs,65,470
 		DrawText kills,65,565
 		If KeyHit(key_escape) Then play =0
 		
@@ -238,7 +266,7 @@ Repeat ' This is the main loop!!!!
 			SetImageFont harlow
 			If play = 2 'début du jeu
 				'attention cinématique de début oulala
-				Local appColor# = 255 - (timer-MilliSecs()) * 255/4000
+				Local appColor# = 255 - (timer-MilliSecs()) * 255/3000
 				'SetColor 255 - appColor,255 - appColor,255 - appColor
 				
 				mapY:+mapSpeed
@@ -253,7 +281,7 @@ Repeat ' This is the main loop!!!!
 				DrawImage shieldImage,Player.x,Player.y
 				SetScale 1,1
 				'compte à rebours			
-				DrawText "Début du jeu dans ",300,300 
+				DrawText "Début du niveau dans ",300,300 
 				DrawText (1+timer-MilliSecs())/1000,400,350
 				focusFire(focusImage,Player,36,20,300,[255,255,255])
 				UpdateEntities(sparks)
@@ -261,7 +289,7 @@ Repeat ' This is the main loop!!!!
 				SetAlpha 1
 				time=0
 			Else If play = 3 'gameover
-			' une sorte de rideau qui descend ? puis deux qui montent ?
+			' une sorte de rideau qui descend puis deux qui montent 
 			 	Local effectObject1:TGameObject = New TGameObject ; effectObject1.x = GraphicsWidth()/2 ; effectObject1.y = GraphicsHeight()/2
 				reverseFocusFire(ligthPartPurpleImg,effectObject1,1,1,30,[115,0,0])
 				pause = True
@@ -299,7 +327,16 @@ Repeat ' This is the main loop!!!!
 				DrawText "Kills :",300,350
 				DrawText kills,390,350
 				If timer -1000 < MilliSecs()
-					play = 0 ; loopsCount = 0
+					StagesList.removeFirst()
+					If StagesList.count() = 0  
+						play = 0 ; loopsCount = 0
+					Else 
+						play = 2
+						mapY = 0
+						endStage = 0
+						timer = MilliSecs() + 3000
+						ClearLevelLists()
+					EndIf
 				EndIf 
 			EndIf    
 		Else If timer > MilliSecs() - 100 
@@ -318,7 +355,6 @@ Repeat ' This is the main loop!!!!
 		EndIf 
 		
 		If KeyHit(key_p) Then pause = Not pause
-
 		
 	EndIf
 	

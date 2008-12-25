@@ -22,6 +22,20 @@ Type TStages
 		StagesList.AddLast(Stage) 
 	End Function
 	
+	Function createFromFile(file$)
+		Local Stage:TStages = New TStages
+
+		Stage.XMLStages = xmlDocument.Create(file)
+		Stage.rootStages = Stage.XMLStages.Root()
+		Stage.testEnd = 0
+		Stage.endStage = 0
+		
+		Stage.nodeStages = Stage.rootStages.FirstChild()
+		Stage.block = Stage.nodeStages.FirstChild()
+		Stage.nextWave = Stage.block.Attribute("time").Value.ToInt()
+		StagesList.AddLast(Stage) 
+	End Function 
+	
 	Function Update%(mapY)
 		Local Stage:TStages = TStages(StagesList.First())
 		
@@ -45,9 +59,9 @@ Type TStages
 						EndIf
 					Else If enemyName = "blue1"
 						If posy<0
-							TEnemy.Spawn(posx, posy, 2,LOW_FREQ,150)	
+							TEnemy.Spawn(posx, posy, 2,LOW_FREQ,200)	
 						Else 
-							TEnemy.Spawn(posx, posy, 0,LOW_FREQ,60000)	
+							TEnemy.Spawn(posx, posy, 0,LOW_FREQ,45000)	
 						EndIf
 					EndIf						
 					ennemi = ennemi.NextSibling()
