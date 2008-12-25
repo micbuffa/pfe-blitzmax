@@ -63,6 +63,8 @@ Type TStages
 						Else 
 							TEnemy.Spawn(posx, posy, 0,LOW_FREQ,45000)	
 						EndIf
+					Else If enemyName = "red2"
+						TEnemyRed2.createDefault(posx,posy) 'nouvelle version des spawns
 					EndIf						
 					ennemi = ennemi.NextSibling()
 				Wend
