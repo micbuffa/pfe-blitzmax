@@ -71,9 +71,28 @@ Type TPlayer Extends TShip
 			setGameChannelsRate(1)
 		EndIf
 		
-		If Player.frame < 5 And player.shootFreq = LOW_FREQ Then Player.frame:+(0.5) 
-		If Player.frame > 0 And player.shootFreq = HIGH_FREQ Then Player.frame:-(0.5)
-
+		
+		'Animation de changement de fréquence de tir
+		If Player.frame < 5 And player.shootFreq = LOW_FREQ 
+			Player.frame:+(0.5) 
+			SetColor 255,255,255
+			SetBlend lightblend
+			SetScale player.frame/2,player.frame/2
+			DrawImage enemyBulletimageBF,player.x,player.y
+			SetScale 1,1
+			SetBlend alphablend
+		EndIf 
+		If Player.frame > 0 And player.shootFreq = HIGH_FREQ 
+			Player.frame:-(0.5)
+			SetColor 255,255,255
+			SetBlend lightblend
+			SetScale player.frame/2,player.frame/2
+			DrawImage enemyBulletimageHF,player.x,player.y
+			SetScale 1,1
+			SetBlend alphablend
+		EndIf
+		
+		'Tir basse fréquence
 		If KeyDown(KEY_LCONTROL) And MilliSecs() > BulletTimer And player.shootFreq = LOW_FREQ
 			TBulletBass.PlayerShoot(Player.x,Player.y)
 		EndIf
@@ -190,15 +209,15 @@ Type TAlly Extends TShip
 	End Function
 	
 	Function Update()
-		If kills >= 100/6 And CountList(allylist) < 1 Then TAlly.spawn(30,20);SetChannelVolume channelAlly1,0.5
-		If kills >= 200/6 And CountList(allylist) < 2 Then TAlly.spawn(-30,20);SetChannelVolume channelAlly3,0.2
-		If kills >= 300/6 And CountList(allylist) < 3 Then TAlly.spawn(-20,-5);SetChannelVolume channelAlly2,0.1
-		If kills >= 400/6 And CountList(allylist) < 4 Then TAlly.spawn(-10,-30);SetChannelVolume channelAlly4,0.1
-		If kills >= 500/6 And CountList(allylist) < 5 Then TAlly.spawn(10,-30)
-		If kills >= 600/6 And CountList(allylist) < 6 Then TAlly.spawn(20,-5)
+		If kills >= 100/3 And CountList(allylist) < 1 Then TAlly.spawn(30,20);SetChannelVolume channelAlly1,0.5
+		If kills >= 200/3 And CountList(allylist) < 2 Then TAlly.spawn(-30,20);SetChannelVolume channelAlly3,0.2
+		If kills >= 300/3 And CountList(allylist) < 3 Then TAlly.spawn(-20,-5);SetChannelVolume channelAlly2,0.1
+		If kills >= 400/3 And CountList(allylist) < 4 Then TAlly.spawn(-10,-30);SetChannelVolume channelAlly4,0.1
+		If kills >= 500/3 And CountList(allylist) < 5 Then TAlly.spawn(10,-30)
+		If kills >= 600/3 And CountList(allylist) < 6 Then TAlly.spawn(20,-5)
 	
 		For Local Ally:TAlly = EachIn AllyList
-			Ally.x = Ally.mothership.x + Ally.xDec + (Sin(loopsCount))*4
+			Ally.x = Ally.mothership.x + Ally.xDec + Sin(loopsCount*10)*4
 			Ally.y = Ally.mothership.y + Ally.yDec
 			If MilliSecs() > Ally.allyBulletTimer 
 				If (KeyDown(KEY_LEFT) And Ally.xdec < 0) Or (KeyDown(KEY_RIGHT) And Ally.xdec > 0)
@@ -949,6 +968,69 @@ End Type
 
 
 
+Type TEnemyBlue1 Extends TEnemy
+
+End Type
+
+Type TEnemyRed1 Extends TEnemy
+
+End Type
+
+Type TEnemyRed2 Extends TEnemy
+
+	Function CreateEnemy:TEnemyRed2(posx,posy,speed,shipType,hitpoints,dir)
+		Local Enemy:TEnemyRed2 = New TEnemyRed2
+		Enemy.speed = speed
+		Enemy.hSpeed = 3-Enemy.speed
+		Enemy.shipType = shipType
+		If Rand(30) = 1 Then Enemy.bonus = New TBonusWidth ' provisoire
+		If Rand(30) = 2 Then Enemy.bonus = New TBonusSlowMo ' provisoire
+		If Rand(30) = 3 Then Enemy.bonus = New TBonusOneUp ' provisoire
+		If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
+		If enemy.shipType = LOW_FREQ
+			Enemy.image = Enemy2R
+			Enemy.shoot = New TShootCircle
+			Enemy.shoot.setFreq(100) 
+		Else 
+			Enemy.image = Enemy3R
+			Enemy.shoot = New TShootSimple3
+			Enemy.shoot.setFreq(100)
+		EndIf
+		Enemy.hitpoints = hitpoints
+		Enemy.x = posx
+		Enemy.y = posy
+		Enemy.xv = ImageWidth(Enemy.image)/2
+		Enemy.yv = ImageHeight(Enemy.image)/2
+		Enemy.dir = dir
+		Return Enemy
+	End Function 
+	
+	Function createDefault:TEnemy(posx,posy)
+		Local Enemy:TEnemyRed2 = New TEnemyRed2
+		Enemy.speed = 3
+		Enemy.hSpeed = 4
+		Enemy.shipType = HIGH_FREQ
+		If Rand(30) = 1 Then Enemy.bonus = New TBonusWidth ' provisoire
+		If Rand(30) = 2 Then Enemy.bonus = New TBonusSlowMo ' provisoire
+		If Rand(30) = 3 Then Enemy.bonus = New TBonusOneUp ' provisoire
+		If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
+		Enemy.image = Enemy4R	
+		Enemy.shoot = New TShootArroz3
+		Enemy.shoot.setFreq(100) 
+		Enemy.hitpoints = 500
+		Enemy.x = posx
+		Enemy.y = posy
+		Enemy.xv = ImageWidth(Enemy.image)/2
+		Enemy.yv = ImageHeight(Enemy.image)/2
+		Enemy.dir = 0
+		enemyList.addLast(Enemy)
+		Return Enemy
+	End Function
+
+End Type
+
+
+
 
 'todo : régler la duplication de code des bonus (voir l'utilisation de super) // fait à moitié
 ' faire les collisions avec collideimage parce que les tests ont l'air un peu foireux // pour l'instant ça va en fait
@@ -956,3 +1038,5 @@ End Type
 
 
 'vérifier si y a le test pour les balles qui partent vers le haut
+
+'prochaine étape :  les différents types d'ennemis
