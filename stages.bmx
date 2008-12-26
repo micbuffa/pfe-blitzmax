@@ -53,18 +53,24 @@ Type TStages
 					enemyName = ennemi.FindChild("name").Value
 					If(enemyName =  "red1")
 						If posy<0
-							TEnemy.Spawn(posx, posy, 3,HIGH_FREQ,200)	
+							TEnemyRed1.SpawnDefault(posx, posy)	
 						Else 'pour l'instant ceux qui apparaissent pas en dehors de l'écran sont vachement plus forts
 							TEnemy.Spawn(posx, posy, 0,HIGH_FREQ,30000)	
 						EndIf
 					Else If enemyName = "blue1"
 						If posy<0
-							TEnemy.Spawn(posx, posy, 2,LOW_FREQ,200)	
+							TEnemyBlue1.SpawnDefault(posx, posy)	
 						Else 
 							TEnemy.Spawn(posx, posy, 0,LOW_FREQ,45000)	
 						EndIf
 					Else If enemyName = "red2"
-						TEnemyRed2.createDefault(posx,posy) 'nouvelle version des spawns
+						TEnemyRed2.spawnDefault(posx,posy) 'nouvelle version des spawns
+					Else If enemyName = "blue2"
+						TEnemyBlue2.spawnDefault(posx,posy) 'nouvelle version des spawns
+					Else If enemyName = "blue2reverse"
+						TEnemyBlue2.spawnDefault(posx,posy,1) 'nouvelle version des spawns	
+						Else If enemyName = "blue3"
+						TEnemyBlue3.spawnDefault(posx,posy) 'nouvelle version des spawns
 					EndIf						
 					ennemi = ennemi.NextSibling()
 				Wend

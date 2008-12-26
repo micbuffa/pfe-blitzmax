@@ -552,14 +552,26 @@
 				<posY>-350</posY>
 			</ennemi>
 		</bloc>
-		<bloc time="22000" num="1.9">
+		<bloc time="21000" num="1.9">
+			<ennemi num="1.9.1">
+				<name>blue2</name>
+				<posX>400</posX>
+				<posY>-30</posY>
+			</ennemi>
+			<ennemi num="1.9.1">
+				<name>blue2reverse</name>
+				<posX>300</posX>
+				<posY>-30</posY>
+			</ennemi>		
+		</bloc>
+		<bloc time="25000" num="1.9">
 			<ennemi num="1.9.1">
 				<name>blue1</name>
 				<posX>300</posX>
 				<posY>30</posY>
 			</ennemi>
 			<ennemi num="1.9.1">
-				<name>blue1</name>
+				<name>blue3</name>
 				<posX>350</posX>
 				<posY>30</posY>
 			</ennemi>
@@ -584,12 +596,12 @@
 				<posY>150</posY>
 			</ennemi>
 			<ennemi num="1.9.1">
-				<name>blue1</name>
+				<name>blue3</name>
 				<posX>300</posX>
 				<posY>270</posY>
 			</ennemi>			
 		</bloc>
-		<bloc time="22500" num="end">
+		<bloc time="25500" num="end">
 		</bloc>
 	</niveau>
 	
