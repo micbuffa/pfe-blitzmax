@@ -11,14 +11,14 @@ End Type
 
 Type TPlayer Extends TShip 
 
-	Field InvincibleTimer ' we want him to be invincible when he starts so we need a timer
-	Field powerLevel% = 1
-	Field laserLevel% = 0
-	Field frame# = 0
-	Field scale# = 1.2
-	Field bombs = 0
-	Field shootFreq = HIGH_FREQ
-	Field slowMoStock = 50
+	Field InvincibleTimer ' timer d'invincibilité
+	Field powerLevel% = 1 ' le niveau de puissance du vaisseau
+	'Field laserLevel% = 0 
+	Field frame# = 0 ' la frame courante de l'animation du vaisseau
+	Field scale# = 1.2 ' l'échelle de l'image du vaisseau
+	Field bombs = 1 'on récupère une bombe quand on meurt/apparaît
+	Field shootFreq = HIGH_FREQ 'par défaut on tire en haute fréquence
+	Field slowMoStock = 50 ' on commence avec un tout petit peu de stock de ralenti
 			
 	Function Spawn(spawnx% = 400, spawny% = 400)
 		Local Player:TPlayer = New TPlayer  'Create a new TPlayer Object
@@ -240,8 +240,8 @@ End Type
 
 Type TEnemy Extends TShip
 	Field hitpoints
-	Field wave
-	Field startx
+	'Field wave
+	'Field startx
 	Field speed#
 	Field hSpeed#
 	Field shipType '0 = rouge/haute fréquence, 1 = bleu/basse fréquence
@@ -259,11 +259,11 @@ Type TEnemy Extends TShip
 		If Rand(30) = 3 Then Enemy.bonus = New TBonusOneUp ' provisoire
 		If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
 		If enemy.shipType = LOW_FREQ
-			Enemy.image = Enemy2R
+			Enemy.image = EnemyBlue1
 			Enemy.shoot = New TShootCircle
 			Enemy.shoot.setFreq(100) 
 		Else 
-			Enemy.image = Enemy3R
+			Enemy.image = EnemyRed1
 			Enemy.shoot = New TShootSimple3
 			Enemy.shoot.setFreq(100)
 		EndIf
@@ -312,9 +312,19 @@ Type TEnemy Extends TShip
 			End If
 			End Rem
 			
-			If enemy.shoot.freq = 0
-                                        enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType)
+			If loopsCount Mod enemy.shoot.freq = 0
+           	enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType)
+			EndIf 
+			
+			If enemy.hspeed > 0
+				If enemy.dir = 0
+					SetRotation -mapY
+				Else 
+					SetRotation mapY
+				EndIf
+			EndIf 
 											'EnemyShoot(Enemy.x,Enemy.y,shootAngle)
+			Rem 
                                         Enemy.shoot.setFreq(100)
                                 Else
                                         enemy.shoot.freq:-1
@@ -350,6 +360,7 @@ Type TEnemy Extends TShip
                                 End If
                                 SetRotation mapy
                         End If
+		End Rem 
 
 			
 			'pour les ennemis
@@ -771,6 +782,8 @@ End Type
 
 
 Type TBonus Extends TGameObject
+	Field xv = 30 'override
+	Field yv = 30 'override
 	Field speed# = 2
 	Field dir%  '0 = gauche, 1 = droite
 	Field bonusTimer% = 10 'secondes
@@ -803,8 +816,8 @@ Type TBonusSlowMo Extends TBonus
 			Local Bonus:TBonusSlowMo = New TBonusSlowMo
 			Bonus.x = x + Rand(0,200)  'That's carried over 
 			Bonus.y = y ' Also carried over
-			Bonus.xv = 20
-			Bonus.yv = 20
+			'Bonus.xv = 20
+			'Bonus.yv = 20
 			Bonus.dir = Rand(0,1)
 			BonusList.AddLast(Bonus)
 	End Function 
@@ -821,7 +834,7 @@ Type TBonusSlowMo Extends TBonus
 			Local bonusFrame# = mapy/(mapSpeed*3) Mod 15
 			If bonusFrame >7 Then bonusFrame = 15 - bonusFrame
 			DrawImage (bonusSlowImage,bonus.x,bonus.y,bonusFrame)  
-			If bonus.x > Player.x-Player.xv/2 And bonus.x < Player.x+Player.xv/2 And bonus.y > Player.y-16 And bonus.y < Player.y+16
+			If bonus.x > Player.x-Player.xv And bonus.x < Player.x+Player.xv And bonus.y > Player.y-player.yv And bonus.y < Player.y+player.yv
 				BonusList.Remove(bonus)
 				player.slowMoStock:+100
 			EndIf 
@@ -838,8 +851,8 @@ Type TBonusOneUp Extends TBonus
 			Local Bonus:TBonusOneUp = New TBonusOneUp
 			Bonus.x = x + Rand(0,200)  'That's carried over 
 			Bonus.y = y ' Also carried over
-			Bonus.xv = 20
-			Bonus.yv = 20
+			'Bonus.xv = 20
+			'Bonus.yv = 20
 			Bonus.dir = Rand(0,1)
 			BonusList.AddLast(Bonus)
 	End Function 
@@ -870,8 +883,8 @@ Type TBonusWidth Extends TBonus
 			Local Bonus:TBonusWidth = New TBonusWidth
 			Bonus.x = x + Rand(0,200)  'That's carried over 
 			Bonus.y = y ' Also carried over
-			Bonus.xv = 20
-			Bonus.yv = 20
+			'Bonus.xv = 20
+			'Bonus.yv = 20
 			Bonus.dir = Rand(0,1)
 			BonusList.AddLast(Bonus)
 	End Function 
@@ -888,7 +901,11 @@ Type TBonusWidth Extends TBonus
 			'DrawRect Bonus.x,Bonus.y,Bonus.xv,Bonus.yv
 			If bonus.x+bonus.xv > Player.x-Player.xv/2 And bonus.x-bonus.xv < Player.x+Player.xv/2 And bonus.y+bonus.yv > Player.y-16 And bonus.y-bonus.yv < Player.y+16
 				BonusList.Remove(bonus)
-				If Player.powerLevel < maxPowerLevel Then Player.powerLevel:+1
+				If Player.powerLevel < maxPowerLevel 
+					Player.powerLevel:+1
+					reverseFocusFire(ligthPartBlueImg,player,5,1,30,[0,0,255]);
+					reverseFocusFire(ligthPartPurpleImg,player,5,1,30,[255,0,0])
+				EndIf
 			EndIf 
 			bonuscount:+1
 		Next
@@ -907,8 +924,8 @@ Type TBonusBomb Extends TBonus
 			Local Bonus:TBonusBomb = New TBonusBomb
 			Bonus.x = x + Rand(0,200)  'That's carried over 
 			Bonus.y = y ' Also carried over
-			Bonus.xv = 20
-			Bonus.yv = 20
+			'Bonus.xv = 20
+			'Bonus.yv = 20
 			Bonus.dir = Rand(0,1)
 			BonusList.AddLast(Bonus)
 	End Function 
@@ -970,59 +987,120 @@ End Type
 
 Type TEnemyBlue1 Extends TEnemy
 
-End Type
-
-Type TEnemyRed1 Extends TEnemy
-
-End Type
-
-Type TEnemyRed2 Extends TEnemy
-
-	Function CreateEnemy:TEnemyRed2(posx,posy,speed,shipType,hitpoints,dir)
-		Local Enemy:TEnemyRed2 = New TEnemyRed2
-		Enemy.speed = speed
-		Enemy.hSpeed = 3-Enemy.speed
-		Enemy.shipType = shipType
-		If Rand(30) = 1 Then Enemy.bonus = New TBonusWidth ' provisoire
+	' spawn spécifique à la classe avec attributs prédéfinis
+	Function spawnDefault:TEnemyBlue1(posx,posy, dir = 0)
+		Local Enemy:TEnemyBlue1 = New TEnemyBlue1
+		Enemy.speed = 2
+		Enemy.hSpeed = 1.5
+		Enemy.shipType = LOW_FREQ
+		'If Rand(30) = 1 Then Enemy.bonus = New TBonusWidth ' provisoire
 		If Rand(30) = 2 Then Enemy.bonus = New TBonusSlowMo ' provisoire
-		If Rand(30) = 3 Then Enemy.bonus = New TBonusOneUp ' provisoire
-		If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
-		If enemy.shipType = LOW_FREQ
-			Enemy.image = Enemy2R
-			Enemy.shoot = New TShootCircle
-			Enemy.shoot.setFreq(100) 
-		Else 
-			Enemy.image = Enemy3R
-			Enemy.shoot = New TShootSimple3
-			Enemy.shoot.setFreq(100)
-		EndIf
-		Enemy.hitpoints = hitpoints
+		'If Rand(30) = 3 Then Enemy.bonus = New TBonusOneUp ' provisoire
+		'If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
+		Enemy.image = EnemyBlue1
+		Enemy.shoot = New TShootCircle
+		Enemy.shoot.setFreq(40)
+		Enemy.hitpoints = 200
 		Enemy.x = posx
 		Enemy.y = posy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
+		enemyList.addLast(Enemy)
 		Return Enemy
-	End Function 
-	
-	Function createDefault:TEnemy(posx,posy)
-		Local Enemy:TEnemyRed2 = New TEnemyRed2
-		Enemy.speed = 3
-		Enemy.hSpeed = 4
-		Enemy.shipType = HIGH_FREQ
-		If Rand(30) = 1 Then Enemy.bonus = New TBonusWidth ' provisoire
-		If Rand(30) = 2 Then Enemy.bonus = New TBonusSlowMo ' provisoire
-		If Rand(30) = 3 Then Enemy.bonus = New TBonusOneUp ' provisoire
-		If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
-		Enemy.image = Enemy4R	
-		Enemy.shoot = New TShootArroz3
-		Enemy.shoot.setFreq(100) 
-		Enemy.hitpoints = 500
+	End Function
+End Type
+
+Type TEnemyBlue2 Extends TEnemy
+
+	' spawn spécifique à la classe avec attributs prédéfinis
+	Function spawnDefault:TEnemyBlue2(posx,posy, dir = 0)
+		Local Enemy:TEnemyBlue2 = New TEnemyBlue2
+		Enemy.speed = 0.5
+		Enemy.hSpeed = 3
+		Enemy.shipType = LOW_FREQ
+		Enemy.bonus = New TBonusOneUp ' toujours un bonus de vie ?
+		Enemy.image = EnemyBlue2
+		Enemy.shoot = New TShootSimple5
+		Enemy.shoot.setFreq(50)
+		Enemy.hitpoints = 10000
 		Enemy.x = posx
 		Enemy.y = posy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
-		Enemy.dir = 0
+		Enemy.dir = dir
+		enemyList.addLast(Enemy)
+		Return Enemy
+	End Function
+End Type
+
+Type TEnemyBlue3 Extends TEnemy
+
+	' spawn spécifique à la classe avec attributs prédéfinis
+	Function spawnDefault:TEnemyBlue3(posx,posy, dir = 0)
+		Local Enemy:TEnemyBlue3 = New TEnemyBlue3
+		Enemy.speed = 0
+		Enemy.hSpeed = 2
+		Enemy.shipType = LOW_FREQ
+		Enemy.bonus = New TBonusBomb ' toujours un bonus de vie ?
+		Enemy.image = EnemyBlue3
+		Enemy.shoot = New TShootArroz4
+		Enemy.shoot.setFreq(20)
+		Enemy.hitpoints = 30000
+		Enemy.x = posx
+		Enemy.y = posy
+		Enemy.xv = ImageWidth(Enemy.image)/2
+		Enemy.yv = ImageHeight(Enemy.image)/2
+		Enemy.dir = dir
+		enemyList.addLast(Enemy)
+		Return Enemy
+	End Function
+End Type
+
+Type TEnemyRed1 Extends TEnemy
+
+' spawn spécifique à la classe avec attributs prédéfinis
+	Function spawnDefault:TEnemyRed1(posx,posy, dir = 0)
+		Local Enemy:TEnemyRed1 = New TEnemyRed1
+		Enemy.speed = 3
+		Enemy.hSpeed = 0
+		Enemy.shipType = HIGH_FREQ
+		'If Rand(30) = 1 Then Enemy.bonus = New TBonusWidth ' provisoire
+		If Rand(30) = 2 Then Enemy.bonus = New TBonusSlowMo ' provisoire
+		'If Rand(30) = 3 Then Enemy.bonus = New TBonusOneUp ' provisoire
+		'If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
+		Enemy.image = EnemyRed1
+		Enemy.shoot = New TShootSimple3
+		Enemy.shoot.setFreq(50)
+		Enemy.hitpoints = 200
+		Enemy.x = posx
+		Enemy.y = posy
+		Enemy.xv = ImageWidth(Enemy.image)/2
+		Enemy.yv = ImageHeight(Enemy.image)/2
+		Enemy.dir = dir
+		enemyList.addLast(Enemy)
+		Return Enemy
+	End Function
+End Type
+
+Type TEnemyRed2 Extends TEnemy
+
+	' spawn spécifique à la classe avec attributs prédéfinis
+	Function spawnDefault:TEnemyRed2(posx,posy, dir = 0)
+		Local Enemy:TEnemyRed2 = New TEnemyRed2
+		Enemy.speed = 3
+		Enemy.hSpeed = 4
+		Enemy.shipType = HIGH_FREQ
+		Enemy.bonus = New TBonusWidth ' provisoire
+		Enemy.image = EnemyRed2
+		Enemy.shoot = New TShootArroz4
+		Enemy.shoot.setFreq(30) 
+		Enemy.hitpoints = 5000
+		Enemy.x = posx
+		Enemy.y = posy
+		Enemy.xv = ImageWidth(Enemy.image)/2
+		Enemy.yv = ImageHeight(Enemy.image)/2
+		Enemy.dir = dir
 		enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
@@ -1039,4 +1117,6 @@ End Type
 
 'vérifier si y a le test pour les balles qui partent vers le haut
 
-'prochaine étape :  les différents types d'ennemis
+'prochaine étape :  les différents types d'ennemis // m'a l'air ok
+
+'on voit pas bien la jauge de ralenti : en rajouter une petite qui suit le joueur ?

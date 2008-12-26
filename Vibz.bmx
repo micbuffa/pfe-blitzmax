@@ -98,7 +98,8 @@ End Function
 
 'init()
 
-' Inclusions ----------------------------------- l'ordre est important, Classes et Firepaint utilisent des éléments d'Effets et Sound
+' Inclusions ----------------------------------- l'ordre est important ? 
+' Classes et Firepaint utilisent des éléments d'Effets et Sound
 Include "Sound.bmx"
 Include "Effets.bmx"
 Include "Classes.bmx"
@@ -114,11 +115,11 @@ initChannels() 'initialisation des sons
 
 Global timer% = MilliSecs() + 5000 ' sert pour les phases de début et de fin de niveau
 ' Ajout des niveaux (inutile ?)
-TStages.CreateFromFile("niveau0.xml")	
-TStages.CreateFromFile("niveau1.xml")
-TStages.CreateFromFile("niveau2.xml")
+'TStages.CreateFromFile("niveau0.xml")	
+'TStages.CreateFromFile("niveau1.xml")
+'TStages.CreateFromFile("niveau2.xml")
 'Local Stage:TStages = TStages(StagesList.First())
-Local endStage = TStages.Update(mapY)		
+Local endStage = 0	
 
 Repeat ' This is the main loop!!!!
 
@@ -157,6 +158,7 @@ Repeat ' This is the main loop!!!!
 			TStages.CreateFromFile("niveau0.xml")
 			TStages.CreateFromFile("niveau1.xml")	
 			TStages.CreateFromFile("niveau2.xml")
+			TStages.CreateFromFile("niveau3.xml")
 			endStage = 0 'le niveau n'est pas fini
 			kills = 0 'le score est à 0
 			mapY = 0 ' remise à 0 de la variable de scrolling
@@ -290,7 +292,8 @@ Repeat ' This is the main loop!!!!
 				time=0
 			Else If play = 3 'gameover
 			' une sorte de rideau qui descend puis deux qui montent 
-			 	Local effectObject1:TGameObject = New TGameObject ; effectObject1.x = GraphicsWidth()/2 ; effectObject1.y = GraphicsHeight()/2
+			 	Local effectObject1:TGameObject = New TGameObject
+			effectObject1.x = GraphicsWidth()/2 ; effectObject1.y = GraphicsHeight()/2
 				reverseFocusFire(ligthPartPurpleImg,effectObject1,1,1,30,[115,0,0])
 				pause = True
 				pauseGameChannels()
@@ -304,14 +307,15 @@ Repeat ' This is the main loop!!!!
 				SetColor (timer-MilliSecs())/20,0,0
 				SetImageFont chiller
 				DrawText "Game Over !", 300,300
-				DrawText "Kills :",300,350
+				DrawText "Score :",300,350
 				DrawText kills,390,350
 				If timer -1000 < MilliSecs()
 					play = 0 ; loopsCount = 0
 				EndIf 
 				
 			Else If play = 4 'victoire du niveau
-				Local effectObject1:TGameObject = New TGameObject ; effectObject1.x = GraphicsWidth()/2 ; effectObject1.y = GraphicsHeight()/2
+				Local effectObject1:TGameObject = New TGameObject
+				effectObject1.x = GraphicsWidth()/2 ; effectObject1.y = GraphicsHeight()/2
 				reverseFocusFire(ligthPartBlueImg,effectObject1,1,1,30,[0,255,0])
 				pause = True
 				pauseGameChannels()
@@ -323,8 +327,8 @@ Repeat ' This is the main loop!!!!
 				DrawRect rightEdge,GraphicsHeight(),leftEdge,GraphicsHeight()-fade-500
 				UpdateEntities(sparks)
 				SetColor 0,(timer-MilliSecs())/20,0
-				DrawText "Stage completed !", 300,300
-				DrawText "Kills :",300,350
+				DrawText "Fin du niveau !", 300,300
+				DrawText "Score :",300,350
 				DrawText kills,390,350
 				If timer -1000 < MilliSecs()
 					StagesList.removeFirst()
