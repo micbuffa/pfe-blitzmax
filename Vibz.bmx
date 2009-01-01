@@ -7,7 +7,8 @@ Graphics 800,600,0,60
 
 Global Kills       'We're going to store how many kills we get instead of a score on this game.
 Global Lives       'This is a variable storing how many lives the player has left.
-Global debugMode = False 'mode invincible
+Global debugMode = False 'mode invincible - marche plus très bien
+Global Difficulty = 2
 
 Global maxLives% = 3 'vies du joueur au début
 Global maxPowerLevel% = 5 'puissance maximale du joueur
@@ -16,20 +17,20 @@ Global maxSlowMo# = 2000 ' temps maximum de slow motion, en tours de boucle
 Global BulletTimer 'We'll use this to put a timer on bullets used in the game.
 Global FreqTimer 'pour le délai de changement de fréquence de tir
 'Global AllyBulletTimer
-Const Player = 1  'This is a constant, which will always be the number 1
+Const Player = 1  'This is a constant, which will always be the number 1 'inutile pour l'instant
 Const Enemy  = 2  'This is also a constant, which will always be the number 2
 Const Ally = 3 
-Global PlayerList:TList		= CreateList()  
-Global PlayerBulletList:TList	= CreateList()
-Global AllyList:TList = CreateList()
-Global AllyBulletList:TList = CreateList() 'maybe useless  
-Global EnemyList:TList		= CreateList()
-Global EnemyBulletList:TList	= CreateList()
-Global explosionlist:TList	= CreateList()
-Global BonusList:TList = CreateList()
-Global StagesList:TList = CreateList()
+Global PlayerList:TList		= CreateList() ' liste des joueurs ' un seul pour l'instant
+Global PlayerBulletList:TList	= CreateList() ' liste des tirs du joueur et des alliés
+Global AllyList:TList = CreateList() ' liste des alliés
+Global AllyBulletList:TList = CreateList() ' inutile pour l'instant
+Global EnemyList:TList		= CreateList() ' liste des ennemis
+Global EnemyBulletList:TList	= CreateList() ' liste des tirs ennemis
+Global explosionlist:TList	= CreateList() ' liste des effets d'explosion
+Global BonusList:TList = CreateList() 'liste des bonus
+Global StagesList:TList = CreateList() 'liste des niveaux
 
-Global maxShips = 15 ' le nombre de maximum de vaisseaux ennemis à l'écran
+'Global maxShips = 15 ' le nombre de maximum de vaisseaux ennemis à l'écran
 Const LOW_FREQ = 1 'le type des vaisseaux
 Const HIGH_FREQ = 0
 
@@ -39,7 +40,7 @@ Global slowMoTimer% 'le moment où le mode slow s'arrête
 Global time% 'pour compter le temps de survie du joueur
 Global timeorigine 'le début de la partie
 
-Global play = 0 'état du jeu : 0 -> menu, 1 -> début du jeu, 2 -> jeu
+Global play = 0 'état du jeu : 0 -> menu, 1 -> début du jeu, 2 -> jeu, etc
 Global pause = False 'pause pendant le jeu
 Global windowed = True
 Global rightEdge% = 650
@@ -148,6 +149,17 @@ Repeat ' This is the main loop!!!!
 		SetBlend alphaBlend
 		If KeyHit(KEY_ESCAPE) Then End 'sortie du programme
 		If KeyHit(KEY_ENTER) Then play = 1 'début du jeu
+		If KeyHit(KEY_LALT) 
+					If windowed 
+						Graphics 800,600,32,60 ; windowed = False
+					Else
+						Graphics 800,600,0,60 ; windowed = True
+					EndIf
+		EndIf
+		' Difficulté : change la fréquence de tir des ennemis
+		If KeyHit(KEY_1) Then Difficulty = 1 '; Print difficulty
+		If KeyHit(KEY_2) Then Difficulty = 2 '; Print difficulty
+		If KeyHit(KEY_3) Then Difficulty = 3 '; Print difficulty
 		
 		If play = 1 ' correspond à l'initialisation du jeu
 			Lives = maxLives 'le nombre de vies du joueur
@@ -188,8 +200,10 @@ Repeat ' This is the main loop!!!!
 				resumeGameChannels
 			'EndIf
 		EndIf
+		' Affichage de l'arrière plan
 		background()
 		
+		' Déroulement du jeu
 		If Not pause
 			time = MilliSecs()/1000-timeorigine
 			mapY:+mapSpeed 
@@ -207,12 +221,14 @@ Repeat ' This is the main loop!!!!
 			TExplosion.Update()
 			TBonus.Update()
 			TAnimation.Update()
+			TSprite.update_sprite(1)
 			SetBlend lightblend 'lightblend pour les particules
 			UpdateEntities(sparks)
 			SetBlend alphablend
 		EndIf
 
 		'l'interface de jeu sur les côtés
+		SetAlpha 1
 		SetColor 255,255,255
 		DrawImage leftImage,75,300
 		DrawImage rightImage,rightedge+75,300
@@ -227,22 +243,15 @@ Repeat ' This is the main loop!!!!
 		SetScale 1,1
 		If slowMo
 			'SetColor Sin(mapY*6)*255,Sin(mapY)*255,Sin(mapY*3)*200
-			SetColor 255,0,0
-			TSprite.init_sprite(rightEdge+90+ImageWidth(jaugeImage)/2,ImageHeight(jaugeImage)*jaugeScale+61)
-			TSprite.update_sprite(1,rightEdge+90+ImageWidth(jaugeImage)/2,ImageHeight(jaugeImage)*jaugeScale+61)
-			'firepaint lightPartBlueImg,
+			TSprite.init_sprite(rightEdge+90+ImageWidth(jaugeImage)/2,ImageHeight(jaugeImage)*jaugeScale+61,50,0,150)
 		Else
-			TSprite.update_sprite(0,rightEdge+90+ImageWidth(jaugeImage)/2,ImageHeight(jaugeImage)*jaugeScale+61)
 			SetColor 155,0,200
 		EndIf
 		
 		' dessin des blocs du niveau de puissance
-
-		'SetBlend ALPHABLEND
 		SetAlpha 1
 		SetColor 82,85,112
 		SetImageFont blockup
-		'Local player:TPlayer = TPlayer.getPlayer()
 		For Local n = 0 Until player.powerLevel
        		DrawText "-",rightEdge+40,550-(n*40)
 		Next
@@ -263,10 +272,10 @@ Repeat ' This is the main loop!!!!
 		
 		
 		
-		If timer > MilliSecs() 
-			slowmo = False
+		If timer > MilliSecs() ' phases spéciales
+			slowmo = False ' ralenti désactivé
 			SetImageFont harlow
-			If play = 2 'début du jeu
+			If play = 2 'début du jeu ---------------------------------------------
 				'attention cinématique de début oulala
 				Local appColor# = 255 - (timer-MilliSecs()) * 255/3000
 				'SetColor 255 - appColor,255 - appColor,255 - appColor
@@ -276,7 +285,7 @@ Repeat ' This is the main loop!!!!
 				SetScale player.scale,player.scale
 				player.x = 400
 				player.y = 100+(3000+(MilliSecs()-timer))/10
-				SetAlpha appColor/255-0.5
+				SetAlpha appColor/255-0
 				DrawImage player.Image, player.x , player.y
 				SetScale 0.5,0.5
 				SetColor appColor,appColor,appColor
@@ -290,7 +299,7 @@ Repeat ' This is the main loop!!!!
 				pause = True
 				SetAlpha 1
 				time=0
-			Else If play = 3 'gameover
+			Else If play = 3 'gameover --------------------------------------------
 			' une sorte de rideau qui descend puis deux qui montent 
 			 	Local effectObject1:TGameObject = New TGameObject
 			effectObject1.x = GraphicsWidth()/2 ; effectObject1.y = GraphicsHeight()/2
@@ -313,7 +322,7 @@ Repeat ' This is the main loop!!!!
 					play = 0 ; loopsCount = 0
 				EndIf 
 				
-			Else If play = 4 'victoire du niveau
+			Else If play = 4 'victoire du niveau ----------------------------------
 				Local effectObject1:TGameObject = New TGameObject
 				effectObject1.x = GraphicsWidth()/2 ; effectObject1.y = GraphicsHeight()/2
 				reverseFocusFire(ligthPartBlueImg,effectObject1,1,1,30,[0,255,0])
@@ -334,6 +343,7 @@ Repeat ' This is the main loop!!!!
 					StagesList.removeFirst()
 					If StagesList.count() = 0  
 						play = 0 ; loopsCount = 0
+						clearLists()
 					Else 
 						play = 2
 						mapY = 0
@@ -359,6 +369,13 @@ Repeat ' This is the main loop!!!!
 		EndIf 
 		
 		If KeyHit(key_p) Then pause = Not pause
+		If timer < MilliSecs() And (KeyHit(KEY_ENTER) Or KeyHit(KEY_LALT) Or KeyHit (KEY_LCONTROL) Or KeyHit(KEY_SPACE))
+			pause = False 
+		EndIf
+		' empêche un bug fou de se produire : si on appuie sur LALT ou ENTER en cours de partie et s'il n'y a pas
+		' le test précédent, on dirait que l'appui sur ces touches est enregistré et communiqué au moment où on 
+		' revient dans le menu, ce qui fait qu'on relance le jeu directement si on a appuyé sur entrée n'importe
+		' quand dans le jeu et qu'on change de mode d'affichage si on a appuyé sur alt ...
 		
 	EndIf
 	
