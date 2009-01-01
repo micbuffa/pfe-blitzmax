@@ -13,14 +13,13 @@ Type TPlayer Extends TShip
 
 	Field InvincibleTimer ' timer d'invincibilité
 	Field powerLevel% = 1 ' le niveau de puissance du vaisseau
-	'Field laserLevel% = 0 
 	Field frame# = 0 ' la frame courante de l'animation du vaisseau
 	Field scale# = 1.2 ' l'échelle de l'image du vaisseau
 	Field bombs = 1 'on récupère une bombe quand on meurt/apparaît
 	Field shootFreq = HIGH_FREQ 'par défaut on tire en haute fréquence
 	Field slowMoStock = 50 ' on commence avec un tout petit peu de stock de ralenti
 			
-	Function Spawn(spawnx% = 400, spawny% = 400)
+	Function Spawn(spawnx# = 400, spawny# = 400)
 		Local Player:TPlayer = New TPlayer  'Create a new TPlayer Object
 		Player.InvincibleTimer=MilliSecs()+3000 '3 Seconds
 		If debugMode Then Player.InvincibleTimer = MilliSecs()+100000000000
@@ -40,7 +39,7 @@ Type TPlayer Extends TShip
 		Return TPlayer(PlayerList.Last()) 
 	EndFunction
 	
-	Function hit(px,py) ' le joueur est touché
+	Function hit(px#,py#) ' le joueur est touché
 		'TExplosion.Make(px,py,100)
 		Lives:-1
 		If lives >1  
@@ -61,11 +60,17 @@ Type TPlayer Extends TShip
 		'that was created.  That's you!
 		Local Player:TPlayer = TPlayer.getPlayer()
                 
-
+		' Ralenti
 		If KeyDown(KEY_LSHIFT) And Player.slowMoStock > 0
 			player.slowMoStock:-1
 			slowMo = True
 			SetGameChannelsRate (0.5)
+			SetAlpha 0.2
+			SetColor 255,255,255
+			DrawRect player.x - player.slowMoStock/20, player.y+5, player.slowMoStock/10,10
+			TSprite.init_sprite(Player.x,Player.y+15,255,255,255,player.slowMoStock/10)
+			'TSprite.update_sprite(1,Player.x,Player.y+15)
+			SetAlpha 1
 		Else
 			slowMo = False
 			setGameChannelsRate(1)
@@ -128,18 +133,21 @@ Type TPlayer Extends TShip
 
 		EndIf
 		
+		'Tirs haute fréquence
 		If KeyDown(KEY_LCONTROL) And player.shootFreq = HIGH_FREQ 
 			SetChannelVolume channelTreble,0.4
 		Else 
 			SetChannelVolume channelTreble,0
 		EndIf
 		
+		' Changement de fréquence de tir
 		If KeyDown(KEY_LALT) And MilliSecs() > freqTimer
 			player.shootFreq = 1 - player.shootFreq
 			freqTimer = MilliSecs()+400
 			bulletTimer = MilliSecs()
 		EndIf
 		
+		'Tir de bombe
 		If KeyDown(KEY_SPACE) And Not TBomb.bombing And player.bombs > 0
 			TBomb.playerShoot(player.x,player.y)
 			If Not soundOff Then PlaySound soundBomb1
@@ -147,17 +155,17 @@ Type TPlayer Extends TShip
 			player.invincibleTimer = MilliSecs() + 3000
 		EndIf 
 
-		
-		If (KeyDown(KEY_LEFT) And Not (Player.x - Player.xv/2 < leftedge)) 
+		'Déplacement du vaisseau
+		If (KeyDown(KEY_LEFT) And Not (Player.x - ImageWidth(Player.image)/2 < leftedge)) 
 			Player.x:-7
 		EndIf
-		If (KeyDown(KEY_RIGHT) And Not (Player.x + Player.xv/2 > rightedge)) 
+		If (KeyDown(KEY_RIGHT) And Not (Player.x + ImageWidth(Player.image)/2 > rightedge)) 
 			Player.x:+7
 		EndIf
-		If (KeyDown(KEY_UP) And Not (Player.y - Player.yv < 0)) 
+		If (KeyDown(KEY_UP) And Not (Player.y - ImageHeight(Player.image)/2 < 0)) 
 			Player.y:-5
 		EndIf
-		If (KeyDown(KEY_DOWN) And Not (Player.y + Player.yv > GraphicsHeight())) 
+		If (KeyDown(KEY_DOWN) And Not (Player.y + ImageHeight(Player.image)/2 > GraphicsHeight())) 
 			Player.y:+5
 		EndIf
 
@@ -215,21 +223,29 @@ Type TAlly Extends TShip
 		If kills >= 400/3 And CountList(allylist) < 4 Then TAlly.spawn(-10,-30);SetChannelVolume channelAlly4,0.1
 		If kills >= 500/3 And CountList(allylist) < 5 Then TAlly.spawn(10,-30)
 		If kills >= 600/3 And CountList(allylist) < 6 Then TAlly.spawn(20,-5)
-	
+		
+		Local player:TPlayer = TPlayer.getPlayer()
 		For Local Ally:TAlly = EachIn AllyList
-			Ally.x = Ally.mothership.x + Ally.xDec + Sin(loopsCount*10)*4
+			'Ally.x = Ally.mothership.x + Ally.xDec + Sin(loopsCount*10)*4
+			Ally.x = Ally.mothership.x + Sin(loopsCount*3 + Ally.xDec*2)*50
 			Ally.y = Ally.mothership.y + Ally.yDec
-			If MilliSecs() > Ally.allyBulletTimer 
-				If (KeyDown(KEY_LEFT) And Ally.xdec < 0) Or (KeyDown(KEY_RIGHT) And Ally.xdec > 0)
-					TBulletMid.AllyShoot(Ally.x,Ally.y,Ally.xdec)
+			If MilliSecs() > Ally.allyBulletTimer 'tir allié
+				If (KeyDown(KEY_LEFT) And Ally.xdec < 0) Or (KeyDown(KEY_RIGHT) And Ally.xdec > 0) 
+					TBulletMid.AllyShoot(Ally.x,Ally.y,Ally.xdec) ' tir en diagonale dans le sens du mouvement
 				Else 
-					TBulletMid.AllyShoot(Ally.x,Ally.y,0)
+					TBulletMid.AllyShoot(Ally.x,Ally.y,0) 'tir droit
 				EndIf
-				
-				Ally.allyBulletTimer = MilliSecs()+200
+				Ally.allyBulletTimer = MilliSecs()+200 'mise à jour du timer
 			EndIf
 			SetColor 255,255,255
-			SetScale 0.5,0.5
+			'SetScale 0.5,0.5
+			If (Sin(loopsCount*3 + Ally.xDec*2) < Sin((loopsCount+1)*3 + Ally.xDec*2))
+				Local scale# = 0.5 + (50 - Abs(player.x - ally.x))/120
+				SetScale scale,scale
+			Else 
+				Local scale# = 0.5 - (50 - Abs(player.x-ally.x))/120
+				SetScale scale,scale
+			EndIf
 			DrawImage Ally.image,Ally.x,Ally.y
 			SetScale 1,1
 			'DrawRect Ally.x,Ally.y,Ally.xv,Ally.yv
@@ -292,27 +308,7 @@ Type TEnemy Extends TShip
 		For Local Enemy:TEnemy = EachIn EnemyList
 			Local shootAngle=0
 			
-			'pour les tirs
-			Rem 
-			If TShootSimple3(enemy.shoot)
-				If enemy.shoot.freq = 0 
-					enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle)   ' EnemyShoot(Enemy.x,Enemy.y,shootAngle)
-					Enemy.shoot.setFreq(100)
-				Else
-					enemy.shoot.freq:-1
-				End If
-			Else If TShootCircle(enemy.shoot)
-				If enemy.shoot.freq = 0 
-					enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle)   ' EnemyShoot(Enemy.x,Enemy.y,shootAngle)
-					Enemy.shoot.setFreq(100)
-				Else
-					enemy.shoot.freq:-1
-				End If
-				SetRotation mapy
-			End If
-			End Rem
-			
-			If loopsCount Mod enemy.shoot.freq = 0
+			If loopsCount Mod (enemy.shoot.freq*2/Difficulty) = 0
            	enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType)
 			EndIf 
 			
@@ -322,55 +318,7 @@ Type TEnemy Extends TShip
 				Else 
 					SetRotation mapY
 				EndIf
-			EndIf 
-											'EnemyShoot(Enemy.x,Enemy.y,shootAngle)
-			Rem 
-                                        Enemy.shoot.setFreq(100)
-                                Else
-                                        enemy.shoot.freq:-1
-                                End If
-			
-                        If TShootSimple3(enemy.shoot)
-                                If enemy.shoot.freq = 0
-                                        enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType)
-											'EnemyShoot(Enemy.x,Enemy.y,shootAngle)
-                                        Enemy.shoot.setFreq(100)
-                                Else
-                                        enemy.shoot.freq:-1
-                                End If
-                        Else If TShootCircle(enemy.shoot)
-                                If enemy.shoot.freq = 0
-                                        enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType)
-											'EnemyShoot(Enemy.x,Enemy.y,shootAngle)
-                                        Enemy.shoot.setFreq(30)
-
-                                Else
-                                        enemy.shoot.freq:-1
-                                End If
-                                SetRotation mapy
-
-                        Else If TShootArroz4(enemy.shoot)
-                                If enemy.shoot.freq = 0
-                                        enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle,mapy,Enemy.shipType)
-											'EnemyShoot(Enemy.x,Enemy.y,shootAngle)
-                                        Enemy.shoot.setFreq(5)
-
-                                Else
-                                        enemy.shoot.freq:-1
-                                End If
-                                SetRotation mapy
-                        End If
-		End Rem 
-
-			
-			'pour les ennemis
-		'	If enemy.shipType = LOW_FREQ 
-				'SetRotation mapy;shootAngle = mapy Mod 360
-				'If mapY Mod 100 >= 40 And mapY Mod 100 < 45 Then TBullet.EnemyShoot(Enemy.x,Enemy.y,shootAngle)
-		'	Else
-		'		If mapY Mod 250 >= 40 And mapY Mod 250 < 45 Then TBullet.EnemyShoot(Enemy.x,Enemy.y,shootAngle)
-		'	EndIf
-				
+			EndIf 				
 				
 			If slowmo 'slow down the ship if in slow mode
 				Enemy.speed=Enemy.speed/2
@@ -419,7 +367,7 @@ Type TEnemy Extends TShip
 			Local player:TPlayer = TPlayer.getPlayer()
 			If MilliSecs() > Player.InvincibleTimer ' then he's not invincible
 				If enemy.x > Player.x-Player.xv/3 And enemy.x < Player.x+Player.xv/3 And enemy.y > Player.y-5 And enemy.y < Player.y+6
-					Local px=player.x; Local py=player.y ; Local pw = player.powerLevel
+					Local px#=player.x; Local py#=player.y ; Local pw = player.powerLevel
 					For Local pwup% = 1 To pw
 						TBonusWidth.spawn(px-pwup*3,py-pwup*20)
 					Next
@@ -622,7 +570,7 @@ Type TBullet Extends TGameObject
 						If enemy.shipType = HIGH_FREQ
 							Enemy.hitpoints:-Player.powerLevel*10+15
 						Else If enemy.shipType = LOW_FREQ
-							Enemy.hitpoints:-Player.powerLevel*2
+							Enemy.hitpoints:-Player.powerLevel
 						EndIf
 						'TExplosion.Make(bullet.x-1,bullet.y-7,10)
 						focusFire(ligthPartPurpleImg,bullet,4,10,30,[255,Rand(0,255),0])
@@ -784,27 +732,36 @@ End Type
 Type TBonus Extends TGameObject
 	Field xv = 30 'override
 	Field yv = 30 'override
-	Field speed# = 2
+	Field speed# = 1
 	Field dir%  '0 = gauche, 1 = droite
-	Field bonusTimer% = 10 'secondes
+	Field lifeTime% = 500 'tours de boucle
 	
 	Function spawn(x%,y%) 'Abstract
 	End Function
 	
-	Function update() 'Abstract 
+	Function update()
 		TBonusSlowMo.update()
 		TBonusOneUp.update()
 		TBonusWidth.update()
 		TBonusBomb.update()
+		Local Player:TPlayer = TPlayer.getPlayer()
 		For Local bonus:TBonus = EachIn bonusList
 			If slowmo Then bonus.speed :/ 2
+			
+			Rem
 			bonus.y:+bonus.speed
 			If bonus.dir = 0 Then bonus.x:-bonus.speed
 			If bonus.dir = 1 Then bonus.x:+bonus.speed
 			If bonus.x < leftedge Then bonus.dir = 1-bonus.dir ; bonus.x = leftEdge '; Enemy.x = GraphicsHeight() + 64 
 			If bonus.x > rightedge Then bonus.dir = 1-bonus.dir ; bonus.x = rightEdge 'Enemy.x = -70 ; 
-			If bonus.y > GraphicsHeight() + 60 Then bonus.y = -60		
+			If bonus.y > GraphicsHeight() + 60 Then bonus.y = -60	
+			End Rem
+			Local xdiff# = player.x - bonus.x; Local ydiff# = player.y-bonus.y
+			If Abs(xdiff) > 3 Then bonus.x :+ 2/(Abs(xdiff)+Abs(ydiff)) * xdiff*bonus.speed'*bonus.speed/50
+			If Abs(ydiff) > 3 Then bonus.y :+ 2/(Abs(xdiff)+Abs(ydiff)) * ydiff*bonus.speed'*bonus.speed/50	
 			If slowmo Then bonus.speed :* 2
+			bonus.lifeTime:-1
+			If bonus.lifeTime <= 0 Then bonusList.remove(bonus)
 		Next
 	End Function	
 	
@@ -830,11 +787,12 @@ Type TBonusSlowMo Extends TBonus
 		Local Player:TPlayer = TPlayer(PlayerList.Last()) 
 		Local bonusCount% = 0
 		For Local bonus:TBonusSlowMo = EachIn BonusList
-			SetColor 255,255,255
+			Local c# = bonus.lifeTime*255/500
+			SetColor c,c,c
 			Local bonusFrame# = mapy/(mapSpeed*3) Mod 15
 			If bonusFrame >7 Then bonusFrame = 15 - bonusFrame
 			DrawImage (bonusSlowImage,bonus.x,bonus.y,bonusFrame)  
-			If bonus.x > Player.x-Player.xv And bonus.x < Player.x+Player.xv And bonus.y > Player.y-player.yv And bonus.y < Player.y+player.yv
+			If bonus.x > Player.x-Player.xv*2 And bonus.x < Player.x+Player.xv*2 And bonus.y > Player.y-player.yv*2 And bonus.y < Player.y+player.yv*2
 				BonusList.Remove(bonus)
 				player.slowMoStock:+100
 			EndIf 
@@ -862,11 +820,12 @@ Type TBonusOneUp Extends TBonus
 		Local Player:TPlayer = TPlayer(PlayerList.Last()) 
 		Local bonusCount% = 0
 		For Local bonus:TBonusOneUp = EachIn BonusList
-			SetColor 255,255,255
+			Local c# =bonus.lifeTime*255/500
+			SetColor c,c,c
 			Local bonusFrame# = mapy/(mapSpeed*3) Mod 15
 			If bonusFrame >7 Then bonusFrame = 15 - bonusFrame
 			DrawImage (bonusLifeImage,bonus.x,bonus.y,bonusFrame)
-			If bonus.x > Player.x-Player.xv/2 And bonus.x < Player.x+Player.xv/2 And bonus.y > Player.y-16 And bonus.y < Player.y+16
+			If bonus.x > Player.x-Player.xv*2 And bonus.x < Player.x+Player.xv*2 And bonus.y > Player.y-player.yv*2 And bonus.y < Player.y+player.yv*2
 				BonusList.Remove(bonus)
 				If Lives < 5 Then lives:+1
 			EndIf 
@@ -894,12 +853,13 @@ Type TBonusWidth Extends TBonus
 		Local Player:TPlayer = TPlayer.getPlayer()
 		Local bonusCount% = 0
 		For Local bonus:TBonusWidth = EachIn BonusList
-			SetColor 255,255,255
+			Local c# = bonus.lifeTime*255/500
+			SetColor c,c,c
 			Local bonusFrame# = mapy/(mapSpeed*3) Mod 15
 			If bonusFrame >7 Then bonusFrame = 15 - bonusFrame
 			DrawImage (bonusWidthImage,bonus.x,bonus.y,bonusFrame)  
 			'DrawRect Bonus.x,Bonus.y,Bonus.xv,Bonus.yv
-			If bonus.x+bonus.xv > Player.x-Player.xv/2 And bonus.x-bonus.xv < Player.x+Player.xv/2 And bonus.y+bonus.yv > Player.y-16 And bonus.y-bonus.yv < Player.y+16
+			If bonus.x > Player.x-Player.xv*2 And bonus.x < Player.x+Player.xv*2 And bonus.y > Player.y-player.yv*2 And bonus.y < Player.y+player.yv*2
 				BonusList.Remove(bonus)
 				If Player.powerLevel < maxPowerLevel 
 					Player.powerLevel:+1
@@ -935,11 +895,12 @@ Type TBonusBomb Extends TBonus
 		Local Player:TPlayer = TPlayer.getPlayer()
 		Local bonusCount% = 0
 		For Local bonus:TBonusBomb= EachIn BonusList
-			SetColor 255,255,255
+			Local c# = bonus.lifeTime*255/500
+			SetColor c,c,c
 			Local bonusFrame# = mapy/(mapSpeed*3) Mod 15
 			If bonusFrame >7 Then bonusFrame = 15 - bonusFrame
 			DrawImage (bonusBombImage,bonus.x,bonus.y,bonusFrame)  
-			If bonus.x+bonus.xv > Player.x-Player.xv/2 And bonus.x-bonus.xv < Player.x+Player.xv/2 And bonus.y+bonus.yv > Player.y-16 And bonus.y-bonus.yv < Player.y+16
+			If bonus.x > Player.x-Player.xv*2 And bonus.x < Player.x+Player.xv*2 And bonus.y > Player.y-player.yv*2 And bonus.y < Player.y+player.yv*2
 				BonusList.Remove(bonus)
 				If Player.bombs < maxBombs Then Player.bombs:+1
 			EndIf 
@@ -1119,4 +1080,9 @@ End Type
 
 'prochaine étape :  les différents types d'ennemis // m'a l'air ok
 
-'on voit pas bien la jauge de ralenti : en rajouter une petite qui suit le joueur ?
+'on voit pas bien la jauge de ralenti : en rajouter une petite qui suit le joueur ? - fait, à voir si c'est mieux ou pas
+'motionblur pour les tirs ennemis marche plus ?
+'toujours ce bug à la con une fois sur dix : quand on meurt, on réapparaît pas au bon endroit ... aucune idée d'où ça vient
+'j'ai essayé de mettre des floats partout au lieu de int pour ça, on va voir si ça le refait ou pas
+
+' mettre une durée de vie aux bonus

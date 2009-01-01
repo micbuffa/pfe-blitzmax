@@ -56,23 +56,23 @@ Type Tsprite
 	Field speed#
 	Field colR,colG,colB
 	
-	Function init_sprite(x%,y%)
+	Function init_sprite(x%,y%,r,g,b,width=30,height=20)
 		
 		For Local i=0 To 3
 			Local sp:Tsprite=New Tsprite
-			sp.x#=x+Rnd(-15,15)
-			sp.y#=y+Rnd(-15,5)
+			sp.x#=x+Rnd(-width/2,width/2)
+			sp.y#=y+Rnd(-height/2,height/2)
 			sp.origineX = sp.x
 			sp.origineY = sp.y
 			sp.speed#=Rnd(0,1)/100
-			'sp.colR=Rnd(0,155)
-			'sp.colG = 0
-			'sp.colB=Rnd(0,255)
+			sp.colR=r
+			sp.colG =g
+			sp.colB=b
 			ListAddLast sprites,sp
 		Next
 	End Function
 	
-	Function update_sprite(flag%,x%,y%) ' si flag = 0 : on affiche pas, sinon oui
+	Function update_sprite(flag%) ' si flag = 0 : on affiche pas, sinon oui, x et y servent à rien ??
 		For Local sp:Tsprite = EachIn sprites
 			sp.y#=sp.y#+sp.speed#
 			sp.speed:+0.008
@@ -81,7 +81,7 @@ Type Tsprite
 			EndIf
 			'SetBlend lightblend
 			SetAlpha 0.1
-			SetColor 50,0,150
+			SetColor sp.colR,sp.colG,sp.colB
 			If Not (flag = 0) DrawOval sp.x#,sp.y#,2,2
 			'SetBlend alphablend
 		Next
