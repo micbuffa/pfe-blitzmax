@@ -55,13 +55,15 @@ Type TStages
 						If posy<0
 							TEnemyRed1.SpawnDefault(posx, posy)	
 						Else 'pour l'instant ceux qui apparaissent pas en dehors de l'écran sont vachement plus forts
-							TEnemy.Spawn(posx, posy, 0,HIGH_FREQ,30000)	
+							'TEnemy.Spawn(posx, posy, 0,HIGH_FREQ,30000)	
+							TEnemyRed3.SpawnDefault(posx,posy)
 						EndIf
 					Else If enemyName = "blue1"
 						If posy<0
 							TEnemyBlue1.SpawnDefault(posx, posy)	
 						Else 
-							TEnemy.Spawn(posx, posy, 0,LOW_FREQ,45000)	
+							'TEnemy.Spawn(posx, posy, 0,LOW_FREQ,45000)	
+							TEnemyBlue4.SpawnDefault(posx,posy)
 						EndIf
 					Else If enemyName = "red2"
 						TEnemyRed2.spawnDefault(posx,posy) 'nouvelle version des spawns

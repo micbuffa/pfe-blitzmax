@@ -1,10 +1,5 @@
 ' Gestion des images
 AutoMidHandle(True)
-Global EnemyRed1:TImage = LoadImage("images/triangle.png")
-Global EnemyRed2:TImage = LoadImage("images/enemy3.png")
-Global EnemyBlue1:TImage = LoadImage("images/losangeDouble.png")
-Global EnemyBlue2:TImage = LoadImage("images/enemyBlue2.png")
-Global EnemyBlue3:TImage = LoadImage("images/enemyBlue3.png")
 'Global PlayerImage:TImage = LoadImage("images/vaisseau1.png")
 Global PlayerImage:TImage = LoadAnimImage("images/vaisseaumatricelittle.png",70,50,0,6)
 Global Ship2B:Timage = LoadImage("images/carre.png")

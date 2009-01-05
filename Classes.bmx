@@ -237,7 +237,7 @@ Type TAlly Extends TShip
 				Else 
 					TBulletMid.AllyShoot(Ally.x,Ally.y,0) 'tir droit
 				EndIf
-				Ally.allyBulletTimer = MilliSecs()+200 'mise à jour du timer
+				Ally.allyBulletTimer = MilliSecs()+500 'mise à jour du timer
 			EndIf
 			SetColor 255,255,255
 			'SetScale 0.5,0.5
@@ -398,8 +398,8 @@ Type TEnemy Extends TShip
 			BonusList.AddLast(Bonus)
 		EndIf
 		EnemyList.Remove(Self)
-
 	End Method
+	
 End Type
 
 Type TExplosion Extends TGameObject
@@ -468,6 +468,7 @@ Type TBullet Extends TGameObject
 	Field dec
 	Field shoot:TShoot
 	Field freqType
+	Field speed# = 4
 	Field lastCoords:TList = CreateList() ' dernières coordonnées pour le motionblur
 	
 	Function EnemyShoot(x,y,angle#=0,freqType)
@@ -498,8 +499,8 @@ Type TBullet Extends TGameObject
 			If bullet.x <= leftedge Then bullet.angle = 360-bullet.angle  
 			If bullet.x >= rightedge Then bullet.angle = 360-bullet.angle
 		EndIf
-		bullet.x:+ Sin(bullet.angle)*coeffX
-		bullet.y:+ Cos(bullet.angle)*coeffY
+		bullet.x :+ Sin(bullet.angle)*coeffX
+		bullet.y :+ Cos(bullet.angle)*coeffY
 		SetRotation bullet.angle
 	End Function
 
@@ -511,42 +512,39 @@ Type TBullet Extends TGameObject
 		TBomb.Update() 'l'update des bombes se fait dans sa classe
 		For Local Bullet:TBullet = EachIn PlayerBulletList			
 			
-			bullet.y:- 8  ' la vitesse du son ne change pas en fonction de la fréquence ! 
-			If tbulletbass(bullet)
+			  
+			If tbulletbass(bullet) ' tir par vagues bleues
+				bullet.y:-bullet.speed
 				computeAngle(bullet)
 				SetColor 255,255,255
 				bullet.scale:+ 0.005*(Player.powerLevel-1)
 				SetScale bullet.scale,1
 				DrawImage bullet.image,bullet.x,bullet.y
 				SetScale 1,1
-				'DrawLine bullet.x-52,bullet.y,bullet.x+52,bullet.y
-			Else If tbullettreble(bullet)
+			Else If tbullettreble(bullet) ' tir laser rouge
 				computeAngle(bullet)
 				bullet.x = Player.x + bullet.dec
-				bullet.y:-37
-				'bullet.y:-100 ' mais bon ...
+				bullet.y:-bullet.speed
 				SetBlend alphablend
-				'SetColor 255,0,0
 				SetScale bullet.scale,1
-				
 				SetColor 255,255,255
-				'DrawImage bullet.animation.image,bullet.x,bullet.y,bullet.animation.frame
 				If KeyDown(key_down) Then bullet.y:+5 'pour coller au joueur, sinon ça fait des trous dans le laser
 				If KeyDown(key_up) Then bullet.y:-5 'pour coller au joueur, sinon ça fait des patés dans le laser
 				DrawImage bullet.image,bullet.x,bullet.y,(mapY/24 Mod 14)
 				Local laserColor = Sin(bullet.y+mapY*5)*255
 				SetColor laserColor,laserColor,laserColor
-				'SetBlend lightblend
-				'DrawImage bulletTrebleImage2,bullet.x,bullet.y
-				'DrawImage bullettrebleimagelight,bullet.x,bullet.y,(mapY/24 Mod 14)
-				'SetColor 255,255,255
 				SetScale 1,1
-				'SetBlend alphablend
-				'DrawOval bullet.x,bullet.y,6,2
 			Else If tbulletmid(bullet)
-				computeAngle(bullet,15,1)
-				SetScale 0.1,0.8
+				'computeAngle(bullet,15,1)
+				computeAngle(bullet,bullet.speed,-bullet.speed)
+				'bullet.y :- bullet.speed
+				If bullet.speed < 10 
+					bullet.speed :+ Exp(bullet.speed)/300
+				Else If bullet.speed > 10
+					bullet.speed = 10
+				EndIf
 				SetColor 255,0,0
+				SetScale 0.1,0.8
 				DrawImage bulletbassImage,bullet.x,bullet.y
 				SetScale 1,1
 			EndIf
@@ -572,9 +570,9 @@ Type TBullet Extends TGameObject
 					EndIf
 				Else If tbulletmid(bullet)
 					If bullet.x > Enemy.x-enemy.xv And bullet.x < Enemy.x+enemy.xv And bullet.y > Enemy.y-enemy.yv And bullet.y < Enemy.y+enemy.yv
-						Enemy.hitpoints:-30
+						Enemy.hitpoints:-100
 						PlayerBulletList.Remove(bullet)
-						TExplosion.Make(bullet.x,bullet.y,10)
+						TExplosion.Make(bullet.x,bullet.y,30)
 					EndIf
 				Else If tbullettreble(bullet)
 					'If bullet.x > Enemy.x-enemy.xv And bullet.x < Enemy.x+enemy.xv And bullet.y > Enemy.y-16 And bullet.y < Enemy.y+16
@@ -602,20 +600,16 @@ Type TBullet Extends TGameObject
 			coord.a=bullet.x ; coord.b = bullet.y ' on garde une trace des derniers mouvements, pour le motionblur
 			bullet.lastCoords.addFirst(coord)
 			If Not slowmo
-				computeAngle(bullet,-4,4)
+				computeAngle(bullet,-bullet.speed,bullet.speed)
 			Else 
-				computeAngle(bullet,-2,2)
+				computeAngle(bullet,-bullet.speed/2,bullet.speed/2)
 				motionBlur(bullet.lastCoords,bullet.image,bullet.scale,0,5)
 			EndIf
-			'bullet.y:+4
-			'If slowmo Then bullet.y:-2 '; bullet.x:-Sin(bullet.y)*1
-			'bullet.x:+Sin(bullet.y)*2
-			'SetBlend lightblend
 			SetColor 255,255,255
 			SetScale bullet.scale,bullet.scale
            DrawImage bullet.image,bullet.x,bullet.y
 			SetScale 1,1
-			'DrawRect bullet.x,bullet.y,4,40
+
 			SetBlend alphablend
 			If bullet.y > GraphicsHeight() + 10 Or bullet.y < 0 Then EnemyBulletList.Remove(Bullet)
 			If bullet.x < leftedge Or bullet.x > rightedge Then EnemyBulletList.Remove(Bullet)  
@@ -649,6 +643,7 @@ Type TBulletBass Extends TBullet
 		Bullet.Owner = Player 'The bullet collision detection will know whose is whose
 		Bullet.image = BulletBassImage
 		Bullet.scale = 0.3
+		Bullet.speed = 8
 		PlayerBulletList.AddLast(Bullet)
 		BulletTimer = MilliSecs()+400
 	End Function
@@ -688,12 +683,13 @@ Type TBulletTreble Extends TBullet
 	Function PlayerShoot(x,y,angle#=0, dec#=0, scale#=1)	
 		Local Bullet:TBulletTreble = New TBulletTreble
 		Bullet.x = x  'That's carried over from the function call, was player.x
-		Bullet.y = y - 34 ' Also carried over, but adjusted to be above the player
+		Bullet.y = y - 33 ' Also carried over, but adjusted to be above the player
 		Bullet.Owner = Player 'The bullet collision detection will know whose is whose
 		Bullet.image = bulletTrebleImage
 		'Bullet.animation = TAnimation.make()
 		Bullet.angle = angle
 		Bullet.dec = dec
+		Bullet.speed = 46
 		Bullet.scale = scale
 		PlayerBulletList.AddLast(Bullet)
 		BulletTimer = MilliSecs()+400
@@ -721,6 +717,7 @@ Type TBulletMid Extends TBullet
 		Bullet.x = x  'That's carried over from the function call, was player.x
 		Bullet.y = y - 34 ' Also carried over, but adjusted to be above the player
 		Bullet.Owner = Player 'The bullet collision detection will know whose is whose
+		
 		PlayerBulletList.AddLast(Bullet)
 		BulletTimer = MilliSecs()+200
 	End Function
@@ -732,6 +729,7 @@ Type TBulletMid Extends TBullet
 		Bullet.y = y - 10 ' Also carried over, but adjusted to be above the player
 		Bullet.Owner = Ally 'The bullet collision detection will know whose is whose
 		Bullet.angle = angle
+		Bullet.speed = 1
 		Bullet.dec = dec
 		Bullet.bouncing = True
 		PlayerBulletList.AddLast(Bullet)
@@ -928,13 +926,14 @@ Type TBomb Extends TBullet
 		Local bomb:TBomb = New TBomb
 		bomb.x = x
 		bomb.y = y
+		bomb.speed = 9
 		PlayerBulletList.addLast(bomb)
 		TBomb.bombing=True
 	End Function
 
 	Function update() 'décalage de la gestion de la bomb dans sa propre classe, peut-être bien à faire pour toutes les bullets
 		For Local bomb:TBomb = EachIn PlayerBulletList		
-			bomb.y:-1
+			bomb.y:-bomb.speed
 			firepaint(bomb.x,bomb.y-50,cleDeSolImage,1)
 			firepaint(bomb.x+20,bomb.y,cleDeFaImage,1)
 			firepaint(bomb.x-20,bomb.y,cleDutImage,1)
