@@ -104,6 +104,7 @@ End Function
 Include "Sound.bmx"
 Include "Effets.bmx"
 Include "Classes.bmx"
+Include "Enemies.bmx"
 Include "lib/firepaint.bmx"
 AutoMidHandle(False)
 Include "background/menu.bmx"

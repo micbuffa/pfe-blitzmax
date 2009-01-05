@@ -76,7 +76,7 @@ Type TEnemyRed1 Extends TEnemy
 ' spawn spécifique à la classe avec attributs prédéfinis
 	Function spawnDefault:TEnemyRed1(posx,posy, dir = 0)
 		Local Enemy:TEnemyRed1 = New TEnemyRed1
-		Enemy.speed = 3
+		Enemy.speed = 0.5
 		Enemy.hSpeed = 0
 		Enemy.shipType = HIGH_FREQ
 		'If Rand(30) = 1 Then Enemy.bonus = New TBonusWidth ' provisoire
@@ -85,7 +85,8 @@ Type TEnemyRed1 Extends TEnemy
 		'If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
 		Enemy.image = EnemyRed1
 		Enemy.shoot = New TShootSimple3
-		Enemy.shoot.setFreq(50)
+		Enemy.shoot.setFreq(10)
+		Enemy.shootSequence = New TShootSeqHalfCircle 
 		Enemy.hitpoints = 200
 		Enemy.x = posx
 		Enemy.y = posy
