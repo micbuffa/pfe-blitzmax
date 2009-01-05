@@ -458,24 +458,35 @@ End Type
 
 Type TBullet Extends TGameObject
 	Field Owner ' specify who shot the bullet
-	Field image:TImage
-	Field animation:TAnimation
-	Field scale#
+	Field image:TImage 'image du projectile
+	'Field animation:TAnimation
+	Field scale# ' échelle de l'image
 	Field angle% = 0
-	Field bouncing = False
+	Field bouncing = False ' est-ce que les projectiles rebondissent ?
 	Field maxY=0
 	Field dec
 	Field shoot:TShoot
 	Field freqType
+	Field lastCoords:TList = CreateList() ' dernières coordonnées pour le motionblur
 	
 	Function EnemyShoot(x,y,angle#=0,freqType)
        Local Bullet:TBullet = New TBullet
        Bullet.x = x  'Carried over from the function call, which was enemy.x
        bullet.y = y  'Also carried over, but adjusted to be below the firing enemy
        bullet.angle=angle
+		bullet.scale = 0.4
        Bullet.Owner = Enemy 'The bullet collision detection will know whose is whose
-		bullet.freqtype =freqType
+		bullet.freqtype = freqType
+		If freqType = LOW_FREQ
+			bullet.image = EnemyBulletImageBF
+		Else 
+			bullet.image = EnemyBulletImageHF
+		EndIf
+		Local coord:Coordinate = New Coordinate
+		coord.a=bullet.x ; coord.b = bullet.y ' on garde une trace des derniers mouvements, pour le motionblur
+		bullet.lastCoords.addFirst(coord)
        EnemyBulletList.AddLast(Bullet)
+		
 '                Local shoot:TshootSimple = New TshootSimple
 '                bullet.shoot=shoot         
     End Function
@@ -586,22 +597,22 @@ Type TBullet Extends TGameObject
 		
 
 		For Local Bullet:TBullet = EachIn EnemyBulletList			
+			Local coord:Coordinate = New Coordinate
+			coord.a=bullet.x ; coord.b = bullet.y ' on garde une trace des derniers mouvements, pour le motionblur
+			bullet.lastCoords.addFirst(coord)
 			If Not slowmo
 				computeAngle(bullet,-4,4)
 			Else 
 				computeAngle(bullet,-2,2)
+				motionBlur(bullet.lastCoords,bullet.image,bullet.scale,0,5)
 			EndIf
 			'bullet.y:+4
 			'If slowmo Then bullet.y:-2 '; bullet.x:-Sin(bullet.y)*1
 			'bullet.x:+Sin(bullet.y)*2
 			'SetBlend lightblend
 			SetColor 255,255,255
-			SetScale 0.4,0.4
-			If bullet.freqType= 0
-           	DrawImage EnemyBulletImageHF,bullet.x,bullet.y
-           Else
-              DrawImage EnemyBulletImageBF,bullet.x,bullet.y
-           End If
+			SetScale bullet.scale,bullet.scale
+           DrawImage bullet.image,bullet.x,bullet.y
 			SetScale 1,1
 			'DrawRect bullet.x,bullet.y,4,40
 			SetBlend alphablend
@@ -872,9 +883,6 @@ Type TBonusWidth Extends TBonus
 		'If Kills Mod 20 = 10  And bonusCount = 0 Then TBonusWidth.spawn()
 	End Function
 
-	
-	
-
 End Type
 
 
@@ -909,13 +917,7 @@ Type TBonusBomb Extends TBonus
 		'If Kills Mod 30 = 3  And bonusCount = 0 Then TBonusBomb.spawn()
 	End Function
 
-	
-	
-
 End Type
-
-
-
 
 
 Type TBomb Extends TBullet
@@ -1069,10 +1071,8 @@ Type TEnemyRed2 Extends TEnemy
 End Type
 
 
-
-
 'todo : régler la duplication de code des bonus (voir l'utilisation de super) // fait à moitié
-' faire les collisions avec collideimage parce que les tests ont l'air un peu foireux // pour l'instant ça va en fait
+'faire les collisions avec collideimage parce que les tests ont l'air un peu foireux // pour l'instant ça va en fait
 'mettre les bonus dans les ennemis et pas aléatoirement // fait à moitié
 
 
@@ -1081,8 +1081,6 @@ End Type
 'prochaine étape :  les différents types d'ennemis // m'a l'air ok
 
 'on voit pas bien la jauge de ralenti : en rajouter une petite qui suit le joueur ? - fait, à voir si c'est mieux ou pas
-'motionblur pour les tirs ennemis marche plus ?
+'motionblur pour les tirs ennemis marche plus ? // ok
 'toujours ce bug à la con une fois sur dix : quand on meurt, on réapparaît pas au bon endroit ... aucune idée d'où ça vient
 'j'ai essayé de mettre des floats partout au lieu de int pour ça, on va voir si ça le refait ou pas
-
-' mettre une durée de vie aux bonus

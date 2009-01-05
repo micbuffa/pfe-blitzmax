@@ -97,14 +97,14 @@ Function motionBlur(coordsList:TList, image:TImage, scale# = 1, frame#=0, maxIma
 	Local c# = 0
 	'Print SizeOf coordslist
 	For Local coord:coordinate = EachIn coordsList
-		If slowmo And c Mod (maxImages/10) = 0
+		If slowmo And c Mod (2) = 0
 			SetBlend alphablend
 			Local csurmax# = c/maxImages
 			SetAlpha(1-csurmax)
 			'SetColor(0,255-255*csurdix,255-255*csurdix)
-			SetColor (0,100,100)
+			SetColor (100,100,100)
 			SetScale scale,scale
-			 DrawImage image, coord.a, coord.b,frame 'on affiche une fois sur deux et seulement en slow mode
+			DrawImage image, coord.a, coord.b,frame 'on affiche une fois sur deux et seulement en slow mode
 			SetScale 1,1
 			'DrawText "ça devrait marcher", coord.a, coord.b
 		EndIf
