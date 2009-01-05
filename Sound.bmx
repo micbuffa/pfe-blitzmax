@@ -13,9 +13,13 @@ Global soundAlly4:TSound = LoadSound("sound/orchestre2.ogg",True)
 Global soundAlly5:TSound = LoadSound("sound/bassrock1D.ogg",True)
 Global soundAlly6:TSound = LoadSound("sound/bassrock1D.ogg",True)
 
-Global soundStart:TSound = LoadSound("sound/321launch.ogg")
-Global soundStart2:TSound = LoadSound("sound/myst.ogg")
-Global soundGameOver:TSound = LoadSound("sound/endtransmission.ogg")
+Global soundStart:TSound = LoadSound("sound/321launch.ogg") 'son de début du jeu
+Global soundStart2:TSound = LoadSound("sound/myst.ogg") ' autre son de début du jeu 
+Global soundGameOver:TSound = LoadSound("sound/distoLose.ogg") 'son de gameover
+Global soundWin:TSound = LoadSound("sound/distoWin.ogg") 'son de fin de niveau
+
+Global soundToHF:TSound = LoadSound("sound/tohf.ogg") 'son de changement de fréquence
+Global soundToBF:TSound = LoadSound("sound/tobf.ogg")
 
 'Channels
 Global channelMusic:TChannel = AllocChannel()
