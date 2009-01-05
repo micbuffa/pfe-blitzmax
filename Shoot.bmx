@@ -140,10 +140,20 @@ Type TShootArroz4 Extends TShoot
 	
 End Type
 
+Type TShootCross Extends TShoot
+	
+	Function fire(x,y,shootangle,decalage,freqType,shootNum)
+		TBullet.EnemyShoot(x,y,shootangle,freqType)
+		TBullet.EnemyShoot(x,y,shootangle+90,freqType)
+		TBullet.EnemyShoot(x,y,shootangle+180,freqType)
+		TBullet.EnemyShoot(x,y,shootangle+270,freqType)
+	End Function 
+	
+End Type
+
 Type TShootSimple2Choice Extends TShoot
 	
 	Function  fire(x,y,shootangle,decalage,freqType,shootNum)
-		Print shootangle
 		TBullet.EnemyShoot(x,y,shootAngle,freqType)
 	End Function 
 	
@@ -177,3 +187,336 @@ Type TShootSeqHalfCircle Extends TShootSequence
 	End Method 
 
 End Type
+
+
+Type TShootSeqRafaleG Extends TShootSequence
+	Field shoot_Array:TShoot[4]
+
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple3
+		shoot_Array[1] = New TShootSimple3
+		shoot_Array[2] = New TShootSimple3
+		shoot_Array[3] = New TShootSimple3
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			shoot_Array[shootNum].fire(x,y,shootangle+20+ShootNum*2,decalage,freqType,shootNum)
+		EndIf
+	End Method 
+
+End Type
+
+Type TShootSeqRafaleD Extends TShootSequence
+	Field shoot_Array:TShoot[4]
+
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple3
+		shoot_Array[1] = New TShootSimple3
+		shoot_Array[2] = New TShootSimple3
+		shoot_Array[3] = New TShootSimple3
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			shoot_Array[shootNum].fire(x,y,shootangle-20-ShootNum*2,decalage,freqType,shootNum)
+		EndIf
+	End Method 
+
+End Type
+
+Type TShootSeqLaser1 Extends TShootSequence
+	Field shoot_Array:TShoot[6]
+
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple1
+		shoot_Array[1] = New TShootSimple1
+		shoot_Array[2] = New TShootSimple1
+		shoot_Array[3] = New TShootSimple1
+		shoot_Array[4] = New TShootSimple1
+		shoot_Array[5] = New TShootSimple1
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			shoot_Array[shootNum].fire(x,y,shootangle,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+5,shootangle,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+10,shootangle,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+15,shootangle,decalage,freqType,shootNum)
+		EndIf
+	End Method 
+
+End Type
+
+Type TShootSeqLaser2 Extends TShootSequence
+	Field shoot_Array:TShoot[6]
+
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple1
+		shoot_Array[1] = New TShootSimple1
+		shoot_Array[2] = New TShootSimple1
+		shoot_Array[3] = New TShootSimple1
+		shoot_Array[4] = New TShootSimple1
+		shoot_Array[5] = New TShootSimple1
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			shoot_Array[shootNum].fire(x,y,shootangle-5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+5,shootangle-5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+10,shootangle-5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+15,shootangle-5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle+5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+5,shootangle+5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+10,shootangle+5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+15,shootangle+5,decalage,freqType,shootNum)
+		EndIf
+	End Method 
+
+End Type
+
+
+Type TShootSeqLaser3 Extends TShootSequence
+	Field shoot_Array:TShoot[6]
+
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple1
+		shoot_Array[1] = New TShootSimple1
+		shoot_Array[2] = New TShootSimple1
+		shoot_Array[3] = New TShootSimple1
+		shoot_Array[4] = New TShootSimple1
+		shoot_Array[5] = New TShootSimple1
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			shoot_Array[shootNum].fire(x,y,shootangle-10,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+5,shootangle-10,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+10,shootangle-10,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+15,shootangle-10,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle+10,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+5,shootangle+10,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+10,shootangle+10,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+15,shootangle+10,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+5,shootangle,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+10,shootangle,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y+15,shootangle,decalage,freqType,shootNum)
+		EndIf
+	End Method 
+
+End Type
+
+
+
+
+Type TShootSeqCloud Extends TShootSequence
+	Field shoot_Array:TShoot[4]
+
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple1
+		shoot_Array[1] = New TShootSimple1
+		shoot_Array[2] = New TShootSimple1
+		shoot_Array[3] = New TShootSimple1
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			shoot_Array[shootNum].fire(x+RndDouble!()*5,y+RndDouble!()*5,shootangle+Rand(1,10),decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x+RndDouble!()*5,y+RndDouble!()*5,shootangle-Rand(1,10),decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x+RndDouble!()*5,y+RndDouble!()*5,shootangle+Rand(1,10),decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x+RndDouble!()*5,y+RndDouble!()*5,shootangle-Rand(1,10),decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x+RndDouble!()*5,y+RndDouble!()*5,shootangle+Rand(1,10),decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x+RndDouble!()*5,y+RndDouble!()*5,shootangle-Rand(1,10),decalage,freqType,shootNum)
+		End If
+	End Method
+	
+End Type
+
+Type TShootSeqBalaiG Extends TShootSequence
+	Field shoot_Array:TShoot[10]
+
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple1
+		shoot_Array[1] = New TShootSimple1
+		shoot_Array[2] = New TShootSimple1
+		shoot_Array[3] = New TShootSimple1
+		shoot_Array[4] = New TShootSimple1
+		shoot_Array[5] = New TShootSimple1
+		shoot_Array[6] = New TShootSimple1
+		shoot_Array[7] = New TShootSimple1
+		shoot_Array[8] = New TShootSimple1
+		shoot_Array[9] = New TShootSimple1
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			shoot_Array[shootNum].fire(x,y,shootangle+ShootNum*10,decalage,freqType,shootNum)
+		EndIf
+	End Method
+	
+End Type
+
+Type TShootSeqBalaiD Extends TShootSequence
+	Field shoot_Array:TShoot[10]
+
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple1
+		shoot_Array[1] = New TShootSimple1
+		shoot_Array[2] = New TShootSimple1
+		shoot_Array[3] = New TShootSimple1
+		shoot_Array[4] = New TShootSimple1
+		shoot_Array[5] = New TShootSimple1
+		shoot_Array[6] = New TShootSimple1
+		shoot_Array[7] = New TShootSimple1
+		shoot_Array[8] = New TShootSimple1
+		shoot_Array[9] = New TShootSimple1
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			shoot_Array[shootNum].fire(x,y,shootangle-ShootNum*10,decalage,freqType,shootNum)
+		EndIf
+	End Method
+	
+End Type
+
+Type TShootSeqBalaiG2 Extends TShootSequence
+	Field shoot_Array:TShoot[20]
+
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple1
+		shoot_Array[1] = New TShootSimple1
+		shoot_Array[2] = New TShootSimple1
+		shoot_Array[3] = New TShootSimple1
+		shoot_Array[4] = New TShootSimple1
+		shoot_Array[5] = New TShootSimple1
+		shoot_Array[6] = New TShootSimple1
+		shoot_Array[7] = New TShootSimple1
+		shoot_Array[8] = New TShootSimple1
+		shoot_Array[9] = New TShootSimple1
+		shoot_Array[10] = New TShootSimple1
+		shoot_Array[11] = New TShootSimple1
+		shoot_Array[12] = New TShootSimple1
+		shoot_Array[13] = New TShootSimple1
+		shoot_Array[14] = New TShootSimple1
+		shoot_Array[15] = New TShootSimple1
+		shoot_Array[16] = New TShootSimple1
+		shoot_Array[17] = New TShootSimple1
+		shoot_Array[18] = New TShootSimple1
+		shoot_Array[19] = New TShootSimple1
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			If shootNum <10
+				shoot_Array[shootNum].fire(x,y,shootangle+ShootNum*10,decalage,freqType,shootNum)
+			Else 
+				shoot_Array[shootNum].fire(x,y,shootangle+100-(ShootNum-10)*10,decalage,freqType,shootNum)
+			End If
+		EndIf
+	End Method
+End Type
+
+Type TShootSeqBalaiD2 Extends TShootSequence
+	Field shoot_Array:TShoot[20]
+
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple1
+		shoot_Array[1] = New TShootSimple1
+		shoot_Array[2] = New TShootSimple1
+		shoot_Array[3] = New TShootSimple1
+		shoot_Array[4] = New TShootSimple1
+		shoot_Array[5] = New TShootSimple1
+		shoot_Array[6] = New TShootSimple1
+		shoot_Array[7] = New TShootSimple1
+		shoot_Array[8] = New TShootSimple1
+		shoot_Array[9] = New TShootSimple1
+		shoot_Array[10] = New TShootSimple1
+		shoot_Array[11] = New TShootSimple1
+		shoot_Array[12] = New TShootSimple1
+		shoot_Array[13] = New TShootSimple1
+		shoot_Array[14] = New TShootSimple1
+		shoot_Array[15] = New TShootSimple1
+		shoot_Array[16] = New TShootSimple1
+		shoot_Array[17] = New TShootSimple1
+		shoot_Array[18] = New TShootSimple1
+		shoot_Array[19] = New TShootSimple1
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			If shootNum <10
+				shoot_Array[shootNum].fire(x,y,shootangle-ShootNum*10,decalage,freqType,shootNum)
+			Else 
+				shoot_Array[shootNum].fire(x,y,shootangle-100+(ShootNum-10)*10,decalage,freqType,shootNum)
+			End If
+		EndIf
+	End Method
+	
+End Type
+
+Type TShootSeqPyramid Extends TShootSequence
+	Field shoot_Array:TShoot[5]
+
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple1
+		shoot_Array[1] = New TShootSimple2
+		shoot_Array[2] = New TShootSimple3
+		shoot_Array[3] = New TShootSimple4
+		shoot_Array[4] = New TShootSimple5
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			shoot_Array[shootNum].fire(x,y,shootangle,decalage,freqType,shootNum)
+		EndIf
+	End Method 
+
+End Type
+
+Type TShootSeqInvert Extends TShootSequence
+	Field shoot_Array:TShoot[5]
+	
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple2Choice 
+		shoot_Array[1] = New TShootSimple2Choice 
+		shoot_Array[2] = New TShootSimple2Choice 
+		shoot_Array[3] = New TShootSimple2Choice 
+		shoot_Array[4] = New TShootSimple2Choice 
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+				shoot_Array[shootNum].fire(x+10,y,shootangle+5,decalage,freqType,shootNum)
+				shoot_Array[shootNum].fire(x+20,y,shootangle+10,decalage,freqType,shootNum)
+				shoot_Array[shootNum].fire(x-10,y,shootangle-5,decalage,freqType,shootNum)
+				shoot_Array[shootNum].fire(x-20,y,shootangle-10,decalage,freqType,shootNum)
+		End If
+	End Method
+	
+End Type
+
+Type TShootSeqCross Extends TShootSequence
+	Field shoot_Array:TShoot[5]
+	
+	Method New()            
+	   	shoot_Array[0] = New TShootSimple2Choice 
+		shoot_Array[1] = New TShootSimple2Choice 
+		shoot_Array[2] = New TShootSimple2Choice 
+		shoot_Array[3] = New TShootSimple2Choice 
+		shoot_Array[4] = New TShootSimple2Choice 
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			shoot_Array[shootNum].fire(x+10,y,shootangle+90,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x+20,y,shootangle+180,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x-10,y,shootangle+270,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x-20,y,shootangle,decalage,freqType,shootNum)
+		EndIf
+	End Method
+	
+End Type
+
+
