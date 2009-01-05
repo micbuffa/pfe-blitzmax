@@ -15,7 +15,6 @@ Global playButtonImg:TImage = LoadImage ("background/jouer.png")
 Global optionsButtonImg:TImage = LoadImage ("background/options.png")
 Global quitButtonImg:TImage = LoadImage ("background/quitter.png")
 
-Global guitarist:TImage = LoadImage("images/avatar(6).png")
 
 '----------LOAD FONT
 Global hybrid:timagefont = LoadImageFont("background/Hybrid_b.ttf",250)
@@ -169,12 +168,6 @@ Function menu()
 	
 	'Dessin du background
 	DrawImage backgd,0,0
-	
-	DrawImage guitarist,530,305
-	Local guitaristObject:TGameObject = New TGameObject
-	guitaristObject.x = 595
-	guitaristObject.y = 505
-	reverseFocusFire noteImage,guitaristObject,1,3,300,[0,0,255]
 
 	'Dessin boomer
 	MidHandleImage boomer
