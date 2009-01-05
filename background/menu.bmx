@@ -14,7 +14,7 @@ Global zImg:TImage = LoadImage("background/Z4.png")
 Global playButtonImg:TImage = LoadImage ("background/jouer.png")
 Global optionsButtonImg:TImage = LoadImage ("background/options.png")
 Global quitButtonImg:TImage = LoadImage ("background/quitter.png")
-
+Global aideButtonImg:TImage = LoadImage ("background/aide.png")
 
 '----------LOAD FONT
 Global hybrid:timagefont = LoadImageFont("background/Hybrid_b.ttf",250)
@@ -153,9 +153,11 @@ Type TLightPart
 
 End Type
 
-	TButton.Create (40,320,playButtonImg,"play")
-	TButton.Create (100,400,optionsButtonImg,"options")
-	TButton.Create (160,480,quitButtonImg,"quit")
+	TButton.Create (50,270,playButtonImg,"play")
+	TButton.Create (120,350,aideButtonImg,"aide")
+	TButton.Create (190,430,optionsButtonImg,"options")
+	TButton.Create (250,510,quitButtonImg,"quit")
+
 
 HideMouse
 
