@@ -34794,7 +34794,7 @@ _2074:
 	dd	-4
 	dd	0
 _1313:
-	db	"D:/Mes documents/Cours/5A/PFE/VIBZ_SVN/Classes.bmx",0
+	db	"D:/cours/PFE/SVN test/Classes.bmx",0
 	align	4
 _1312:
 	dd	_1313
@@ -34804,7 +34804,7 @@ _1312:
 __bb_TBomb_bombing:
 	dd	0
 _1315:
-	db	"D:/Mes documents/Cours/5A/PFE/VIBZ_SVN/Vibz.bmx",0
+	db	"D:/cours/PFE/SVN test/Vibz.bmx",0
 	align	4
 _1314:
 	dd	_1315
@@ -35019,7 +35019,7 @@ _14:
 	dw	92,72,97,114,108,111,119,83
 	dw	73,46,116,116,102
 _1378:
-	db	"D:/Mes documents/Cours/5A/PFE/VIBZ_SVN/Sound.bmx",0
+	db	"D:/cours/PFE/SVN test/Sound.bmx",0
 	align	4
 _1377:
 	dd	_1378
@@ -35294,7 +35294,7 @@ _1463:
 	dd	37
 	dd	1
 _1465:
-	db	"D:/Mes documents/Cours/5A/PFE/VIBZ_SVN/Effets.bmx",0
+	db	"D:/cours/PFE/SVN test/Effets.bmx",0
 	align	4
 _1464:
 	dd	_1465
@@ -35749,7 +35749,7 @@ _1573:
 	dd	50
 	dd	1
 _1575:
-	db	"D:/Mes documents/Cours/5A/PFE/VIBZ_SVN/lib/color.bmx",0
+	db	"D:/cours/PFE/SVN test/lib/color.bmx",0
 	align	4
 _1574:
 	dd	_1575
@@ -35811,7 +35811,7 @@ _1608:
 	dd	174
 	dd	1
 _1612:
-	db	"D:/Mes documents/Cours/5A/PFE/VIBZ_SVN/lib/firepaint.bmx",0
+	db	"D:/cours/PFE/SVN test/lib/firepaint.bmx",0
 	align	4
 _1611:
 	dd	_1612
@@ -35823,7 +35823,7 @@ _1615:
 	dd	109
 	dd	1
 _1617:
-	db	"D:/Mes documents/Cours/5A/PFE/VIBZ_SVN/background/menu.bmx",0
+	db	"D:/cours/PFE/SVN test/background/menu.bmx",0
 	align	4
 _1616:
 	dd	_1617
@@ -45660,7 +45660,7 @@ _5861:
 	dd	-16
 	dd	0
 _5783:
-	db	"D:/Mes documents/Cours/5A/PFE/VIBZ_SVN/Enemies.bmx",0
+	db	"D:/cours/PFE/SVN test/Enemies.bmx",0
 	align	4
 _5782:
 	dd	_5783
@@ -50775,7 +50775,7 @@ _7868:
 	dd	0
 	dd	0
 _7832:
-	db	"D:/Mes documents/Cours/5A/PFE/VIBZ_SVN/stages.bmx",0
+	db	"D:/cours/PFE/SVN test/stages.bmx",0
 	align	4
 _7831:
 	dd	_7832
@@ -51351,7 +51351,7 @@ _8166:
 	dd	0
 	dd	0
 _8162:
-	db	"D:/Mes documents/Cours/5A/PFE/VIBZ_SVN/Shoot.bmx",0
+	db	"D:/cours/PFE/SVN test/Shoot.bmx",0
 	align	4
 _8161:
 	dd	_8162
