@@ -266,6 +266,8 @@ Type TEnemy Extends TShip
 	Field dir '0 = gauche, 1 = droite
 	Field bonus:TBonus
 	Field shoot:TShoot
+	Field shootSequence:TShootSequence
+	Field shootNumber = 0
 	
 	Function CreateEnemy:TEnemy(posx,posy,speed,shipType,hitpoints,dir)
 		Local Enemy:TEnemy = New TEnemy
@@ -276,15 +278,6 @@ Type TEnemy Extends TShip
 		If Rand(30) = 2 Then Enemy.bonus = New TBonusSlowMo ' provisoire
 		If Rand(30) = 3 Then Enemy.bonus = New TBonusOneUp ' provisoire
 		If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
-		If enemy.shipType = LOW_FREQ
-			Enemy.image = EnemyBlue1
-			Enemy.shoot = New TShootCircle
-			Enemy.shoot.setFreq(100) 
-		Else 
-			Enemy.image = EnemyRed1
-			Enemy.shoot = New TShootSimple3
-			Enemy.shoot.setFreq(100)
-		EndIf
 		Enemy.hitpoints = hitpoints
 		Enemy.x = posx
 		Enemy.y = posy
@@ -311,7 +304,13 @@ Type TEnemy Extends TShip
 			Local shootAngle=0
 			
 			If loopsCount Mod (enemy.shoot.freq*2/Difficulty) = 0
-           	enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType)
+           	If enemy.shootSequence = Null
+					enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType,Enemy.shootNumber)
+				Else
+					enemy.shootSequence.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType,Enemy.shootNumber)
+					Enemy.shootNumber :+ 1
+				End If
+
 			EndIf 
 			
 			If enemy.hspeed > 0
