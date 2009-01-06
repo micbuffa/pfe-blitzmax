@@ -8,7 +8,7 @@ Graphics 800,600,0,60
 Global Kills       'We're going to store how many kills we get instead of a score on this game.
 Global Lives       'This is a variable storing how many lives the player has left.
 Global debugMode = False 'mode invincible - marche plus très bien
-Global Difficulty = 2
+Global Difficulty = 2 ' mode de difficulté : change la fréquence des tirs ennemis (pour l'instant)
 
 Global maxLives% = 3 'vies du joueur au début
 Global maxPowerLevel% = 5 'puissance maximale du joueur
@@ -41,7 +41,16 @@ Global time% 'pour compter le temps de survie du joueur
 Global timeorigine 'le début de la partie
 
 Global play = 0 'état du jeu : 0 -> menu, 1 -> début du jeu, 2 -> jeu, etc
-Global pause = False 'pause pendant le jeu
+Const MAIN_MENU = 0
+Const HELP_MENU = 1
+Const OPTIONS_MENU = 6
+Const INIT_GAME = 10
+Const GAMEOVER_GAME = 3
+Const LEVELSTART_GAME = 5
+Const LEVELEND_GAME = 4
+Const PLAY_GAME = 2
+
+Global pause = False 'pause pendant le jeu -> à passer en état peut-être ?
 Global windowed = True
 Global rightEdge% = 650
 Global leftEdge% = 150
@@ -133,7 +142,7 @@ Repeat ' This is the main loop!!!!
 	SetAlpha 1
 'Menu ------------	
 
-	If play = 0 'Or endStage  = 1
+	If play = 0 Or play = 1'Or endStage  = 1
 		StagesList.clear() 'suppression du niveau en cours (inutile ?)
 		If Not soundOff 
 			ResumeChannel channelBG 'mise en route de la musique du menu
@@ -141,28 +150,41 @@ Repeat ' This is the main loop!!!!
 			PauseChannel channelBG
 		EndIf
 		AutoMidHandle(False) 'pour le menu, les images sont gérées en fonction de leur coin supérieur gauche
-		menu() 'la fonction qui affiche le menu 
+		If play = 0 
+			menu() 'la fonction qui affiche le menu
+			If KeyHit(KEY_ESCAPE) Then End 'sortie du programme
+			If KeyHit(KEY_ENTER) Then play = 10 'début du jeu
+		Else If play = 1
+			help()
+			If KeyHit(KEY_ESCAPE) Or KeyHit(KEY_ENTER) 
+				play = 0 ' retour au menu principal
+				TButton.Create (50,270,playButtonImg,"play")
+				TButton.Create (120,350,aideButtonImg,"aide")
+				TButton.Create (190,430,optionsButtonImg,"options")
+				TButton.Create (250,510,quitButtonImg,"quit")
+			EndIf
+		EndIf 
 		SetAlpha 1
 		AutoMidHandle(True) 'mais pour le reste, c'est le centre de l'image qui compte
 		pauseGameChannels() 'les sons du jeu sont mis en pause
 		SetBlend lightBlend 'lightblend pour les particules
 		updateentities(sparks) 'mise à jour des particules
 		SetBlend alphaBlend
-		If KeyHit(KEY_ESCAPE) Then End 'sortie du programme
-		If KeyHit(KEY_ENTER) Then play = 1 'début du jeu
+		
+		
 		If KeyHit(KEY_LALT) 
-					If windowed 
-						Graphics 800,600,32,60 ; windowed = False
-					Else
-						Graphics 800,600,0,60 ; windowed = True
-					EndIf
+			If windowed 
+				Graphics 800,600,32,60 ; windowed = False
+			Else
+				Graphics 800,600,0,60 ; windowed = True
+			EndIf
 		EndIf
 		' Difficulté : change la fréquence de tir des ennemis
 		If KeyHit(KEY_1) Then Difficulty = 1 '; Print difficulty
 		If KeyHit(KEY_2) Then Difficulty = 2 '; Print difficulty
 		If KeyHit(KEY_3) Then Difficulty = 3 '; Print difficulty
 		
-		If play = 1 ' correspond à l'initialisation du jeu
+		If play = 10 ' correspond à l'initialisation du jeu
 			Lives = maxLives 'le nombre de vies du joueur
 			PauseChannel channelBG 'musique du menu en pause
 			clearLists() 'réinitialisation de toutes les listes du jeu
@@ -192,7 +214,9 @@ Repeat ' This is the main loop!!!!
 
 	If play >= 2 'And endStage  = 0
 		Local Player:TPlayer = TPlayer.getPlayer()
-		If endStage = 1 And play = 2 Then timer = MilliSecs()+5000; play = 4
+		' lancement : fin du niveau
+		If endStage = 1 And play = 2 Then timer = MilliSecs()+5000; play = 4; If Not soundOff Then PlaySound(soundWin)
+		' lancement : gameover
 		If lives <= 0 And play = 2 Then timer = MilliSecs()+5000; play = 3 ; If Not soundOff Then PlaySound(soundGameOver)
 			
 			If soundOff 
@@ -365,7 +389,7 @@ Repeat ' This is the main loop!!!!
 			'todo : faire en sorte que le slowmotimer s'arrête pendant la pause - ok mais sale
 			If Not (timer > MilliSecs() )
 				SetImageFont harlow
-				DrawText "Pouce ! Camp ! Arrêtez d'abord !",200,300
+				DrawText "Jeu en pause",250,300
 			EndIf
 		EndIf 
 		
