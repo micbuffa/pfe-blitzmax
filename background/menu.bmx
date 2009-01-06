@@ -10,6 +10,8 @@ Global backgd:TImage = LoadImage("background/backgd.png")
 Global boomer:TImage = LoadImage("background/boomer.png")
 Global vib:TImage = LoadImage("background/vib.png")
 Global zImg:TImage = LoadImage("background/Z4.png")
+Global controlImg:TImage = LoadImage("background/controlsBG.png")
+Global frameImg:TImage = LoadImage("background/cadre.png")
 
 Global playButtonImg:TImage = LoadImage ("background/jouer.png")
 Global optionsButtonImg:TImage = LoadImage ("background/options.png")
@@ -170,7 +172,7 @@ Function menu()
 	
 	'Dessin du background
 	DrawImage backgd,0,0
-
+	
 	'Dessin boomer
 	MidHandleImage boomer
 	SetBlend alphablend
@@ -240,7 +242,7 @@ Function menu()
 			SetColor 255,255,255
 			If (lbutton.clicked())
 				If lbutton.name="play"
-					play = 1
+					play = 10
 				Else If lbutton.name="options"
 					If windowed 
 						Graphics 800,600,32,60 ; windowed = False
@@ -249,6 +251,8 @@ Function menu()
 					EndIf
 				Else If lbutton.name="quit"
 					End 'stops the program at once
+				Else If lbutton.name="aide"
+					play = 1 ; ClearList buttonList
 				EndIf
 			EndIf
 		EndIf
@@ -322,5 +326,118 @@ End Function
 'Until KeyDown (key_enter) Or KeyDown (key_escape) Or AppTerminate()
 
 
+Function help()
+	SetScale 1,1
+	SetAlpha loopsCount/300
+	SetColor 255,255,255
+	SetRotation 0
+	
+	'Dessin du background
+	DrawImage backgd,0,0
+	'Dessin du cadre
+	If loopscount Mod Rand(80) = 0
+		SetScale 2+RndDouble()*3,1+RndDouble()*2
+		SetAlpha RndDouble()
+		DrawImage frameImg,310+Rand(-20,2),300-Rand(50)
+	Else
+		SetScale 2.5,1
+		SetAlpha 0.9
+		DrawImage frameImg,310+Rand(-1,1),300+Rand(-1,1)
+	EndIf
+	
+	
+	'Dessin des contrôles
+	SetScale 1,1
+	SetAlpha 1
+	DrawImage controlImg,0,0
+	
 
+	'Dessin boomer
+	MidHandleImage boomer
+	SetBlend alphablend
+	SetAlpha 0.5
+	SetRotation rotvalue
+
+	If pulseFlag = 1
+		pulseValue:+1
+		SetScale 0.35+pulseValue*0.005,0.35+pulseValue*0.005
+		'DrawImage boomer,650,450
+		If pulseValue > 10
+			pulseFlag = 0
+		EndIf
+	ElseIf pulseFlag = 0
+		pulseValue:-1
+		SetScale 0.35+pulseValue*0.005,0.35+pulseValue*0.005
+		'DrawImage boomer,650,450
+		If pulseValue < 0
+			pulseFlag = 1
+		EndIf
+	EndIf 
+
+
+	SetRotation 0
+	TButton.update()
+	SetBlend MASKBLEND
+
+	For Local lButton:TButton = EachIn buttonList
+		If (lbutton.moveOn(lbutton))
+			SetImageFont ancreon
+			SetBlend LIGHTBLEND
+			SetColor 245,245,255
+			DrawText "{",lButton.x-30,lButton.y
+			DrawText "}",lButton.x+ImageWidth(lButton.img)/2,lButton.y
+			SetColor 255,255,255
+			If (lbutton.clicked())
+				If lbutton.name="retour"
+					play = 0
+					' à complèter
+				EndIf
+			EndIf
+		EndIf
+
+	Next
+
+	'Dessin souris
+	SetColor 255,255,255
+	SetBlend LightBlend
+
+	MidHandleImage lightimage
+
+	If pulseFlag = 1
+		SetScale 0.4+pulseValue*0.01,0.4+pulseValue*0.01
+		DrawImage lightimage,MouseX(),MouseY()
+	ElseIf pulseFlag = 0
+		SetScale 0.4+pulseValue*0.01,0.4+pulseValue*0.01
+		DrawImage lightimage,MouseX(),MouseY()
+
+	EndIf 
+
+	'Dessin particules flottantes
+	partNumber = Rnd(3)
+	SetAlpha 1
+	SetScale 1,1
+	SetBlend LightBlend
+	If partTimer > 400
+		Local yv# = 0.01
+		For Local lx# = 0.1 To 1 Step .1
+			yv#:-RndFloat()
+			TLightPart.Create (XCoord,-30,lx#,yv#-3,.2,660)
+		Next
+		If XCoord > 800
+			partFlag = 1
+			partTimer  = 0
+		ElseIf XCoord < 0
+			partFlag = 0
+			partTimer  = 0
+		EndIf
+		If partFlag = 0
+			XCoord:+20
+		ElseIf partFlag = 1
+			XCoord:-20
+		EndIf
+	End If
+	TLightPart.UpdateAll
+	partTimer :+1
+	
+End Function
 
