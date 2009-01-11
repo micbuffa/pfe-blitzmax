@@ -551,7 +551,7 @@ Type TBullet Extends TGameObject
 					bullet.speed = 10
 				EndIf
 				SetColor 255,0,0
-				SetScale 0.1,0.8
+				SetScale 0.08,0.5
 				DrawImage bulletbassImage,bullet.x,bullet.y
 				SetScale 1,1
 			EndIf
