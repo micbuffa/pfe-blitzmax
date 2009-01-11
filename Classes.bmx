@@ -268,9 +268,12 @@ Type TEnemy Extends TShip
 	Field shoot:TShoot
 	Field shootSequence:TShootSequence
 	Field shootNumber = 0
+	Field traj:TBSplines
+
 	
-	Function CreateEnemy:TEnemy(posx,posy,speed,shipType,hitpoints,dir)
+	Function CreateEnemy:TEnemy(traj:TBSplines, speed, shipType, hitpoints, dir)
 		Local Enemy:TEnemy = New TEnemy
+		Enemy.traj = traj
 		Enemy.speed = speed
 		Enemy.hSpeed = 3-Enemy.speed
 		Enemy.shipType = shipType
@@ -279,21 +282,21 @@ Type TEnemy Extends TShip
 		If Rand(30) = 3 Then Enemy.bonus = New TBonusOneUp ' provisoire
 		If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
 		Enemy.hitpoints = hitpoints
-		Enemy.x = posx
-		Enemy.y = posy
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
 		Return Enemy
 	End Function 
 	
-	Function Spawn(posx, posy, speed, shipType = LOW_FREQ, hitpoints = 1500, dir = 1)
-		Local Enemy:TEnemy = TEnemy.CreateEnemy(posx,posy,speed,shipType,hitpoints,dir)
+	Function Spawn(traj:TBSplines, speed, shipType = LOW_FREQ, hitpoints = 1500, dir = 1)
+		Local Enemy:TEnemy = TEnemy.CreateEnemy(traj,speed,shipType,hitpoints,dir)
 		EnemyList.AddLast(Enemy)
 	End Function
 	
-	Function SpecificSpawn(posx,posy,speed,shipType,hitpoints,dir,bonus:TBonus,shoot:TShoot)
-		Local Enemy:TEnemy = CreateEnemy(posx,posy,speed,shipType,hitpoints,dir)
+	Function SpecificSpawn(traj:TBSplines,speed,shipType,hitpoints,dir,bonus:TBonus,shoot:TShoot)
+		Local Enemy:TEnemy = CreateEnemy(traj,speed,shipType,hitpoints,dir)
 		Enemy.bonus = bonus
 		Enemy.shoot = shoot
 		EnemyList.AddLast(Enemy)
@@ -324,12 +327,17 @@ Type TEnemy Extends TShip
 			If slowmo 'slow down the ship if in slow mode
 				Enemy.speed=Enemy.speed/2
 				Enemy.hspeed=Enemy.hspeed/2
-			EndIf		
+			EndIf
+			
+			Local realSpeed:Float = Enemy.speed/1000
+			Local newpos:Int[] = Enemy.traj.update(realSpeed)		
+									
 			SetColor 255,255,255
 			SetAlpha 0.5
 			DrawImage Enemy.image,Enemy.x,Enemy.y
 			'Enemy.wave:+5	
-			Enemy.y:+Enemy.speed
+			Enemy.y = newpos[1]
+			Enemy.x = newpos[0]
 			If Enemy.dir = 0
 				If slowmo 'motionblur version allégée pour les ennemis
 					SetAlpha 0.2
@@ -339,7 +347,6 @@ Type TEnemy Extends TShip
 					SetAlpha 0.4
 					DrawImage Enemy.image,Enemy.x+3*Enemy.hSpeed,Enemy.y-3*Enemy.speed
 				End If
-				Enemy.x:- Enemy.hspeed
 			EndIf
 			If Enemy.dir = 1
 				If slowmo 'motionblur version allégée pour les ennemis
@@ -350,7 +357,6 @@ Type TEnemy Extends TShip
 					SetAlpha 0.4
 					DrawImage Enemy.image,Enemy.x-3*Enemy.hSpeed,Enemy.y-3*Enemy.speed
 				EndIf
-				Enemy.x:+ Enemy.hspeed
 			EndIf
 			
 			SetAlpha 1
@@ -364,6 +370,7 @@ Type TEnemy Extends TShip
 			If Enemy.x < leftedge Then Enemy.dir = 1-Enemy.dir '; Enemy.x = GraphicsHeight() + 64 
 			If Enemy.x > rightedge Then Enemy.dir = 1-Enemy.dir 'Enemy.x = -70 ; 
 			If Enemy.y > GraphicsHeight() + 60 Then EnemyList.remove(enemy)		
+			If Enemy.y < -60 Then EnemyList.remove(enemy)
 			If Enemy.hitpoints < 1 Then Enemy.explode
 			Local player:TPlayer = TPlayer.getPlayer()
 			If MilliSecs() > Player.InvincibleTimer ' then he's not invincible
