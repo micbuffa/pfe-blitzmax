@@ -1,3 +1,5 @@
+Include "Bsplines.bmx"
+
 Type TStages
 	Field xml
 	Field nodeStages:xmlNode
@@ -41,38 +43,53 @@ Type TStages
 		
 		
 		If mapY >= Stage.nextWave
-			Local posx, posy
 			Local enemyName$
 			Local ennemi:xmlNode
-			
+			Local ptsBez:xmlNode
+						
 			If Stage.testEnd = 0
 				ennemi = Stage.block.FirstChild()
 				While ennemi <> Null
-					posx = ennemi.FindChild("posX").Value.ToInt()
-					posy = ennemi.FindChild("posY").Value.ToInt()
-					enemyName = ennemi.FindChild("name").Value
-					If(enemyName =  "red1")
-						If posy<0
-							TEnemyRed1.SpawnDefault(posx, posy)	
+					Local newDataX:Int[], newDataY:Int[], newDataT:Int[]
+					newDataT =newDataT[..0]
+					newDataX =newDataX[..0]
+					newDataY =newDataY[..0]
+					
+					ptsBez = ennemi.FirstChild()
+					While ptsBez <> Null
+						newDataT =newDataT[..newDataT.Length +1]
+				    	newDataX =newDataX[..newDataT.Length]
+				    	newDataY =newDataY[..newDataT.Length]
+						newDataT[newDataT.Length -1] =newDataT.Length
+						newDataX[newDataT.Length -1] =ptsBez.attribute("posX").Value.ToInt()
+						newDataY[newDataT.Length -1] =ptsBez.attribute("posY").Value.ToInt()
+
+						ptsBez = ptsBez.NextSibling()
+					Wend
+					
+					Local traj:TBSplines = TBSplines.Create(newDataT, newDataX, newDataY)
+
+					enemyName = ennemi.attribute("name").Value
+					If(enemyName = "red1")
+						If traj.curKubSplineY.ValueInt(1)<0
+							TEnemyRed1.SpawnDefault(traj)	
 						Else 'pour l'instant ceux qui apparaissent pas en dehors de l'écran sont vachement plus forts
-							'TEnemy.Spawn(posx, posy, 0,HIGH_FREQ,30000)	
-							TEnemyRed3.SpawnDefault(posx,posy)
+							TEnemy.Spawn(traj, 2,HIGH_FREQ,30000)	
 						EndIf
 					Else If enemyName = "blue1"
-						If posy<0
-							TEnemyBlue1.SpawnDefault(posx, posy)	
+						If traj.curKubSplineY.ValueInt(1)<0
+							TEnemyBlue1.SpawnDefault(traj)	
 						Else 
-							'TEnemy.Spawn(posx, posy, 0,LOW_FREQ,45000)	
-							TEnemyBlue4.SpawnDefault(posx,posy)
+							TEnemy.Spawn(traj, 2,LOW_FREQ,45000)	
 						EndIf
 					Else If enemyName = "red2"
-						TEnemyRed2.spawnDefault(posx,posy) 'nouvelle version des spawns
+						TEnemyRed2.spawnDefault(traj) 'nouvelle version des spawns
 					Else If enemyName = "blue2"
-						TEnemyBlue2.spawnDefault(posx,posy) 'nouvelle version des spawns
+						TEnemyBlue2.spawnDefault(traj) 'nouvelle version des spawns
 					Else If enemyName = "blue2reverse"
-						TEnemyBlue2.spawnDefault(posx,posy,1) 'nouvelle version des spawns	
+						TEnemyBlue2.spawnDefault(traj,1) 'nouvelle version des spawns	
 						Else If enemyName = "blue3"
-						TEnemyBlue3.spawnDefault(posx,posy) 'nouvelle version des spawns
+						TEnemyBlue3.spawnDefault(traj) 'nouvelle version des spawns
 					EndIf						
 					ennemi = ennemi.NextSibling()
 				Wend
@@ -87,8 +104,7 @@ Type TStages
 			EndIf
 		EndIf
 		Return Stage.endStage
-	End Function
-	
+	End Function	
 End Type
 
 

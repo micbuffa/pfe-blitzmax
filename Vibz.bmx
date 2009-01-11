@@ -190,10 +190,12 @@ Repeat ' This is the main loop!!!!
 			clearLists() 'réinitialisation de toutes les listes du jeu
 			TPlayer.Spawn() 'création du joueur
 			'TStages.Create()	'création du niveau
-			TStages.CreateFromFile("niveau0.xml")
-			TStages.CreateFromFile("niveau1.xml")	
-			TStages.CreateFromFile("niveau2.xml")
-			TStages.CreateFromFile("niveau3.xml")
+			TStages.CreateFromFile("niveau0bez.xml")
+
+			'TStages.CreateFromFile("niveau0.xml")
+			'TStages.CreateFromFile("niveau1.xml")	
+			'TStages.CreateFromFile("niveau2.xml")
+			'TStages.CreateFromFile("niveau3.xml")
 			endStage = 0 'le niveau n'est pas fini
 			kills = 0 'le score est à 0
 			mapY = 0 ' remise à 0 de la variable de scrolling

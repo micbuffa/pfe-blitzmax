@@ -12,8 +12,11 @@ Global EnemyBlue4:TImage = LoadImage("images/enemyBlue4.png")
 Type TEnemyBlue1 Extends TEnemy
 
 	' spawn spécifique à la classe avec attributs prédéfinis
-	Function spawnDefault:TEnemyBlue1(posx,posy, dir = 0)
+	Function spawnDefault:TEnemyBlue1(traj:TBSplines, dir = 0)
 		Local Enemy:TEnemyBlue1 = New TEnemyBlue1
+		Enemy.traj = traj
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
 		Enemy.speed = 2
 		Enemy.hSpeed = 1.5
 		Enemy.shipType = LOW_FREQ
@@ -22,8 +25,6 @@ Type TEnemyBlue1 Extends TEnemy
 		Enemy.shoot = New TShootCircle
 		Enemy.shoot.setFreq(40)
 		Enemy.hitpoints = 200
-		Enemy.x = posx
-		Enemy.y = posy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
@@ -35,8 +36,11 @@ End Type
 Type TEnemyBlue2 Extends TEnemy
 
 	' spawn spécifique à la classe avec attributs prédéfinis
-	Function spawnDefault:TEnemyBlue2(posx,posy, dir = 0)
+	Function spawnDefault:TEnemyBlue2(traj:TBSplines, dir = 0)
 		Local Enemy:TEnemyBlue2 = New TEnemyBlue2
+		Enemy.traj = traj
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
 		Enemy.speed = 0.5
 		Enemy.hSpeed = 3
 		Enemy.shipType = LOW_FREQ
@@ -45,8 +49,6 @@ Type TEnemyBlue2 Extends TEnemy
 		Enemy.shoot = New TShootSimple5
 		Enemy.shoot.setFreq(50)
 		Enemy.hitpoints = 10000
-		Enemy.x = posx
-		Enemy.y = posy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
@@ -58,8 +60,11 @@ End Type
 Type TEnemyBlue3 Extends TEnemy
 
 	' spawn spécifique à la classe avec attributs prédéfinis
-	Function spawnDefault:TEnemyBlue3(posx,posy, dir = 0)
+	Function spawnDefault:TEnemyBlue3(traj:TBSplines, dir = 0)
 		Local Enemy:TEnemyBlue3 = New TEnemyBlue3
+		Enemy.traj = traj
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
 		Enemy.speed = 0
 		Enemy.hSpeed = 2
 		Enemy.shipType = LOW_FREQ
@@ -68,8 +73,6 @@ Type TEnemyBlue3 Extends TEnemy
 		Enemy.shoot = New TShootArroz4
 		Enemy.shoot.setFreq(20)
 		Enemy.hitpoints = 20000
-		Enemy.x = posx
-		Enemy.y = posy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
@@ -81,8 +84,11 @@ End Type
 Type TEnemyBlue4 Extends TEnemy
 
 	' spawn spécifique à la classe avec attributs prédéfinis
-	Function spawnDefault:TEnemyBlue4(posx,posy, dir = 0)
+	Function spawnDefault:TEnemyBlue4(traj:TBSplines, dir = 0)
 		Local Enemy:TEnemyBlue4 = New TEnemyBlue4
+		Enemy.traj = traj
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
 		Enemy.speed = 0
 		Enemy.hSpeed = 2
 		Enemy.shipType = LOW_FREQ
@@ -91,8 +97,6 @@ Type TEnemyBlue4 Extends TEnemy
 		Enemy.shoot = New TShootSimple4
 		Enemy.shoot.setFreq(50)
 		Enemy.hitpoints = 30000
-		Enemy.x = posx
-		Enemy.y = posy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
@@ -104,8 +108,11 @@ End Type
 Type TEnemyRed1 Extends TEnemy
 
 ' spawn spécifique à la classe avec attributs prédéfinis
-	Function spawnDefault:TEnemyRed1(posx,posy, dir = 0)
+	Function spawnDefault:TEnemyRed1(traj:TBSplines, dir = 0)
 		Local Enemy:TEnemyRed1 = New TEnemyRed1
+		Enemy.traj = traj
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
 		Enemy.speed = 2
 		Enemy.hSpeed = 0
 		Enemy.shipType = HIGH_FREQ
@@ -118,8 +125,6 @@ Type TEnemyRed1 Extends TEnemy
 		Enemy.shoot.setFreq(10)
 		Enemy.shootSequence = New TShootSeqHalfCircle 
 		Enemy.hitpoints = 200
-		Enemy.x = posx
-		Enemy.y = posy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
@@ -131,8 +136,11 @@ End Type
 Type TEnemyRed2 Extends TEnemy
 
 	' spawn spécifique à la classe avec attributs prédéfinis
-	Function spawnDefault:TEnemyRed2(posx,posy, dir = 0)
+	Function spawnDefault:TEnemyRed2(traj:TBSplines, dir = 0)
 		Local Enemy:TEnemyRed2 = New TEnemyRed2
+		Enemy.traj = traj
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
 		Enemy.speed = 3
 		Enemy.hSpeed = 4
 		Enemy.shipType = HIGH_FREQ
@@ -141,8 +149,6 @@ Type TEnemyRed2 Extends TEnemy
 		Enemy.shoot = New TShootArroz4
 		Enemy.shoot.setFreq(30) 
 		Enemy.hitpoints = 5000
-		Enemy.x = posx
-		Enemy.y = posy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
@@ -155,8 +161,11 @@ End Type
 Type TEnemyRed3 Extends TEnemy
 
 	' spawn spécifique à la classe avec attributs prédéfinis
-	Function spawnDefault:TEnemyRed3(posx,posy, dir = 0)
+	Function spawnDefault:TEnemyRed3(traj:TBSplines, dir = 0)
 		Local Enemy:TEnemyRed3 = New TEnemyRed3
+		Enemy.traj = traj
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
 		Enemy.speed = 0
 		Enemy.hSpeed = 4
 		Enemy.shipType = HIGH_FREQ
@@ -165,8 +174,6 @@ Type TEnemyRed3 Extends TEnemy
 		Enemy.shoot = New TShootArroz1
 		Enemy.shoot.setFreq(30) 
 		Enemy.hitpoints = 45000
-		Enemy.x = posx
-		Enemy.y = posy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
