@@ -90,6 +90,8 @@ Type TStages
 						TEnemyBlue2.spawnDefault(traj,1) 'nouvelle version des spawns	
 						Else If enemyName = "blue3"
 						TEnemyBlue3.spawnDefault(traj) 'nouvelle version des spawns
+					Else If enemyName = "boss1"
+						TBoss1.spawnDefault(traj)					
 					EndIf						
 					ennemi = ennemi.NextSibling()
 				Wend

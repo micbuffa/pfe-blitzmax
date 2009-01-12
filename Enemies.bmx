@@ -191,3 +191,59 @@ Type TEnemyRed3 Extends TEnemy
 	End Function
 
 End Type
+
+
+Type TBoss Extends TEnemy
+
+Function bossUpdate(enemy:TEnemy) Abstract 
+
+End Type
+
+Type TBoss1 Extends TBoss
+
+Function spawnDefault:TBoss1(traj:TBSplines, dir = 0)
+		Local Enemy:TBoss1 = New TBoss1
+		Enemy.traj = traj
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
+		Enemy.speed = 1
+		Enemy.hSpeed = 0
+		Enemy.shipType = HIGH_FREQ
+		Enemy.bonus = New TBonusWidth ' bonus de puissance
+		Enemy.image = EnemyRed3
+		Enemy.shoot = New TShootCross
+		Enemy.shoot.setFreq(30) 
+		Enemy.hitpoints = 300000
+		Enemy.xv = ImageWidth(Enemy.image)/2
+		Enemy.yv = ImageHeight(Enemy.image)/2
+		Enemy.dir = dir
+		enemyList.addLast(Enemy)
+		Return Enemy
+	End Function
+
+Function bossUpdate(boss:TEnemy) 
+	
+	If boss.hitpoints < 100000 And boss.speed = 1
+		Local currentX% = boss.x ; Local currentY% = boss.y
+		Local traj:TBSplines = TBSplines.Create([1,2,3,4,5],[currentX,200,450,550,currentX], [currentY,150,50,150,currentY])
+		boss.traj = traj
+		boss.shoot = New TShootArroz4
+		boss.speed = 5
+		boss.shoot.setFreq(10)
+	EndIf
+	
+	If loopsCount Mod boss.shoot.freq * 70 = 0
+		Local player:TPlayer = TPlayer.getPlayer()
+		Local currentX% = boss.x ; Local currentY% = boss.y
+		Local targetX% = player.x ; Local targetY% = player.y 
+		Local traj:TBSplines = TBSplines.Create([1,2,3],[currentX,targetX,400], [currentY,targetY,700])
+		TEnemyRed1.spawnDefault(traj)
+	EndIf
+
+End Function
+
+
+End Type
+
+
+
