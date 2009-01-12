@@ -47622,7 +47622,7 @@ _2492:
 	dd	-4
 	dd	0
 _1691:
-	db	"E:/pro/blitzmax/vibz&Bez/Classes.bmx",0
+	db	"D:/cours/PFE/SVN test/Classes.bmx",0
 	align	4
 _1690:
 	dd	_1691
@@ -47632,7 +47632,7 @@ _1690:
 __bb_TBomb_bombing:
 	dd	0
 _1693:
-	db	"E:/pro/blitzmax/vibz&Bez/Vibz.bmx",0
+	db	"D:/cours/PFE/SVN test/Vibz.bmx",0
 	align	4
 _1692:
 	dd	_1693
@@ -47847,7 +47847,7 @@ _14:
 	dw	92,72,97,114,108,111,119,83
 	dw	73,46,116,116,102
 _1756:
-	db	"E:/pro/blitzmax/vibz&Bez/Sound.bmx",0
+	db	"D:/cours/PFE/SVN test/Sound.bmx",0
 	align	4
 _1755:
 	dd	_1756
@@ -48122,7 +48122,7 @@ _1841:
 	dd	37
 	dd	1
 _1843:
-	db	"E:/pro/blitzmax/vibz&Bez/Effets.bmx",0
+	db	"D:/cours/PFE/SVN test/Effets.bmx",0
 	align	4
 _1842:
 	dd	_1843
@@ -48512,7 +48512,7 @@ _1936:
 	dd	45
 	dd	1
 _1938:
-	db	"E:/pro/blitzmax/vibz&Bez/Enemies.bmx",0
+	db	"D:/cours/PFE/SVN test/Enemies.bmx",0
 	align	4
 _1937:
 	dd	_1938
@@ -48610,7 +48610,7 @@ _131:
 	dw	110,101,109,121,66,108,117,101
 	dw	52,46,112,110,103
 _1961:
-	db	"E:/pro/blitzmax/vibz&Bez/lib/color.bmx",0
+	db	"D:/cours/PFE/SVN test/lib/color.bmx",0
 	align	4
 _1960:
 	dd	_1961
@@ -48672,7 +48672,7 @@ _1994:
 	dd	174
 	dd	1
 _1998:
-	db	"E:/pro/blitzmax/vibz&Bez/lib/firepaint.bmx",0
+	db	"D:/cours/PFE/SVN test/lib/firepaint.bmx",0
 	align	4
 _1997:
 	dd	_1998
@@ -48684,7 +48684,7 @@ _2001:
 	dd	118
 	dd	1
 _2003:
-	db	"E:/pro/blitzmax/vibz&Bez/background/menu.bmx",0
+	db	"D:/cours/PFE/SVN test/background/menu.bmx",0
 	align	4
 _2002:
 	dd	_2003
@@ -64919,7 +64919,7 @@ _8831:
 	dd	0
 	dd	0
 _8791:
-	db	"E:/pro/blitzmax/vibz&Bez/Bsplines.bmx",0
+	db	"D:/cours/PFE/SVN test/Bsplines.bmx",0
 	align	4
 _8790:
 	dd	_8791
@@ -66055,7 +66055,7 @@ _9814:
 	dd	0
 	dd	0
 _9778:
-	db	"E:/pro/blitzmax/vibz&Bez/stages.bmx",0
+	db	"D:/cours/PFE/SVN test/stages.bmx",0
 	align	4
 _9777:
 	dd	_9778
@@ -66710,7 +66710,7 @@ _10150:
 	dd	0
 	dd	0
 _10146:
-	db	"E:/pro/blitzmax/vibz&Bez/Shoot.bmx",0
+	db	"D:/cours/PFE/SVN test/Shoot.bmx",0
 	align	4
 _10145:
 	dd	_10146

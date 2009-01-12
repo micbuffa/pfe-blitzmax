@@ -4,28 +4,62 @@
 ' Autres
 
 '----------LOAD IMAGE 
+Rem 
+Incbin "background/pulse.png"
+Incbin "background/backgd.png"
+Incbin "background/boomer.png"
+Incbin "background/vib.png"
+Incbin "background/Z4.png"
+Incbin "background/controlsBG.png"
+Incbin "background/cadre.png"
+Incbin "background/jouer.png"
+Incbin "background/options.png"
+Incbin "background/quitter.png"
+Incbin "background/aide.png"
+Incbin "background/Hybrid_b.ttf"
+Incbin "background/ancreon.ttf"
+Incbin "sound/SmoothFull.ogg"
+End Rem
 
-Global lightImage:TImage = LoadImage("background/pulse.png")
-Global backgd:TImage = LoadImage("background/backgd.png")
-Global boomer:TImage = LoadImage("background/boomer.png")
-Global vib:TImage = LoadImage("background/vib.png")
-Global zImg:TImage = LoadImage("background/Z4.png")
-Global controlImg:TImage = LoadImage("background/controlsBG.png")
-Global frameImg:TImage = LoadImage("background/cadre.png")
+Incbin "pulse.png"
+Incbin "backgd.png"
+Incbin "boomer.png"
+Incbin "vib.png"
+Incbin "Z4.png"
+Incbin "controlsBG.png"
+Incbin "cadre.png"
+Incbin "jouer.png"
+Incbin "options.png"
+Incbin "quitter.png"
+Incbin "aide.png"
+Incbin "Hybrid_b.ttf"
+Incbin "ancreon.ttf"
+Incbin "partblue.png"
+Incbin "partblue2.png"
+Incbin "partpurple.png"
+Incbin "../sound/SmoothFull.ogg"
 
-Global playButtonImg:TImage = LoadImage ("background/jouer.png")
-Global optionsButtonImg:TImage = LoadImage ("background/options.png")
-Global quitButtonImg:TImage = LoadImage ("background/quitter.png")
-Global aideButtonImg:TImage = LoadImage ("background/aide.png")
+Global lightImage:TImage = LoadImage("incbin::pulse.png")
+Global backgd:TImage = LoadImage("incbin::backgd.png")
+Global boomer:TImage = LoadImage("incbin::boomer.png")
+Global vib:TImage = LoadImage("incbin::vib.png")
+Global zImg:TImage = LoadImage("incbin::Z4.png")
+Global controlImg:TImage = LoadImage("incbin::controlsBG.png")
+Global frameImg:TImage = LoadImage("incbin::cadre.png")
+
+Global playButtonImg:TImage = LoadImage ("incbin::jouer.png")
+Global optionsButtonImg:TImage = LoadImage ("incbin::options.png")
+Global quitButtonImg:TImage = LoadImage ("incbin::quitter.png")
+Global aideButtonImg:TImage = LoadImage ("incbin::aide.png")
 
 '----------LOAD FONT
-Global hybrid:timagefont = LoadImageFont("background/Hybrid_b.ttf",250)
-Global ancreon:timagefont = LoadImageFont("background/ancreon.ttf",250)
+Global hybrid:timagefont = LoadImageFont("incbin::Hybrid_b.ttf",250)
+Global ancreon:timagefont = LoadImageFont("incbin::ancreon.ttf",250)
 
 '----------SOUND
 
 Global channelBG:TChannel=AllocChannel()
-Global musicBG:TSound = LoadSound("sound/SmoothFull.ogg",True)
+Global musicBG:TSound = LoadSound("incbin::../sound/SmoothFull.ogg",True)
 CueSound musicBG,channelBG
 SetChannelVolume channelBG,0.4
 SetChannelRate channelBG, 1
@@ -45,9 +79,9 @@ Global pulseFlagZ = 1
 
 Global partNumber = 0
 Global partList:TList	= CreateList()
-Global ligthPartBlueImg:TImage = LoadImage ("background/partblue.png")
-Global ligthPartPurpleImg:TImage = LoadImage ("background/partpurple.png")
-Global ligthPartLBlueImg:TImage = LoadImage ("background/partblue2.png")
+Global ligthPartBlueImg:TImage = LoadImage ("incbin::partblue.png")
+Global ligthPartPurpleImg:TImage = LoadImage ("incbin::partpurple.png")
+Global ligthPartLBlueImg:TImage = LoadImage ("incbin::partblue2.png")
 
 Global buttonList:Tlist = CreateList()
 
@@ -335,9 +369,8 @@ Function help()
 	'Dessin du background
 	DrawImage backgd,0,0
 	'Dessin du cadre
-	If loopscount Mod Rand(80) = 0
+	If loopscount Mod Rand(500) = 0
 		SetScale 2+RndDouble()*3,1+RndDouble()*2
-		SetAlpha RndDouble()
 		DrawImage frameImg,310+Rand(-20,2),300-Rand(50)
 	Else
 		SetScale 2.5,1

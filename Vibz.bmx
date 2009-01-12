@@ -58,10 +58,16 @@ Global leftEdge% = 150
 Global loopsCount# = 0'compte les tours de boucle, utile pour beaucoup de tests
 
 'polices de caractères, tout inclure ou bien tout mettre en chemin relatif
-Global arial16:timagefont = LoadImageFont("C:\WINDOWS\Fonts\arial.ttf",16)
-Global blockup:timagefont = LoadImageFont("fonts/BLOCKUP_.ttf",50)
-Global chiller:timagefont = LoadImageFont("C:\WINDOWS\Fonts\chiller.ttf",46)
-Global harlow:timagefont = LoadImageFont("C:\WINDOWS\Fonts\HarlowSI.ttf",32)
+
+Incbin "C:\WINDOWS\Fonts\arial.ttf"
+Incbin "fonts/BLOCKUP_.ttf"
+Incbin "C:\WINDOWS\Fonts\chiller.ttf"
+Incbin "C:\WINDOWS\Fonts\HarlowSI.ttf"
+
+Global arial16:timagefont = LoadImageFont("incbin::C:\WINDOWS\Fonts\arial.ttf",16)
+Global blockup:timagefont = LoadImageFont("incbin::fonts/BLOCKUP_.ttf",50)
+Global chiller:timagefont = LoadImageFont("incbin::C:\WINDOWS\Fonts\chiller.ttf",46)
+Global harlow:timagefont = LoadImageFont("incbin::C:\WINDOWS\Fonts\HarlowSI.ttf",32)
 
 'Global 
 
@@ -109,7 +115,10 @@ End Function
 'init()
 
 ' Inclusions ----------------------------------- l'ordre est important ? 
-' Classes et Firepaint utilisent des éléments d'Effets et Sound
+' Classes et Firepaint utilisent des éléments d'Effets et Souns
+
+Incbin "niveau0bez.xml"
+
 Include "Sound.bmx"
 Include "Effets.bmx"
 Include "Classes.bmx"
@@ -190,7 +199,7 @@ Repeat ' This is the main loop!!!!
 			clearLists() 'réinitialisation de toutes les listes du jeu
 			TPlayer.Spawn() 'création du joueur
 			'TStages.Create()	'création du niveau
-			TStages.CreateFromFile("niveau0bez.xml")
+			TStages.CreateFromFile("incbin::niveau0bez.xml")
 
 			'TStages.CreateFromFile("niveau0.xml")
 			'TStages.CreateFromFile("niveau1.xml")	

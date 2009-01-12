@@ -1,25 +1,43 @@
 'Initialisation des sons ----------------------
 
 'Sons
-Global soundBass:TSound = LoadSound("sound/basshouse.ogg",True)
-Global soundTreble:TSound = LoadSound("sound/bassdance16.ogg",True)
-Global soundExplosion:TSound = LoadSound("sound/Explosion2.wav")
-Global soundBomb1:TSound = LoadSound("sound/rocket1.ogg")
-Global soundMusic1:TSound = LoadSound("sound/rythmedance70.ogg",True)
-Global soundAlly1:TSound = LoadSound("sound/bassrock3D.ogg",True)
-Global soundAlly2:TSound = LoadSound("sound/orchestre1.ogg",True)
-Global soundAlly3:TSound = LoadSound("sound/bassrock4D.ogg",True)
-Global soundAlly4:TSound = LoadSound("sound/orchestre2.ogg",True)
-Global soundAlly5:TSound = LoadSound("sound/bassrock1D.ogg",True)
-Global soundAlly6:TSound = LoadSound("sound/bassrock1D.ogg",True)
 
-Global soundStart:TSound = LoadSound("sound/321launch.ogg") 'son de début du jeu
-Global soundStart2:TSound = LoadSound("sound/myst.ogg") ' autre son de début du jeu 
-Global soundGameOver:TSound = LoadSound("sound/distoLose.ogg") 'son de gameover
-Global soundWin:TSound = LoadSound("sound/distoWin.ogg") 'son de fin de niveau
+Incbin "sound/basshouse.ogg"
+Incbin "sound/bassdance16.ogg"
+Incbin "sound/Explosion2.wav"
+Incbin "sound/rocket1.ogg"
+Incbin "sound/rythmedance70.ogg"
+Incbin "sound/bassrock3D.ogg"
+Incbin "sound/orchestre1.ogg"
+Incbin "sound/bassrock4D.ogg"
+Incbin "sound/orchestre2.ogg"
+Incbin "sound/bassrock1D.ogg"
+Incbin "sound/321launch.ogg"
+Incbin "sound/myst.ogg"
+Incbin "sound/distoLose.ogg"
+Incbin "sound/distoWin.ogg"
+Incbin "sound/tohf.ogg"
+Incbin "sound/tobf.ogg"
 
-Global soundToHF:TSound = LoadSound("sound/tohf.ogg") 'son de changement de fréquence
-Global soundToBF:TSound = LoadSound("sound/tobf.ogg")
+Global soundBass:TSound = LoadSound("incbin::sound/basshouse.ogg",True)
+Global soundTreble:TSound = LoadSound("incbin::sound/bassdance16.ogg",True)
+Global soundExplosion:TSound = LoadSound("incbin::sound/Explosion2.wav")
+Global soundBomb1:TSound = LoadSound("incbin::sound/rocket1.ogg")
+Global soundMusic1:TSound = LoadSound("incbin::sound/rythmedance70.ogg",True)
+Global soundAlly1:TSound = LoadSound("incbin::sound/bassrock3D.ogg",True)
+Global soundAlly2:TSound = LoadSound("incbin::sound/orchestre1.ogg",True)
+Global soundAlly3:TSound = LoadSound("incbin::sound/bassrock4D.ogg",True)
+Global soundAlly4:TSound = LoadSound("incbin::sound/orchestre2.ogg",True)
+Global soundAlly5:TSound = LoadSound("incbin::sound/bassrock1D.ogg",True)
+Global soundAlly6:TSound = LoadSound("incbin::sound/bassrock1D.ogg",True)
+
+Global soundStart:TSound = LoadSound("incbin::sound/321launch.ogg") 'son de début du jeu
+Global soundStart2:TSound = LoadSound("incbin::sound/myst.ogg") ' autre son de début du jeu 
+Global soundGameOver:TSound = LoadSound("incbin::sound/distoLose.ogg") 'son de gameover
+Global soundWin:TSound = LoadSound("incbin::sound/distoWin.ogg") 'son de fin de niveau
+
+Global soundToHF:TSound = LoadSound("incbin::sound/tohf.ogg") 'son de changement de fréquence
+Global soundToBF:TSound = LoadSound("incbin::sound/tobf.ogg")
 
 'Channels
 Global channelMusic:TChannel = AllocChannel()
