@@ -24,6 +24,7 @@ Incbin "images/fondVibzGrungeBig.png"
 Incbin "images/bordgauche.png"
 Incbin "images/borddroit.png"
 Incbin "images/jauge.png"
+Incbin "images/explosion2.png"
 
 
 ' Gestion des images
@@ -44,6 +45,7 @@ Global EnemyBulletImageBF:TImage = LoadImage("incbin::images/enemyBullet1.png")
 Global EnemyBulletImageHF:TImage = LoadImage("incbin::images/enemyBullet2.png")
 Global ExplosionImage:TImage = LoadImage("incbin::images/light.png")
 Global ExplosionAnimImage:TImage = LoadAnimImage("incbin::images/explosion.png",200,250,0,12)
+Global ExplosionAnimImage2:TImage = LoadAnimImage("incbin::images/explosion2.png",200,250,0,12)
 
 Global ShieldImage:TImage = LoadImage("incbin::images/lightbase.png")
 Global FocusImage:TImage = LoadImage("incbin::images/lightrect.png")
