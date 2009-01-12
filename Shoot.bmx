@@ -95,7 +95,7 @@ End Type
 Type TShootCircle Extends TShoot
 	
 	Function fire(x,y,shootangle,decalage=0,freqType,shootNumber)
-		For Local k=0 To 359 Step 36
+		For Local k=0 To 359 Step 10
 			TBullet.EnemyShoot(x,y,k,freqType)
 		Next
 	End Function 
@@ -366,8 +366,7 @@ Type TShootSeqBalaiD Extends TShootSequence
 		shoot_Array[2] = New TShootSimple1
 		shoot_Array[3] = New TShootSimple1
 		shoot_Array[4] = New TShootSimple1
-		shoot_Array[5] = New TShootSimple1
-		shoot_Array[6] = New TShootSimple1
+		shoot_Array[5] = New TShootSimple1		shoot_Array[6] = New TShootSimple1
 		shoot_Array[7] = New TShootSimple1
 		shoot_Array[8] = New TShootSimple1
 		shoot_Array[9] = New TShootSimple1
@@ -510,10 +509,63 @@ Type TShootSeqCross Extends TShootSequence
 
 	Method fire(x,y,shootangle,decalage,freqType,shootNum)
 		If shootNum < shoot_Array.length 
-			shoot_Array[shootNum].fire(x+10,y,shootangle+90,decalage,freqType,shootNum)
-			shoot_Array[shootNum].fire(x+20,y,shootangle+180,decalage,freqType,shootNum)
-			shoot_Array[shootNum].fire(x-10,y,shootangle+270,decalage,freqType,shootNum)
-			shoot_Array[shootNum].fire(x-20,y,shootangle,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle+90,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle+180,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle+270,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle,decalage,freqType,shootNum)
+		EndIf
+	End Method
+	
+End Type
+
+Type TShootSeqSpirale Extends TShootSequence
+	Field shoot_Array:TShoot[24]
+	
+	Method New()            
+		For Local k=0 To 23
+	   		shoot_Array[k] = New TShootSimple2Choice 
+		Next
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			shoot_Array[shootNum].fire(x,y,shootangle+20+shootNum*5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle-20+shootNum*5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle+shootNum*5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle+160+shootNum*5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle+200+shootNum*5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle+180+shootNum*5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle+90+shootNum*5,decalage,freqType,shootNum)
+			shoot_Array[shootNum].fire(x,y,shootangle+270+shootNum*5,decalage,freqType,shootNum)
+		EndIf
+	End Method
+	
+End Type
+
+Type TShootSeqTornado Extends TShootSequence
+	Field shoot_Array:TShoot[12]
+	
+	Method New()     
+		shoot_Array[0] = New TShootCircle
+		For Local k=1 To 11
+	   		shoot_Array[k] = New TShootSimple2Choice 
+		Next
+    End Method
+
+	Method fire(x,y,shootangle,decalage,freqType,shootNum)
+		If shootNum < shoot_Array.length 
+			If shootNum = 0 
+				shoot_Array[shootNum].fire(x,y,shootangle+20+shootNum*5,decalage,freqType,shootNum)
+			Else
+				shoot_Array[shootNum].fire(x,y,shootangle+20+shootNum*5,decalage,freqType,shootNum)
+				shoot_Array[shootNum].fire(x,y,shootangle-20+shootNum*5,decalage,freqType,shootNum)
+				shoot_Array[shootNum].fire(x,y,shootangle+shootNum*5,decalage,freqType,shootNum)
+				shoot_Array[shootNum].fire(x,y,shootangle+160+shootNum*5,decalage,freqType,shootNum)
+				shoot_Array[shootNum].fire(x,y,shootangle+200+shootNum*5,decalage,freqType,shootNum)
+				shoot_Array[shootNum].fire(x,y,shootangle+180+shootNum*5,decalage,freqType,shootNum)
+				shoot_Array[shootNum].fire(x,y,shootangle+90+shootNum*5,decalage,freqType,shootNum)
+				shoot_Array[shootNum].fire(x,y,shootangle+270+shootNum*5,decalage,freqType,shootNum)
+			End If
 		EndIf
 	End Method
 	

@@ -1,13 +1,22 @@
 AutoMidHandle(True)
 
-Global EnemyRed1:TImage = LoadImage("images/triangle.png")
-Global EnemyRed2:TImage = LoadImage("images/enemy3.png")
-Global EnemyRed3:TImage = LoadImage("images/enemyRed3.png")
+Incbin "images/triangle.png"
+Incbin "images/enemy3.png"
+Incbin "images/enemyRed3.png"
+Incbin "images/losangeDouble.png"
+Incbin "images/enemyBlue2.png"
+Incbin "images/enemyBlue3.png"
+Incbin "images/enemyBlue4.png"
 
-Global EnemyBlue1:TImage = LoadImage("images/losangeDouble.png")
-Global EnemyBlue2:TImage = LoadImage("images/enemyBlue2.png")
-Global EnemyBlue3:TImage = LoadImage("images/enemyBlue3.png")
-Global EnemyBlue4:TImage = LoadImage("images/enemyBlue4.png")
+
+Global EnemyRed1:TImage = LoadImage("incbin::images/triangle.png")
+Global EnemyRed2:TImage = LoadImage("incbin::images/enemy3.png")
+Global EnemyRed3:TImage = LoadImage("incbin::images/enemyRed3.png")
+
+Global EnemyBlue1:TImage = LoadImage("incbin::images/losangeDouble.png")
+Global EnemyBlue2:TImage = LoadImage("incbin::images/enemyBlue2.png")
+Global EnemyBlue3:TImage = LoadImage("incbin::images/enemyBlue3.png")
+Global EnemyBlue4:TImage = LoadImage("incbin::images/enemyBlue4.png")
 
 Type TEnemyBlue1 Extends TEnemy
 

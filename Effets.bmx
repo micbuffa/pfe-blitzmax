@@ -1,41 +1,69 @@
+Incbin "images/vaisseaumatricelittle.png"
+Incbin "images/ally2.png"
+Incbin "images/tirBF.png"
+'Incbin "images/tirHF2.png"
+Incbin "images/TIRHFMatrice.png"
+Incbin "images/TIRHFLaserMatrice.png"
+'Incbin "images/TIRHFLaserMatriceLight.png"
+Incbin "images/enemyBullet1.png"
+Incbin "images/enemyBullet2.png"
+Incbin "images/light.png"
+Incbin "images/explosion.png"
+Incbin "images/lightbase.png"
+Incbin "images/lightrect.png"
+Incbin "images/noteLittle.png"
+Incbin "images/cledesol.png"
+Incbin "images/cledefa.png"
+Incbin "images/cledut.png"
+Incbin "images/bonusPower.png"
+Incbin "images/bonusSlow.png"
+Incbin "images/bonusBombe.png"
+Incbin "images/bonusLife.png"
+Incbin "images/fondVibzGrunge.png"
+Incbin "images/fondVibzGrungeBig.png"
+Incbin "images/bordgauche.png"
+Incbin "images/borddroit.png"
+Incbin "images/jauge.png"
+
+
 ' Gestion des images
 AutoMidHandle(True)
 'Global PlayerImage:TImage = LoadImage("images/vaisseau1.png")
-Global PlayerImage:TImage = LoadAnimImage("images/vaisseaumatricelittle.png",70,50,0,6)
-Global Ship2B:Timage = LoadImage("images/carre.png")
-Global BulletBassImage:Timage = LoadImage("images/tirBF.png")
-'Global BulletTrebleImage:Timage = LoadImage("images/tirHF.png")
-Global BulletTrebleImage2:Timage = LoadImage("images/tirHF2.png")
-Global BulletTrebleBaseImage:TImage = LoadAnimImage("images/TIRHFMatrice.png",100,100,0,14,mipmappedimage)
-Global BulletTrebleImage:TImage = LoadAnimImage("images/TIRHFLaserMatrice.png",50,15,0,14,mipmappedimage)
-'Global BulletTrebleImage:TImage = LoadAnimImage("images/TIRHFLaserMatrice.png",64,19,0,14,mipmappedimage)
-Global BulletTrebleImageLight:TImage = LoadAnimImage("images/TIRHFLaserMatriceLight.png",50,15,0,14,mipmappedimage)
-Global bulletTrebleBasePath$ = "images/TIRHFMatrice.png"
-Global BulletTrebleBaseImage2:TImage = LoadImage("images/tirHFbase2.png")
-Global EnemyBulletImageBF:TImage = LoadImage("images/enemyBullet1.png")
-Global EnemyBulletImageHF:TImage = LoadImage("images/enemyBullet2.png")
-Global ExplosionImage:TImage = LoadImage("images/light.png")
-Global ExplosionAnimImage:TImage = LoadAnimImage("images/explosion.png",200,250,0,12)
+Global PlayerImage:TImage = LoadAnimImage("incbin::images/vaisseaumatricelittle.png",70,50,0,6)
+Global Ship2B:Timage = LoadImage("incbin::images/ally2.png",mipmappedimage)
+Global BulletBassImage:Timage = LoadImage("incbin::images/tirBF.png")
+'Global BulletTrebleImage:Timage = LoadImage("incbin::images/tirHF.png")
+'Global BulletTrebleImage2:Timage = LoadImage("incbin::images/tirHF2.png")
+Global BulletTrebleBaseImage:TImage = LoadAnimImage("incbin::images/TIRHFMatrice.png",100,100,0,14,mipmappedimage)
+Global BulletTrebleImage:TImage = LoadAnimImage("incbin::images/TIRHFLaserMatrice.png",50,15,0,14,mipmappedimage)
+'Global BulletTrebleImage:TImage = LoadAnimImage("incbin::images/TIRHFLaserMatrice.png",64,19,0,14,mipmappedimage)
+'Global BulletTrebleImageLight:TImage = LoadAnimImage("incbin::images/TIRHFLaserMatriceLight.png",50,15,0,14,mipmappedimage)
+'Global bulletTrebleBasePath$ = "incbin::images/TIRHFMatrice.png"
+'Global BulletTrebleBaseImage2:TImage = LoadImage("incbin::images/tirHFbase2.png")
+Global EnemyBulletImageBF:TImage = LoadImage("incbin::images/enemyBullet1.png")
+Global EnemyBulletImageHF:TImage = LoadImage("incbin::images/enemyBullet2.png")
+Global ExplosionImage:TImage = LoadImage("incbin::images/light.png")
+Global ExplosionAnimImage:TImage = LoadAnimImage("incbin::images/explosion.png",200,250,0,12)
 
-Global ShieldImage:TImage = LoadImage("images/lightbase.png")
-Global FocusImage:TImage = LoadImage("images/lightrect.png")
+Global ShieldImage:TImage = LoadImage("incbin::images/lightbase.png")
+Global FocusImage:TImage = LoadImage("incbin::images/lightrect.png")
 Global spriteInit = True 'est-ce que les sprites sont initialisés (effet de flammes derrière le vaisseau)
 
-Global noteImage:TImage = LoadImage("images/noteLittle.png")
-Global cleDeSolImage:TImage = LoadImage("images/cledesol.png")
-Global cleDeFaImage:TImage = LoadImage("images/cledefa.png")
-Global cleDUtImage:TImage = LoadImage("images/cledut.png")
+Global noteImage:TImage = LoadImage("incbin::images/noteLittle.png")
+Global cleDeSolImage:TImage = LoadImage("incbin::images/cledesol.png")
+Global cleDeFaImage:TImage = LoadImage("incbin::images/cledefa.png")
+Global cleDUtImage:TImage = LoadImage("incbin::images/cledut.png")
 
-Global bonusWidthImage:TImage = LoadAnimImage("images/bonusPower.png",50,50,0,8)
-Global bonusSlowImage:TImage = LoadAnimImage("images/bonusSlow.png",50,50,0,8)
-Global bonusBombImage:TImage = LoadAnimImage("images/bonusBombe.png",50,50,0,8)
-Global bonusLifeImage:TImage = LoadAnimImage("images/bonusLife.png",50,50,0,8)
+Global bonusWidthImage:TImage = LoadAnimImage("incbin::images/bonusPower.png",50,50,0,8)
+Global bonusSlowImage:TImage = LoadAnimImage("incbin::images/bonusSlow.png",50,50,0,8)
+Global bonusBombImage:TImage = LoadAnimImage("incbin::images/bonusBombe.png",50,50,0,8)
+Global bonusLifeImage:TImage = LoadAnimImage("incbin::images/bonusLife.png",50,50,0,8)
 
-Global bg1:TImage = LoadImage("images/fondVibzGrunge.png")
-Global bg2:TImage = LoadImage("images/fondVibzGrungeBig.png")
-Global leftImage:TImage = LoadImage("images/bordgauche.png")
-Global rightImage:TImage = LoadImage("images/borddroit.png")
-Global jaugeImage:TImage = LoadImage("images/jauge.png",mipmappedimage)
+Global bg1:TImage = LoadImage("incbin::images/fondVibzGrunge.png")
+Global bg2:TImage = LoadImage("incbin::images/fondVibzGrungeBig.png")
+Global leftImage:TImage = LoadImage("incbin::images/bordgauche.png")
+Global rightImage:TImage = LoadImage("incbin::images/borddroit.png")
+Global jaugeImage:TImage = LoadImage("incbin::images/jauge.png",mipmappedimage)
 
 Global sprites:TList = CreateList()
 Global animations:TList = CreateList()
