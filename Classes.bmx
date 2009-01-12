@@ -302,9 +302,14 @@ Type TEnemy Extends TShip
 		EnemyList.AddLast(Enemy)
 	End Function
 	
+	Function bossUpdate(enemy:TEnemy) 'présente pour les boss ... obligé de la mettre là aussi 
+	End Function
+	
 	Function Update()
 		For Local Enemy:TEnemy = EachIn EnemyList
 			Local shootAngle=0
+			
+			If TBoss(enemy) Then enemy.bossUpdate(enemy)
 			
 			If loopsCount Mod (enemy.shoot.freq*2/Difficulty) = 0
            	If enemy.shootSequence = Null
@@ -373,6 +378,8 @@ Type TEnemy Extends TShip
 			If Enemy.y < -60 Then EnemyList.remove(enemy)
 			If Enemy.hitpoints < 1 Then Enemy.explode
 			Local player:TPlayer = TPlayer.getPlayer()
+			
+			'Test de collision entre le joueur et les ennemis
 			If MilliSecs() > Player.InvincibleTimer ' then he's not invincible
 				If enemy.x > Player.x-Player.xv/3 And enemy.x < Player.x+Player.xv/3 And enemy.y > Player.y-5 And enemy.y < Player.y+6
 					Local px#=player.x; Local py#=player.y ; Local pw = player.powerLevel
