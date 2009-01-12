@@ -3,7 +3,7 @@ Import pub.MaXML
 
 Strict
 SeedRnd MilliSecs()
-Graphics 800,600,0,60
+Graphics 800,600,32,60
 
 Global Kills       'We're going to store how many kills we get instead of a score on this game.
 Global Lives       'This is a variable storing how many lives the player has left.
@@ -51,7 +51,7 @@ Const LEVELEND_GAME = 4
 Const PLAY_GAME = 2
 
 Global pause = False 'pause pendant le jeu -> à passer en état peut-être ?
-Global windowed = True
+Global windowed = False
 Global rightEdge% = 650
 Global leftEdge% = 150
 
@@ -126,6 +126,7 @@ Include "Enemies.bmx"
 Include "lib/firepaint.bmx"
 AutoMidHandle(False)
 Include "background/menu.bmx"
+Include "background/optionmenu.bmx"
 Include "stages.bmx"
 Include "Shoot.bmx"
 
@@ -134,11 +135,6 @@ Include "Shoot.bmx"
 initChannels() 'initialisation des sons
 
 Global timer% = MilliSecs() + 5000 ' sert pour les phases de début et de fin de niveau
-' Ajout des niveaux (inutile ?)
-'TStages.CreateFromFile("niveau0.xml")	
-'TStages.CreateFromFile("niveau1.xml")
-'TStages.CreateFromFile("niveau2.xml")
-'Local Stage:TStages = TStages(StagesList.First())
 Local endStage = 0	
 
 Repeat ' This is the main loop!!!!
@@ -151,7 +147,7 @@ Repeat ' This is the main loop!!!!
 	SetAlpha 1
 'Menu ------------	
 
-	If play = 0 Or play = 1'Or endStage  = 1
+	If play = MAIN_MENU Or play = HELP_MENU Or play = OPTIONS_MENU 'Or endStage  = 1
 		StagesList.clear() 'suppression du niveau en cours (inutile ?)
 		If Not soundOff 
 			ResumeChannel channelBG 'mise en route de la musique du menu
@@ -159,14 +155,24 @@ Repeat ' This is the main loop!!!!
 			PauseChannel channelBG
 		EndIf
 		AutoMidHandle(False) 'pour le menu, les images sont gérées en fonction de leur coin supérieur gauche
-		If play = 0 
+		If play = MAIN_MENU 
 			menu() 'la fonction qui affiche le menu
 			If KeyHit(KEY_ESCAPE) Then End 'sortie du programme
 			If KeyHit(KEY_ENTER) Then play = 10 'début du jeu
-		Else If play = 1
+		Else If play = HELP_MENU
 			help()
 			If KeyHit(KEY_ESCAPE) Or KeyHit(KEY_ENTER) 
-				play = 0 ' retour au menu principal
+				play = MAIN_MENU ' retour au menu principal
+				TButton.Create (50,270,playButtonImg,"play")
+				TButton.Create (120,350,aideButtonImg,"aide")
+				TButton.Create (190,430,optionsButtonImg,"options")
+				TButton.Create (250,510,quitButtonImg,"quit")
+			EndIf
+		Else If play = OPTIONS_MENU
+			optionsMenu()
+			If KeyHit(KEY_ESCAPE) 'Or KeyHit(KEY_ENTER) 
+				play = MAIN_MENU ' retour au menu principal
+				ClearList buttonList
 				TButton.Create (50,270,playButtonImg,"play")
 				TButton.Create (120,350,aideButtonImg,"aide")
 				TButton.Create (190,430,optionsButtonImg,"options")
@@ -180,14 +186,6 @@ Repeat ' This is the main loop!!!!
 		updateentities(sparks) 'mise à jour des particules
 		SetBlend alphaBlend
 		
-		
-		If KeyHit(KEY_LALT) 
-			If windowed 
-				Graphics 800,600,32,60 ; windowed = False
-			Else
-				Graphics 800,600,0,60 ; windowed = True
-			EndIf
-		EndIf
 		' Difficulté : change la fréquence de tir des ennemis
 		If KeyHit(KEY_1) Then Difficulty = 1 '; Print difficulty
 		If KeyHit(KEY_2) Then Difficulty = 2 '; Print difficulty
@@ -223,7 +221,7 @@ Repeat ' This is the main loop!!!!
  
 'Phase de jeu -------
 
-	If play >= 2 'And endStage  = 0
+	If play = PLAY_GAME Or play = GAMEOVER_GAME Or play = LEVELSTART_GAME Or play = LEVELEND_GAME 'And endStage  = 0
 		Local Player:TPlayer = TPlayer.getPlayer()
 		' lancement : fin du niveau
 		If endStage = 1 And play = 2 Then timer = MilliSecs()+5000; play = 4; If Not soundOff Then PlaySound(soundWin)
@@ -408,10 +406,10 @@ Repeat ' This is the main loop!!!!
 		If timer < MilliSecs() And (KeyHit(KEY_ENTER) Or KeyHit(KEY_LALT) Or KeyHit (KEY_LCONTROL) Or KeyHit(KEY_SPACE))
 			pause = False 
 		EndIf
-		' empêche un bug fou de se produire : si on appuie sur LALT ou ENTER en cours de partie et s'il n'y a pas
+		' empêche un bug fou de se produire : si on appuie sur ENTER en cours de partie et s'il n'y a pas
 		' le test précédent, on dirait que l'appui sur ces touches est enregistré et communiqué au moment où on 
 		' revient dans le menu, ce qui fait qu'on relance le jeu directement si on a appuyé sur entrée n'importe
-		' quand dans le jeu et qu'on change de mode d'affichage si on a appuyé sur alt ...
+		' quand dans le jeu ...
 		
 	EndIf
 	

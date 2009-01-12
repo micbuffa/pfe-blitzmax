@@ -457,7 +457,11 @@ Type TEnemyExplosion Extends TExplosion
 		Local Explosion:TEnemyExplosion = New TEnemyExplosion
 		explosion.x = x
 		explosion.y = y+60 ' à cause de l'image de l'explosion qui apparaît un peu haut apparemment
-		explosion.image = explosionAnimImage
+		If Rand (1,2) = 1 
+			explosion.image = explosionAnimImage
+		Else 
+			explosion.image = explosionAnimImage2
+		EndIf
 		explosionlist.AddLast (explosion)		
 	End Function
 

@@ -1,160 +1,35 @@
-Strict 
-Graphics 800,600,0
-
-' Autres
-
 '----------LOAD IMAGE 
 
-Global lightImage:TImage = LoadImage("pulse.png")
-Global backgd:TImage = LoadImage("backgdoption.png")
+Incbin "backgdoption.png"
+Incbin "retour.png"
+Incbin "easycircle.png"
+Incbin "middlecircle.png"
+Incbin "hardcircle.png"
+Incbin "sound.png"
+Incbin "nosound.png"
+Incbin "rectangle.png"
+Incbin "screen.png"
+Incbin "window.png"
+Incbin "sea2001.ttf"
 
-Global retourButtonImg:TImage = LoadImage("retour.png")
+Global backgdOption:TImage = LoadImage("incbin::backgdoption.png")
 
-Global easyCircleImg:TImage = LoadImage("easycircle.png")
-Global middleCircleImg:TImage = LoadImage("middlecircle.png")
-Global hardCircleImg:TImage = LoadImage("hardcircle.png")
+Global retourButtonImg:TImage = LoadImage("incbin::retour.png")
 
-Global soundIMG:TImage = LoadImage("sound.png")
-Global noSoundIMG:TImage = LoadImage("nosound.png")
-Global rectImg:TImage = LoadImage("rectangle.png")
-Global screenImg:TImage = LoadImage("screen.png")
-Global windowImg:TImage = LoadImage("window.png")
+Global easyCircleImg:TImage = LoadImage("incbin::easycircle.png")
+Global middleCircleImg:TImage = LoadImage("incbin::middlecircle.png")
+Global hardCircleImg:TImage = LoadImage("incbin::hardcircle.png")
 
-'----------LOAD FONT
-Global hybrid:timagefont = LoadImageFont("Hybrid_b.ttf",250)
-Global ancreon:timagefont = LoadImageFont("ancreon.ttf",250)
-Global sea2001:timagefont = LoadImageFont("sea2001.ttf",100)
+Global soundIMG:TImage = LoadImage("incbin::sound.png")
+Global noSoundIMG:TImage = LoadImage("incbin::nosound.png")
+Global rectImg:TImage = LoadImage("incbin::rectangle.png")
+Global screenImg:TImage = LoadImage("incbin::screen.png")
+Global windowImg:TImage = LoadImage("incbin::window.png")
 
+Global sea2001:timagefont = LoadImageFont("incbin::sea2001.ttf",100)
 
-'----------SOUND
-
-'Global channel1=AllocChannel()
-'Global musicBG:TSound = LoadSound("tatakau.WAV",True)
-'CueSound musicBG,channel1
-'SetChannelVolume channel1,0.4
-'SetChannelRate channel1, 1.5
-
-'----------VARIABLE
-
-Global XCoord = 1
-Global partFlag = 0
-Global partTimer = 1000
-
-Global pulseValue = 1
-Global pulseFlag = 1
-Global rotFlag = 1
-Global rotValue = 1
-
-Global partNumber = 0
-Global partList:TList	= CreateList()
-Global ligthPartBlueImg:TImage = LoadImage ("partblue.png")
-Global ligthPartPurpleImg:TImage = LoadImage ("partpurple.png")
-Global ligthPartLBlueImg:TImage = LoadImage ("partblue2.png")
-
-Global buttonList:Tlist = CreateList()
-
-'-----------TYPE
-Type TButton
-	Field x#,y#,img:TImage,name:String
 	
-	Function Create(x,y,img:TImage,name:String)
-		Local lButton:TButton= New TButton
-		lButton.x = x
-		lButton.y = y
-		lButton.img = img
-		lButton.name=name
-		buttonList.AddLast(lButton)
-		SetScale 0.5,0.5
-		DrawImage lButton.img,lButton.x,lButton.y
-		SetImageFont ancreon
-		SetScale 0.3,0.3
-		SetColor 0,0,0
-		DrawText "{",lButton.x-30,lButton.y
-		DrawText "}",lButton.x+ImageWidth(lButton.img)/2,lButton.y
-		SetColor 255,255,255
-
-	End Function
-	
-	Method Destroy()
-		buttonList.remove(Self)
-	End Method
-	
-	Method moveOn ()
-		If MouseX()>Self.x And MouseX()<Self.x+ImageWidth(Self.img)/2 And MouseY()>Self.y And MouseY()<Self.y+ImageHeight(Self.img)/2
-			Return True
-		End If
-		Return False
-	End Method
-	
-	Function upDate()
-		For Local lButton:TButton = EachIn buttonList
-			SetScale 0.5,0.5
-			DrawImage lButton.img,lButton.x,lButton.y
-			SetImageFont ancreon
-			SetScale 0.3,0.3
-			SetColor 0,0,0
-			DrawText "{",lButton.x-30,lButton.y
-			DrawText "}",lButton.x+ImageWidth(lButton.img)/2,lButton.y
-			SetColor 255,255,255
-		Next
-	End Function
-	
-	Function clicked()
-		If MouseDown(1)
-			DrawRect(0,0,100,100)
-		EndIf 
-	End Function
-	
-End Type 	
-
-
-Type TLightPart
-	Field x#,y#,r,g,b,xv#,yv#,scale#,life
-	
-	Function Create(x,y,xv#,yv#,scale#,life)
-		Local lPart:TLightPart= New TLightPart
-		lPart.x = x
-		lPart.y = y
-		lPart.xv# = xv#
-		lPart.yv# = yv#
-		lPart.scale# = scale#
-		lPart.life = life
-		partList.AddLast(lPart)
-	End Function
-
-	Method Destroy()
-		partList.Remove(Self)
-	End Method
-	
-	Function UpdateAll()
-		For Local lPart:TLightPart = EachIn partList
-			lPart.yv#:+RndFloat()-0.5
-			lPart.x#:+lPart.xv#
-        	lPart.y#:+lPart.yv#
-        	SetScale lPart.scale,lPart.scale
-			partNumber =Rnd(4)
-			If partNumber = 1
-			   DrawImage (ligthPartBlueImg,lPart.x,lPart.y)
-			ElseIf partNumber = 2
-        		DrawImage (ligthPartPurpleImg,lPart.x,lPart.y)
-			ElseIf partNumber = 3
-        		DrawImage (ligthPartLBlueImg,lPart.x,lPart.y)
-			EndIf
-        	SetScale 1,1
-        	lPart.life:-1
-	       	If lPart.life < 1 Then lPart.Destroy()
-		Next
-	End Function
-
-End Type
-
-HideMouse
-
-TButton.Create (500,500,retourButtonImg,"retour")
-	
-Repeat 
-
-Cls 
+Function optionsMenu()
 
 SetScale 1,1
 	SetAlpha 1
@@ -162,7 +37,7 @@ SetScale 1,1
 	SetRotation 0
 	
 	'Dessin du background
-	DrawImage backgd,0,0
+	DrawImage backgdOption,0,0
 
 	SetBlend alphablend
 	SetAlpha 0.5
@@ -190,7 +65,7 @@ SetScale 1,1
 	TButton.update()
 	SetImageFont ancreon
 	For Local lButton:TButton = EachIn buttonList
-		If lbutton.moveOn()
+		If lbutton.moveOn(lbutton)
 			SetColor 58,97,144
 			DrawText "{",lButton.x-30,lButton.y
 			DrawText "}",lButton.x+ImageWidth(lButton.img)/2,lButton.y
@@ -200,10 +75,16 @@ SetScale 1,1
 			DrawText "}",lButton.x+ImageWidth(lButton.img)/2,lButton.y
 			SetColor 255,255,255
 			If (lbutton.clicked())
-
+				If lbutton.name="retour"
+					play = MAIN_MENU ; ClearList buttonList
+					createMainButtons()
+				EndIf
 			End If
 		EndIf
 	Next
+	
+	
+	'---------- Choix de la difficulté 
 	
 	SetBlend MASKBLEND
 	SetImageFont sea2001
@@ -212,27 +93,39 @@ SetScale 1,1
 	DrawText "FACILE",125,130
 	DrawText "MOYEN",125,200
 	DrawText "EXPERT",120,270
-
-	SetColor 255,255,255
-	SetBlend ALPHABLEND
-	SetAlpha 0.7
-	SetScale 0.6,0.6
 	
-	If MouseX()>125 And MouseX()<300 And MouseY()>130 And MouseY()<160
+	If MouseX()>125 And MouseX()<300 And MouseY()>130 And MouseY()<160 Or difficulty = 1
+		SetColor 255,255,255
+		SetBlend ALPHABLEND
+		SetAlpha 0.7
+		SetScale 0.6,0.6
 		DrawImage easyCircleImg, 50,110
 		SetScale 0.3,0.3
 		SetColor 150,255,246
-		DrawText "FACILE",125,130
-	Else If MouseX()>125 And MouseX()<300 And MouseY()>200 And MouseY()<230
+		If difficulty = 1 Then DrawText "FACILE",125,130
+		If MouseDown(1) Then Difficulty = 1
+	EndIf
+	If MouseX()>125 And MouseX()<300 And MouseY()>200 And MouseY()<230 Or difficulty = 2
+		SetColor 255,255,255
+		SetBlend ALPHABLEND
+		SetAlpha 0.7
+		SetScale 0.6,0.6
 		DrawImage middleCircleImg, 50,180
 		SetScale 0.3,0.3
 		SetColor 50,45,255
-		DrawText "MOYEN",125,200
-	Else If MouseX()>125 And MouseX()<300 And MouseY()>270 And MouseY()<300
+		If difficulty = 2 Then DrawText "MOYEN",125,200
+		If MouseDown(1) Then Difficulty = 2
+	EndIf
+	If MouseX()>125 And MouseX()<300 And MouseY()>270 And MouseY()<300 Or difficulty = 3
+		SetColor 255,255,255
+		SetBlend ALPHABLEND
+		SetAlpha 0.7
+		SetScale 0.6,0.6
 		DrawImage hardCircleImg, 50,250
 		SetScale 0.3,0.3
 		SetColor 162,19,164
-		DrawText "EXPERT",120,270
+		If difficulty = 3 Then DrawText "EXPERT",120,270
+		If MouseDown(1) Then Difficulty = 3
 	EndIf
 			
 	SetColor 255,255,255
@@ -250,9 +143,11 @@ SetScale 1,1
 	If MouseX()>560 And MouseX()<560+soundImg.width And MouseY()>100 And MouseY()<100+soundImg.height
 			SetScale 0.5,0.5
 			DrawImage rectImg,550,90
+			If MouseDown(1) Then soundOff = False
 	Else If MouseX()>670 And MouseX()<670+noSoundImg.width And MouseY()>100 And MouseY()<100+noSoundImg.height
 			SetScale 0.5,0.5
 			DrawImage rectImg,660,90
+			If MouseDown(1) Then soundOff = True
 	End If
 		
 	'AFFICHAGE
@@ -266,9 +161,11 @@ SetScale 1,1
 	If MouseX()>555 And MouseX()<550+screenImg.width And MouseY()>320 And MouseY()<320+screenImg.height
 			SetScale 0.5,0.5
 			DrawImage rectImg,545,310
+			If MouseDown(1) And windowed Then Graphics 800,600,32,60 ; windowed = False
 	Else If MouseX()>665 And MouseX()<665+windowImg.width And MouseY()>320 And MouseY()<320+windowImg.height
 			SetScale 0.5,0.5
 			DrawImage rectImg,655,310
+			If MouseDown(1) And Not windowed Then Graphics 800,600,0,60 ; windowed = True
 	End If
 	
 	SetColor 255,255,255
@@ -333,9 +230,9 @@ SetScale 1,1
 	TLightPart.UpdateAll
 	partTimer :+1
 	
-Flip 
+End Function
 
-Until KeyDown (key_enter) Or KeyDown (key_escape) Or AppTerminate()
+'Until KeyDown (key_enter) Or KeyDown (key_escape) Or AppTerminate()
 
 
 

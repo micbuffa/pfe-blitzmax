@@ -1,26 +1,3 @@
-'Strict 
-'Graphics 800,600,0
-
-' Autres
-
-'----------LOAD IMAGE 
-Rem 
-Incbin "background/pulse.png"
-Incbin "background/backgd.png"
-Incbin "background/boomer.png"
-Incbin "background/vib.png"
-Incbin "background/Z4.png"
-Incbin "background/controlsBG.png"
-Incbin "background/cadre.png"
-Incbin "background/jouer.png"
-Incbin "background/options.png"
-Incbin "background/quitter.png"
-Incbin "background/aide.png"
-Incbin "background/Hybrid_b.ttf"
-Incbin "background/ancreon.ttf"
-Incbin "sound/SmoothFull.ogg"
-End Rem
-
 Incbin "pulse.png"
 Incbin "backgd.png"
 Incbin "boomer.png"
@@ -189,10 +166,23 @@ Type TLightPart
 
 End Type
 
+
+Function createMainButtons()
 	TButton.Create (50,270,playButtonImg,"play")
 	TButton.Create (120,350,aideButtonImg,"aide")
 	TButton.Create (190,430,optionsButtonImg,"options")
 	TButton.Create (250,510,quitButtonImg,"quit")
+End Function 
+
+createMainButtons() ' Création des boutons du menu principal
+
+Function switchGraphics()
+	If windowed 
+		Graphics 800,600,32,60 ; windowed = False
+	Else
+		Graphics 800,600,0,60 ; windowed = True
+	EndIf
+End Function
 
 
 HideMouse
@@ -278,15 +268,18 @@ Function menu()
 				If lbutton.name="play"
 					play = 10
 				Else If lbutton.name="options"
-					If windowed 
+					play = OPTIONS_MENU ; ClearList buttonList
+					TButton.Create (500,500,retourButtonImg,"retour")
+					Rem If windowed 
 						Graphics 800,600,32,60 ; windowed = False
 					Else
 						Graphics 800,600,0,60 ; windowed = True
 					EndIf
+					End Rem
 				Else If lbutton.name="quit"
 					End 'stops the program at once
 				Else If lbutton.name="aide"
-					play = 1 ; ClearList buttonList
+					play = HELP_MENU ; ClearList buttonList
 				EndIf
 			EndIf
 		EndIf
