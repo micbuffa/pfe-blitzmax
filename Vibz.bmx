@@ -118,6 +118,7 @@ End Function
 ' Classes et Firepaint utilisent des éléments d'Effets et Souns
 
 Incbin "niveau0bez.xml"
+Incbin "niveau1bez.xml"
 
 Include "Sound.bmx"
 Include "Effets.bmx"
@@ -198,7 +199,7 @@ Repeat ' This is the main loop!!!!
 			TPlayer.Spawn() 'création du joueur
 			'TStages.Create()	'création du niveau
 			TStages.CreateFromFile("incbin::niveau0bez.xml")
-
+			TStages.CreateFromFile("incbin::niveau1bez.xml")
 			'TStages.CreateFromFile("niveau0.xml")
 			'TStages.CreateFromFile("niveau1.xml")	
 			'TStages.CreateFromFile("niveau2.xml")
