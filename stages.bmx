@@ -71,27 +71,26 @@ Type TStages
 
 					enemyName = ennemi.attribute("name").Value
 					If(enemyName = "red1")
-						If traj.curKubSplineY.ValueInt(1)<0
-							TEnemyRed1.SpawnDefault(traj)	
-						Else 'pour l'instant ceux qui apparaissent pas en dehors de l'écran sont vachement plus forts
-							TEnemy.Spawn(traj, 2,HIGH_FREQ,30000)	
-						EndIf
+						TEnemyRed1.SpawnDefault(traj)	
 					Else If enemyName = "blue1"
-						If traj.curKubSplineY.ValueInt(1)<0
-							TEnemyBlue1.SpawnDefault(traj)	
-						Else 
-							TEnemy.Spawn(traj, 2,LOW_FREQ,45000)	
-						EndIf
+						TEnemyBlue1.SpawnDefault(traj)	
 					Else If enemyName = "red2"
+						TEnemyRed2.spawnDefault(traj) 'nouvelle version des spawns
+					Else If enemyName = "red3"
 						TEnemyRed2.spawnDefault(traj) 'nouvelle version des spawns
 					Else If enemyName = "blue2"
 						TEnemyBlue2.spawnDefault(traj) 'nouvelle version des spawns
 					Else If enemyName = "blue2reverse"
 						TEnemyBlue2.spawnDefault(traj,1) 'nouvelle version des spawns	
-						Else If enemyName = "blue3"
+					Else If enemyName = "blue3"
 						TEnemyBlue3.spawnDefault(traj) 'nouvelle version des spawns
+					Else If enemyName = "blue4"
+						TEnemyBlue4.spawnDefault(traj) 'nouvelle version des spawns	
+				
 					Else If enemyName = "boss1"
-						TBoss1.spawnDefault(traj)					
+						TBoss1.spawnDefault(traj)
+					Else If enemyName = "boss2"
+						TBoss2.spawnDefault(traj)						
 					EndIf						
 					ennemi = ennemi.NextSibling()
 				Wend

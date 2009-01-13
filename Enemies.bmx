@@ -7,6 +7,8 @@ Incbin "images/losangeDouble.png"
 Incbin "images/enemyBlue2.png"
 Incbin "images/enemyBlue3.png"
 Incbin "images/enemyBlue4.png"
+Incbin "images/bossBlue1.png"
+Incbin "images/boss1tribal.png"
 
 
 Global EnemyRed1:TImage = LoadImage("incbin::images/triangle.png")
@@ -17,6 +19,9 @@ Global EnemyBlue1:TImage = LoadImage("incbin::images/losangeDouble.png")
 Global EnemyBlue2:TImage = LoadImage("incbin::images/enemyBlue2.png")
 Global EnemyBlue3:TImage = LoadImage("incbin::images/enemyBlue3.png")
 Global EnemyBlue4:TImage = LoadImage("incbin::images/enemyBlue4.png")
+
+Global Boss1:TImage = LoadImage("incbin::images/bossBlue1.png")
+Global Boss2:TImage = LoadImage("incbin::images/boss1tribal.png")
 
 Type TEnemyBlue1 Extends TEnemy
 
@@ -32,7 +37,7 @@ Type TEnemyBlue1 Extends TEnemy
 		If Rand(30) = 2 Then Enemy.bonus = New TBonusSlowMo ' provisoire
 		Enemy.image = EnemyBlue1
 		Enemy.shoot = New TShootCircle
-		Enemy.shoot.setFreq(40)
+		Enemy.shoot.setFreq(150)
 		Enemy.hitpoints = 200
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
@@ -74,12 +79,12 @@ Type TEnemyBlue3 Extends TEnemy
 		Enemy.traj = traj
 		Enemy.x = traj.curKubSplineX.ValueInt(1)
 		Enemy.y = traj.curKubSplineY.ValueInt(1)
-		Enemy.speed = 0
+		Enemy.speed = 2
 		Enemy.hSpeed = 2
 		Enemy.shipType = LOW_FREQ
-		Enemy.bonus = New TBonusBomb ' toujours un bonus de bombe ?
+		'Enemy.bonus = New TBonusBomb ' toujours un bonus de bombe ?
 		Enemy.image = EnemyBlue3
-		Enemy.shoot = New TShootArroz4
+		Enemy.shoot = New TShootCross
 		Enemy.shoot.setFreq(20)
 		Enemy.hitpoints = 20000
 		Enemy.xv = ImageWidth(Enemy.image)/2
@@ -98,7 +103,7 @@ Type TEnemyBlue4 Extends TEnemy
 		Enemy.traj = traj
 		Enemy.x = traj.curKubSplineX.ValueInt(1)
 		Enemy.y = traj.curKubSplineY.ValueInt(1)
-		Enemy.speed = 0
+		Enemy.speed = 1
 		Enemy.hSpeed = 2
 		Enemy.shipType = LOW_FREQ
 		Enemy.bonus = New TBonusBomb ' toujours un bonus de bombe ?
@@ -131,8 +136,8 @@ Type TEnemyRed1 Extends TEnemy
 		'If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
 		Enemy.image = EnemyRed1
 		Enemy.shoot = New TShootSimple3
-		Enemy.shoot.setFreq(10)
-		Enemy.shootSequence = New TShootSeqHalfCircle 
+		Enemy.shoot.setFreq(50)
+		'Enemy.shootSequence = New TShootSeqHalfCircle 
 		Enemy.hitpoints = 200
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
@@ -175,7 +180,7 @@ Type TEnemyRed3 Extends TEnemy
 		Enemy.traj = traj
 		Enemy.x = traj.curKubSplineX.ValueInt(1)
 		Enemy.y = traj.curKubSplineY.ValueInt(1)
-		Enemy.speed = 0
+		Enemy.speed = 2
 		Enemy.hSpeed = 4
 		Enemy.shipType = HIGH_FREQ
 		Enemy.bonus = New TBonusWidth ' bonus de puissance
@@ -208,12 +213,12 @@ Function spawnDefault:TBoss1(traj:TBSplines, dir = 0)
 		Enemy.y = traj.curKubSplineY.ValueInt(1)
 		Enemy.speed = 1
 		Enemy.hSpeed = 0
-		Enemy.shipType = HIGH_FREQ
+		Enemy.shipType = LOW_FREQ
 		Enemy.bonus = New TBonusWidth ' bonus de puissance
-		Enemy.image = EnemyRed3
+		Enemy.image = Boss1
 		Enemy.shoot = New TShootCross
-		Enemy.shoot.setFreq(30) 
-		Enemy.hitpoints = 300000
+		Enemy.shoot.setFreq(60) 
+		Enemy.hitpoints = 1000000
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
@@ -222,17 +227,78 @@ Function spawnDefault:TBoss1(traj:TBSplines, dir = 0)
 	End Function
 
 Function bossUpdate(boss:TEnemy) 
-	
-	If boss.hitpoints < 100000 And boss.speed = 1
+	'1ère transformation
+	If boss.hitpoints < 600000 And boss.speed = 1
 		Local currentX% = boss.x ; Local currentY% = boss.y
 		Local traj:TBSplines = TBSplines.Create([1,2,3,4,5],[currentX,200,450,550,currentX], [currentY,150,50,150,currentY])
 		boss.traj = traj
 		boss.shoot = New TShootArroz4
-		boss.speed = 5
+		boss.speed = 3
 		boss.shoot.setFreq(10)
 	EndIf
+	'2ème transformation
+	If boss.hitpoints < 300000 And boss.speed = 3
+		boss.shoot = New TShootCircle
+		boss.shoot.setFreq(15)
+		boss.speed = 8
+	EndIf
 	
-	If loopsCount Mod boss.shoot.freq * 70 = 0
+	'Tir d'ennemis sur le joueur
+	Rem 
+	If mapY Mod boss.shoot.freq * 1500 = 0
+		Local player:TPlayer = TPlayer.getPlayer()
+		Local currentX% = boss.x ; Local currentY% = boss.y
+		Local targetX% = player.x ; Local targetY% = player.y 
+		Local traj:TBSplines = TBSplines.Create([1,2,3],[currentX,targetX,400], [currentY,targetY,700])
+		TEnemyRed1.spawnDefault(traj)
+	EndIf
+	EndRem
+End Function
+
+
+End Type
+
+Type TBoss2 Extends TBoss
+
+Function spawnDefault:TBoss2(traj:TBSplines, dir = 0)
+		Local Enemy:TBoss2 = New TBoss2
+		Enemy.traj = traj
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
+		Enemy.speed = 3
+		Enemy.hSpeed = 0
+		Enemy.shipType = HIGH_FREQ
+		Enemy.bonus = New TBonusWidth ' bonus de puissance
+		Enemy.image = Boss2
+		Enemy.shoot = New TShootCross
+		Enemy.shoot.setFreq(20) 
+		Enemy.hitpoints = 2000000
+		Enemy.xv = ImageWidth(Enemy.image)/2
+		Enemy.yv = ImageHeight(Enemy.image)/2
+		Enemy.dir = dir
+		enemyList.addLast(Enemy)
+		Return Enemy
+	End Function
+
+Function bossUpdate(boss:TEnemy) 
+	'1ère transformation
+	If boss.hitpoints < 1200000 And boss.speed = 3
+		Local currentX% = boss.x ; Local currentY% = boss.y
+		Local traj:TBSplines = TBSplines.Create([1,2,3,4,5],[currentX,200,450,550,currentX], [currentY,400,100,400,currentY])
+		boss.traj = traj
+		boss.shoot = New TShootArroz4
+		boss.speed = 5
+		boss.shoot.setFreq(40)
+	EndIf
+	'2ème transformation
+	If boss.hitpoints < 600000 And boss.speed = 5
+		boss.shoot = New TShootCircle
+		boss.shoot.setFreq(60)
+		boss.speed = 7
+	EndIf
+	
+	'Tir d'ennemis sur le joueur
+	If loopsCount Mod boss.shoot.freq * 1000 = 0
 		Local player:TPlayer = TPlayer.getPlayer()
 		Local currentX% = boss.x ; Local currentY% = boss.y
 		Local targetX% = player.x ; Local targetY% = player.y 

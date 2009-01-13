@@ -18,7 +18,8 @@ Type TPlayer Extends TShip
 	Field bombs = 1 'on récupère une bombe quand on meurt/apparaît
 	Field shootFreq = HIGH_FREQ 'par défaut on tire en haute fréquence
 	Field slowMoStock = 50 ' on commence avec un tout petit peu de stock de ralenti
-			
+	'Field lives ' à remplacer de partout
+					
 	Function Spawn(spawnx# = 400, spawny# = 400)
 		Local Player:TPlayer = New TPlayer  'Create a new TPlayer Object
 		Player.InvincibleTimer=MilliSecs()+3000 '3 Seconds
@@ -39,9 +40,9 @@ Type TPlayer Extends TShip
 		Return TPlayer(PlayerList.Last()) 
 	EndFunction
 	
-	Function hit(px#,py#) ' le joueur est touché
+	Function hit(px#,py#) ' le joueur est touché // plus besoin de passer les coordonnées en ref peut-être
 		'TExplosion.Make(px,py,100)
-		Lives:-1
+		Lives:-1 'un deuxième test pour éviter de perdre plusieurs vies d'un coup
 		If lives >1  
 			SetChannelVolume channelMusic,0.4+lives/20 'la musique baisse avec les vies ...
 		Else 'gameover
@@ -383,11 +384,12 @@ Type TEnemy Extends TShip
 			If MilliSecs() > Player.InvincibleTimer ' then he's not invincible
 				If enemy.x > Player.x-Player.xv/3 And enemy.x < Player.x+Player.xv/3 And enemy.y > Player.y-5 And enemy.y < Player.y+6
 					Local px#=player.x; Local py#=player.y ; Local pw = player.powerLevel
-					For Local pwup% = 1 To pw
-						TBonusWidth.spawn(px-pwup*3,py-pwup*20)
+					For Local pwup% = 2 To pw
+						TBonusWidth.spawn(px-pwup*10,py-pwup*30)
 					Next
 					PlayerList.Remove(Player)
-					TPlayer.hit(px,py) ' des fois le player spawn pas au bon endroit, c'est peut etre a cause de l'ordre des appels ici
+					If MilliSecs() > Player.InvincibleTimer Then TPlayer.hit(px,py)
+					'on double le test pour éviter de perdre plusieurs vies d'un coup
 				EndIf
 			EndIf
 			
@@ -594,7 +596,7 @@ Type TBullet Extends TGameObject
 					EndIf
 				Else If tbullettreble(bullet)
 					'If bullet.x > Enemy.x-enemy.xv And bullet.x < Enemy.x+enemy.xv And bullet.y > Enemy.y-16 And bullet.y < Enemy.y+16
-					If bullet.x > Enemy.x-enemy.xv And bullet.x < Enemy.x+enemy.xv And bullet.y > Enemy.y-enemy.yv*2 And bullet.y < Enemy.y+enemy.yv*2
+					If bullet.x > Enemy.x-enemy.xv And bullet.x < Enemy.x+enemy.xv And bullet.y > Enemy.y-enemy.yv And bullet.y < Enemy.y+enemy.yv
 						If enemy.shipType = HIGH_FREQ
 							Enemy.hitpoints:-Player.powerLevel*10+15
 						Else If enemy.shipType = LOW_FREQ
@@ -642,7 +644,7 @@ Type TBullet Extends TGameObject
 						TBonusWidth.spawn(px-pwup*3,py-pwup*3)
 					Next
 					PlayerList.Remove(Player)
-					TPlayer.hit(px,py)
+					If MilliSecs() > Player.InvincibleTimer Then TPlayer.hit(px,py)
 				EndIf
 			EndIf
 		Next
