@@ -119,6 +119,8 @@ End Function
 
 Incbin "niveau0bez.xml"
 Incbin "niveau1bez.xml"
+Incbin "NIVEAUTEST.xml"
+
 
 Include "Sound.bmx"
 Include "Effets.bmx"
@@ -198,7 +200,7 @@ Repeat ' This is the main loop!!!!
 			clearLists() 'réinitialisation de toutes les listes du jeu
 			TPlayer.Spawn() 'création du joueur
 			'TStages.Create()	'création du niveau
-			TStages.CreateFromFile("incbin::niveau0bez.xml")
+			TStages.CreateFromFile("incbin::NIVEAUTEST.xml")
 			TStages.CreateFromFile("incbin::niveau1bez.xml")
 			'TStages.CreateFromFile("niveau0.xml")
 			'TStages.CreateFromFile("niveau1.xml")	

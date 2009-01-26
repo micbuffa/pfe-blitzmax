@@ -1,5 +1,10 @@
 AutoMidHandle(True)
 
+Incbin "images/enemyRed1.png"
+Incbin "images/enemyRed2.png"
+Incbin "images/enemyRed3.png"
+
+
 Incbin "images/triangle.png"
 Incbin "images/enemy3.png"
 Incbin "images/enemyRed3.png"
@@ -9,10 +14,11 @@ Incbin "images/enemyBlue3.png"
 Incbin "images/enemyBlue4.png"
 Incbin "images/bossBlue1.png"
 Incbin "images/boss1tribal.png"
+Incbin "images/boss3.png"
 
 
-Global EnemyRed1:TImage = LoadImage("incbin::images/triangle.png")
-Global EnemyRed2:TImage = LoadImage("incbin::images/enemy3.png")
+Global EnemyRed1:TImage = LoadImage("incbin::images/enemyRed1.png")
+Global EnemyRed2:TImage = LoadImage("incbin::images/enemyRed2.png")
 Global EnemyRed3:TImage = LoadImage("incbin::images/enemyRed3.png")
 
 Global EnemyBlue1:TImage = LoadImage("incbin::images/losangeDouble.png")
@@ -22,6 +28,8 @@ Global EnemyBlue4:TImage = LoadImage("incbin::images/enemyBlue4.png")
 
 Global Boss1:TImage = LoadImage("incbin::images/bossBlue1.png")
 Global Boss2:TImage = LoadImage("incbin::images/boss1tribal.png")
+Global Boss3:TImage = LoadImage("incbin::images/boss3.png")
+
 
 Type TEnemyBlue1 Extends TEnemy
 
@@ -135,9 +143,9 @@ Type TEnemyRed1 Extends TEnemy
 		'If Rand(30) = 3 Then Enemy.bonus = New TBonusOneUp ' provisoire
 		'If Rand(30) = 4 Then Enemy.bonus = New TBonusBomb ' provisoire
 		Enemy.image = EnemyRed1
-		Enemy.shoot = New TShootSimple3
-		Enemy.shoot.setFreq(50)
-		'Enemy.shootSequence = New TShootSeqHalfCircle 
+		Enemy.shoot = New TShootSimple2
+		Enemy.shoot.setFreq(100)
+		Enemy.shootSequence = New TShootSeqRafaleD 
 		Enemy.hitpoints = 200
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
@@ -162,6 +170,7 @@ Type TEnemyRed2 Extends TEnemy
 		Enemy.image = EnemyRed2
 		Enemy.shoot = New TShootArroz4
 		Enemy.shoot.setFreq(30) 
+		Enemy.shootSequence = New TShootSeqLaser1 
 		Enemy.hitpoints = 5000
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
@@ -215,7 +224,7 @@ Function spawnDefault:TBoss1(traj:TBSplines, dir = 0)
 		Enemy.hSpeed = 0
 		Enemy.shipType = LOW_FREQ
 		Enemy.bonus = New TBonusWidth ' bonus de puissance
-		Enemy.image = Boss1
+		Enemy.image = Boss3
 		Enemy.shoot = New TShootCross
 		Enemy.shoot.setFreq(60) 
 		Enemy.hitpoints = 1000000
