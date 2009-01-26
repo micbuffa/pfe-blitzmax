@@ -90,9 +90,9 @@ SetScale 1,1
 	SetImageFont sea2001
 	SetColor 25,25,25
 	SetScale 0.3,0.3
-	DrawText "FACILE",125,130
-	DrawText "MOYEN",125,200
-	DrawText "EXPERT",120,270
+	DrawText "EASY",125,130
+	DrawText "MIDD",125,200
+	DrawText "HARD",120,270
 	
 	If MouseX()>125 And MouseX()<300 And MouseY()>130 And MouseY()<160 Or difficulty = 1
 		SetColor 255,255,255
@@ -102,7 +102,7 @@ SetScale 1,1
 		DrawImage easyCircleImg, 50,110
 		SetScale 0.3,0.3
 		SetColor 150,255,246
-		If difficulty = 1 Then DrawText "FACILE",125,130
+		If difficulty = 1 Then DrawText "EASY",125,130
 		If MouseDown(1) Then Difficulty = 1
 	EndIf
 	If MouseX()>125 And MouseX()<300 And MouseY()>200 And MouseY()<230 Or difficulty = 2
@@ -113,7 +113,7 @@ SetScale 1,1
 		DrawImage middleCircleImg, 50,180
 		SetScale 0.3,0.3
 		SetColor 50,45,255
-		If difficulty = 2 Then DrawText "MOYEN",125,200
+		If difficulty = 2 Then DrawText "MIDD",125,200
 		If MouseDown(1) Then Difficulty = 2
 	EndIf
 	If MouseX()>125 And MouseX()<300 And MouseY()>270 And MouseY()<300 Or difficulty = 3
@@ -124,7 +124,7 @@ SetScale 1,1
 		DrawImage hardCircleImg, 50,250
 		SetScale 0.3,0.3
 		SetColor 162,19,164
-		If difficulty = 3 Then DrawText "EXPERT",120,270
+		If difficulty = 3 Then DrawText "HARD",120,270
 		If MouseDown(1) Then Difficulty = 3
 	EndIf
 			
