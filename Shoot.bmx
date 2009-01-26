@@ -41,6 +41,13 @@ Type TShootSequence
 	
 End Type
 
+Type TShootSimple0 Extends TShoot
+	
+	Function  fire(x,y,shootangle,decalage=0,freqType,shootNumber)
+	End Function 
+	
+End Type
+
 Type TShootSimple1 Extends TShoot
 	
 	Function  fire(x,y,shootangle,decalage=0,freqType,shootNumber)

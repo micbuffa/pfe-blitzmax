@@ -12,6 +12,8 @@ Incbin "images/losangeDouble.png"
 Incbin "images/enemyBlue2.png"
 Incbin "images/enemyBlue3.png"
 Incbin "images/enemyBlue4.png"
+Incbin "images/enemyBlue5.png"
+
 Incbin "images/bossBlue1.png"
 Incbin "images/boss1tribal.png"
 Incbin "images/boss3.png"
@@ -25,6 +27,7 @@ Global EnemyBlue1:TImage = LoadImage("incbin::images/losangeDouble.png")
 Global EnemyBlue2:TImage = LoadImage("incbin::images/enemyBlue2.png")
 Global EnemyBlue3:TImage = LoadImage("incbin::images/enemyBlue3.png")
 Global EnemyBlue4:TImage = LoadImage("incbin::images/enemyBlue4.png")
+Global EnemyBlue5:TImage = LoadImage("incbin::images/enemyBlue5.png")
 
 Global Boss1:TImage = LoadImage("incbin::images/bossBlue1.png")
 Global Boss2:TImage = LoadImage("incbin::images/boss1tribal.png")
@@ -92,8 +95,8 @@ Type TEnemyBlue3 Extends TEnemy
 		Enemy.shipType = LOW_FREQ
 		'Enemy.bonus = New TBonusBomb ' toujours un bonus de bombe ?
 		Enemy.image = EnemyBlue3
-		Enemy.shoot = New TShootCross
-		Enemy.shoot.setFreq(20)
+		Enemy.shoot = New TShootCross 
+		Enemy.shoot.setFreq(5)
 		Enemy.hitpoints = 20000
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
@@ -119,6 +122,31 @@ Type TEnemyBlue4 Extends TEnemy
 		Enemy.shoot = New TShootSimple4
 		Enemy.shoot.setFreq(50)
 		Enemy.hitpoints = 30000
+		Enemy.xv = ImageWidth(Enemy.image)/2
+		Enemy.yv = ImageHeight(Enemy.image)/2
+		Enemy.dir = dir
+		enemyList.addLast(Enemy)
+		Return Enemy
+	End Function
+End Type
+
+Type TEnemyBlue5 Extends TEnemy
+
+	' spawn spécifique à la classe avec attributs prédéfinis
+	Function spawnDefault:TEnemyBlue5(traj:TBSplines, dir = 0)
+		Local Enemy:TEnemyBlue5= New TEnemyBlue5
+		Enemy.traj = traj
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
+		Enemy.speed = 7
+		Enemy.hSpeed = 0
+		Enemy.shipType = LOW_FREQ
+		Enemy.bonus = New TBonusBomb ' toujours un bonus de bombe ?
+		Enemy.image = EnemyBlue5
+		Enemy.shoot = New TShootSimple4
+		Enemy.shoot.setFreq(50)
+		Enemy.shootSequence = New TShootSeqCloud 
+		Enemy.hitpoints = 2000
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
@@ -164,14 +192,14 @@ Type TEnemyRed2 Extends TEnemy
 		Enemy.x = traj.curKubSplineX.ValueInt(1)
 		Enemy.y = traj.curKubSplineY.ValueInt(1)
 		Enemy.speed = 3
-		Enemy.hSpeed = 4
+		Enemy.hSpeed = 0
 		Enemy.shipType = HIGH_FREQ
 		Enemy.bonus = New TBonusWidth ' bonus de puissance
 		Enemy.image = EnemyRed2
 		Enemy.shoot = New TShootArroz4
 		Enemy.shoot.setFreq(30) 
 		Enemy.shootSequence = New TShootSeqLaser1 
-		Enemy.hitpoints = 5000
+		Enemy.hitpoints = 500
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
@@ -189,14 +217,14 @@ Type TEnemyRed3 Extends TEnemy
 		Enemy.traj = traj
 		Enemy.x = traj.curKubSplineX.ValueInt(1)
 		Enemy.y = traj.curKubSplineY.ValueInt(1)
-		Enemy.speed = 2
-		Enemy.hSpeed = 4
+		Enemy.speed = 3
+		Enemy.hSpeed = 0
 		Enemy.shipType = HIGH_FREQ
 		Enemy.bonus = New TBonusWidth ' bonus de puissance
-		Enemy.image = EnemyRed3
-		Enemy.shoot = New TShootArroz1
+		Enemy.image = EnemyRed1
+		Enemy.shoot = New TshootSimple0
 		Enemy.shoot.setFreq(30) 
-		Enemy.hitpoints = 45000
+		Enemy.hitpoints = 1000
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
@@ -206,6 +234,31 @@ Type TEnemyRed3 Extends TEnemy
 
 End Type
 
+Type TEnemyRed4 Extends TEnemy
+
+	' spawn spécifique à la classe avec attributs prédéfinis
+	Function spawnDefault:TEnemyRed4(traj:TBSplines, dir = 0)
+		Local Enemy:TEnemyRed4 = New TEnemyRed4
+		Enemy.traj = traj
+		Enemy.x = traj.curKubSplineX.ValueInt(1)
+		Enemy.y = traj.curKubSplineY.ValueInt(1)
+		Enemy.speed = 1
+		Enemy.hSpeed = 0
+		Enemy.shipType = HIGH_FREQ
+		Enemy.bonus = New TBonusWidth ' bonus de puissance
+		Enemy.image = EnemyRed1
+		Enemy.shoot = New TshootSimple0
+		Enemy.shoot.setFreq(30) 
+		Enemy.shootSequence = New TshootSeqPyramid
+		Enemy.hitpoints = 1000
+		Enemy.xv = ImageWidth(Enemy.image)/2
+		Enemy.yv = ImageHeight(Enemy.image)/2
+		Enemy.dir = dir
+		enemyList.addLast(Enemy)
+		Return Enemy
+	End Function
+
+End Type
 
 Type TBoss Extends TEnemy
 
