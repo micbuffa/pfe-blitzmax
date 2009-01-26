@@ -117,10 +117,10 @@ End Function
 ' Inclusions ----------------------------------- l'ordre est important ? 
 ' Classes et Firepaint utilisent des éléments d'Effets et Souns
 
+Incbin "NIVEAUTEST.XML"
 Incbin "niveau0bez.xml"
 Incbin "niveau1bez.xml"
-Incbin "NIVEAUTEST.xml"
-
+Incbin "niveau2bez.xml"
 
 Include "Sound.bmx"
 Include "Effets.bmx"
@@ -200,7 +200,9 @@ Repeat ' This is the main loop!!!!
 			clearLists() 'réinitialisation de toutes les listes du jeu
 			TPlayer.Spawn() 'création du joueur
 			'TStages.Create()	'création du niveau
-			TStages.CreateFromFile("incbin::NIVEAUTEST.xml")
+			TStages.CreateFromFile("incbin::NIVEAUTEST.XML")
+			TStages.CreateFromFile("incbin::niveau2bez.xml")
+			TStages.CreateFromFile("incbin::niveau0bez.xml")
 			TStages.CreateFromFile("incbin::niveau1bez.xml")
 			'TStages.CreateFromFile("niveau0.xml")
 			'TStages.CreateFromFile("niveau1.xml")	
@@ -316,7 +318,7 @@ Repeat ' This is the main loop!!!!
 				'attention cinématique de début oulala
 				Local appColor# = 255 - (timer-MilliSecs()) * 255/3000
 				'SetColor 255 - appColor,255 - appColor,255 - appColor
-				
+				channelsRate = 1 ' on s'assure que la musique est à vitesse normale
 				mapY:+mapSpeed
 				SetColor 255,255,255
 				SetScale player.scale,player.scale
@@ -344,6 +346,7 @@ Repeat ' This is the main loop!!!!
 				pause = True
 				pauseGameChannels()
 				setAllyChannelsVolume(0)
+				channelsRate = 1 ' on s'assure que la musique est à vitesse normale
 				Local fade# = GraphicsHeight()+(GraphicsHeight()*(MilliSecs()+2000-timer))/4000
 				SetColor 0,0,0
 				DrawRect leftedge,0,GraphicsWidth()-leftEdge*2,fade
@@ -366,6 +369,7 @@ Repeat ' This is the main loop!!!!
 				pause = True
 				pauseGameChannels()
 				setAllyChannelsVolume(0)
+				channelsRate = 1 ' on s'assure que la musique est à vitesse normale
 				Local fade# = GraphicsHeight()+(GraphicsHeight()*(MilliSecs()+2000-timer))/4000
 				SetColor 0,0,0
 				DrawRect leftedge,0,GraphicsWidth()-leftEdge*2,fade
@@ -423,3 +427,10 @@ Until AppTerminate()
 ' arranger les fins de niveaux 
 ' bug aperçu : des fois on perd plusieurs vies d'un coup :/
 ' faire un truc qui coupe tous les sons
+
+
+' donner une premiere trajectoire aux boss pour qu'ils arrivent par le haut progressivement puis une fois
+' arrivés dans la scène, leur donner leur vraie trajectoire
+
+'bug : stock de ralenti dépasse les limites des fois
+' amélioration : faire clignoter les ennemis quand ils sont touchés
