@@ -331,7 +331,7 @@ Repeat ' This is the main loop!!!!
 				DrawImage shieldImage,Player.x,Player.y
 				SetScale 1,1
 				'compte à rebours			
-				DrawText "Début du niveau dans ",300,300 
+				DrawText "Ship launch in ",300,300 
 				DrawText (1+timer-MilliSecs())/1000,400,350
 				focusFire(focusImage,Player,36,20,300,[255,255,255])
 				UpdateEntities(sparks)
@@ -377,7 +377,7 @@ Repeat ' This is the main loop!!!!
 				DrawRect rightEdge,GraphicsHeight(),leftEdge,GraphicsHeight()-fade-500
 				UpdateEntities(sparks)
 				SetColor 0,(timer-MilliSecs())/20,0
-				DrawText "Fin du niveau !", 300,300
+				DrawText "Level completed !", 300,300
 				DrawText "Score :",300,350
 				DrawText kills,390,350
 				If timer -1000 < MilliSecs()
@@ -405,7 +405,9 @@ Repeat ' This is the main loop!!!!
 			'todo : faire en sorte que le slowmotimer s'arrête pendant la pause - ok mais sale
 			If Not (timer > MilliSecs() )
 				SetImageFont harlow
-				DrawText "Jeu en pause",250,300
+				DrawText "Pause mode",350,200
+				DrawText "Press escape to quit (coward ...)",250,300
+				DrawText "Press P to get back to the fight",250,400
 			EndIf
 		EndIf 
 		
@@ -432,5 +434,3 @@ Until AppTerminate()
 ' donner une premiere trajectoire aux boss pour qu'ils arrivent par le haut progressivement puis une fois
 ' arrivés dans la scène, leur donner leur vraie trajectoire
 
-'bug : stock de ralenti dépasse les limites des fois
-' amélioration : faire clignoter les ennemis quand ils sont touchés

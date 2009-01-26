@@ -302,42 +302,42 @@
 		</bloc>
 
 		<bloc time="10000" num="1.1">
-			<ennemi name="red4">
+			<ennemi name="red5">
 				<bezPts num="1" posX="300" posY="0"></bezPts>
 				<bezPts num="2" posX="300" posY="200"></bezPts>
 				<bezPts num="3" posX="300" posY="1000"></bezPts>
 			</ennemi>
-			<ennemi name="red4">
+			<ennemi name="red5">
 				<bezPts num="1" posX="500" posY="0"></bezPts>
 				<bezPts num="2" posX="500" posY="200"></bezPts>
 				<bezPts num="3" posX="500" posY="1000"></bezPts>
 			</ennemi>
 		</bloc>
 		<bloc time="10500" num="1.1">
-			<ennemi name="red4">
+			<ennemi name="red5">
 				<bezPts num="1" posX="200" posY="0"></bezPts>
 				<bezPts num="2" posX="200" posY="200"></bezPts>
 				<bezPts num="3" posX="200" posY="1000"></bezPts>
 			</ennemi>
-			<ennemi name="red4">
+			<ennemi name="red5">
 				<bezPts num="1" posX="600" posY="0"></bezPts>
 				<bezPts num="2" posX="600" posY="200"></bezPts>
 				<bezPts num="3" posX="600" posY="1000"></bezPts>
 			</ennemi>
 		</bloc>
 		<bloc time="11000" num="1.1">
-			<ennemi name="red4">
+			<ennemi name="red5">
 				<bezPts num="1" posX="425" posY="0"></bezPts>
 				<bezPts num="2" posX="425" posY="200"></bezPts>
 				<bezPts num="3" posX="425" posY="1000"></bezPts>
 			</ennemi>
-			<ennemi name="red4">
+			<ennemi name="red5">
 				<bezPts num="1" posX="475" posY="0"></bezPts>
 				<bezPts num="2" posX="475" posY="200"></bezPts>
 				<bezPts num="3" posX="475" posY="1000"></bezPts>
 			</ennemi>
 		</bloc>
-		<bloc time="40000" num="1.1">
+		<bloc time="15000" num="1.1">
 			<ennemi name="boss1">
 				<bezPts num="1" posX="200" posY="100"></bezPts>
 				<bezPts num="2" posX="250" posY="50"></bezPts>
@@ -348,7 +348,7 @@
 			</ennemi>
 		</bloc>
 		
-		<bloc time="50000" num="end">
+		<bloc time="15500" num="end">
 		</bloc>
 	</niveau>
 	
