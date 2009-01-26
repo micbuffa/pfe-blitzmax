@@ -425,13 +425,13 @@
 		</bloc>
 		
 		<bloc time="13500" num="1.1">
-			<ennemi name="boss1">
-				<bezPts num="1" posX="200" posY="100"></bezPts>
-				<bezPts num="2" posX="250" posY="50"></bezPts>
-				<bezPts num="3" posX="350" posY="150"></bezPts>
-				<bezPts num="4" posX="600" posY="150"></bezPts>
-				<bezPts num="5" posX="600" posY="50"></bezPts>
-				<bezPts num="6" posX="200" posY="100"></bezPts>
+			<ennemi name="bossMulti">
+				<bezPts num="1" posX="300" posY="150"></bezPts>
+				<bezPts num="2" posX="350" posY="150"></bezPts>
+				<bezPts num="3" posX="450" posY="250"></bezPts>
+				<bezPts num="4" posX="500" posY="150"></bezPts>
+				<bezPts num="5" posX="400" posY="150"></bezPts>
+				<bezPts num="6" posX="300" posY="150"></bezPts>
 			</ennemi>
 		</bloc>
 		

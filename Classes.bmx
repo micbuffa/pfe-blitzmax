@@ -66,7 +66,7 @@ Type TPlayer Extends TShip
 		If KeyDown(KEY_LSHIFT) And Player.slowMoStock > 0
 			player.slowMoStock:-1
 			slowMo = True
-			SetGameChannelsRate (0.5)
+			SetGameChannelsRate (channelsRate/2)
 			SetAlpha 0.2
 			SetColor 255,255,255
 			DrawRect player.x - player.slowMoStock/20, player.y+5, player.slowMoStock/10,10
@@ -75,7 +75,7 @@ Type TPlayer Extends TShip
 			SetAlpha 1
 		Else
 			slowMo = False
-			setGameChannelsRate(1)
+			setGameChannelsRate(channelsRate)
 		EndIf
 		
 		
@@ -221,12 +221,12 @@ Type TAlly Extends TShip
 	End Function
 	
 	Function Update()
-		If kills >= 100/3 And CountList(allylist) < 1 Then TAlly.spawn(30,20);SetChannelVolume channelAlly1,0.5
-		If kills >= 200/3 And CountList(allylist) < 2 Then TAlly.spawn(-30,20);SetChannelVolume channelAlly3,0.2
-		If kills >= 300/3 And CountList(allylist) < 3 Then TAlly.spawn(-20,-5);SetChannelVolume channelAlly2,0.1
-		If kills >= 400/3 And CountList(allylist) < 4 Then TAlly.spawn(-10,-30);SetChannelVolume channelAlly4,0.1
-		If kills >= 500/3 And CountList(allylist) < 5 Then TAlly.spawn(10,-30)
-		If kills >= 600/3 And CountList(allylist) < 6 Then TAlly.spawn(20,-5)
+		If kills >= 100/2 And CountList(allylist) < 1 Then TAlly.spawn(30,20);SetChannelVolume channelAlly1,0.5
+		If kills >= 200/2 And CountList(allylist) < 2 Then TAlly.spawn(-30,20);SetChannelVolume channelAlly3,0.2
+		If kills >= 300/2 And CountList(allylist) < 3 Then TAlly.spawn(-20,-5);SetChannelVolume channelAlly2,0.1
+		If kills >= 400/2 And CountList(allylist) < 4 Then TAlly.spawn(-10,-30);SetChannelVolume channelAlly4,0.1
+		If kills >= 500/2 And CountList(allylist) < 5 Then TAlly.spawn(10,-30)
+		If kills >= 600/2 And CountList(allylist) < 6 Then TAlly.spawn(20,-5)
 		
 		Local player:TPlayer = TPlayer.getPlayer()
 		For Local Ally:TAlly = EachIn AllyList
@@ -311,30 +311,13 @@ Type TEnemy Extends TShip
 		For Local Enemy:TEnemy = EachIn EnemyList
 			Local shootAngle=0
 			
-			If TBoss(enemy)
-				enemy.bossUpdate(enemy)
-					SetAlpha 0.5
-					SetColor 255,255,255
-					DrawRect leftEdge + 10, 10, enemy.hitpoints/5000,10
-					SetAlpha 1		
-				
-			EndIf
-			
-			If loopsCount Mod (enemy.shoot.freq*2/Difficulty) = 0
-           	If enemy.shootSequence = Null
-					enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType,Enemy.shootNumber)
-				Else
-					enemy.shootSequence.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType,Enemy.shootNumber)
-					Enemy.shootNumber :+ 1
-				End If
-
-			EndIf 
-			
 			If enemy.hspeed > 0
 				If enemy.dir = 0
 					SetRotation -mapY
+					shootAngle = -mapY
 				Else 
 					SetRotation mapY
+					shootAngle = mapY
 				EndIf
 			EndIf 				
 				
@@ -343,15 +326,41 @@ Type TEnemy Extends TShip
 				Enemy.hspeed=Enemy.hspeed/2
 			EndIf
 			
-			Local realSpeed:Float = Enemy.speed/1000
-			Local newpos:Int[] = Enemy.traj.update(realSpeed)		
+			
+			
+			If TBoss(enemy)
+				enemy.bossUpdate(enemy)
+					SetAlpha 0.5
+					SetColor 255,255,255
+					DrawRect leftEdge + 10, 10, enemy.hitpoints/5000,10
+					SetAlpha 1	
+			Else 	
+				' Calcul de la nouvelle position en fonction de la trajectoire donnée
+				' Déplacé dans le bossUpdate pour les boss pour pouvoir faire des trajs plus complexes
+				Local realSpeed:Float = Enemy.speed/1000
+				Local newpos:Int[] = Enemy.traj.update(realSpeed)	
+				Enemy.y = newpos[1]
+				Enemy.x = newpos[0]
+			EndIf
+			
+			If loopsCount Mod (enemy.shoot.freq*2/Difficulty) = 0
+           	If enemy.shootSequence = Null
+					enemy.shoot.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType,Enemy.shootNumber)
+				Else
+					enemy.shootSequence.fire(Enemy.x,Enemy.y,shootAngle,0,Enemy.shipType,Enemy.shootNumber)
+					Enemy.shootNumber :+ 1
+					If enemy.shootNumber > SizeOf(enemy.shootSequence) Then Enemy.shootNumber = 0
+				End If
+
+			EndIf 
+			
+				
 									
 			SetColor 255,255,255
 			SetAlpha 0.5
 			DrawImage Enemy.image,Enemy.x,Enemy.y
 			'Enemy.wave:+5	
-			Enemy.y = newpos[1]
-			Enemy.x = newpos[0]
+
 			If Enemy.dir = 0
 				If slowmo 'motionblur version allégée pour les ennemis
 					SetAlpha 0.2
@@ -386,7 +395,7 @@ Type TEnemy Extends TShip
 			If Enemy.x > 1000  Then EnemyList.remove(enemy)		
 			If Enemy.x < -200 Then EnemyList.remove(enemy)
 			If Enemy.y > GraphicsHeight() + 60 Then EnemyList.remove(enemy)		
-			If Enemy.y < -60 Then EnemyList.remove(enemy)
+			If Enemy.y < -200 Then EnemyList.remove(enemy)
 			If Enemy.hitpoints < 1 Then Enemy.explode
 			Local player:TPlayer = TPlayer.getPlayer()
 			
@@ -597,6 +606,19 @@ Type TBullet Extends TGameObject
 						'PlayerBulletList.Remove(bullet)
 						'TExplosion.Make(bullet.x,bullet.y,5)
 						reverseFocusFire(ligthPartBlueImg,bullet,2,5,30,[0,0,255])
+						' On fait clignoter l'ennemi
+						If enemy.hspeed > 0
+							If enemy.dir = 0
+								SetRotation -mapY
+							Else 
+								SetRotation mapY
+							EndIf
+						EndIf 	
+						SetColor 0,Rand(0,255),Rand(100,255)
+						SetAlpha 0.3
+						DrawImage Enemy.image,Enemy.x,Enemy.y
+						SetAlpha 1
+						SetRotation 0
 					EndIf
 				Else If tbulletmid(bullet)
 					If bullet.x > Enemy.x-enemy.xv And bullet.x < Enemy.x+enemy.xv And bullet.y > Enemy.y-enemy.yv And bullet.y < Enemy.y+enemy.yv
@@ -615,8 +637,19 @@ Type TBullet Extends TGameObject
 						'TExplosion.Make(bullet.x-1,bullet.y-7,10)
 						focusFire(ligthPartPurpleImg,bullet,4,10,30,[255,Rand(0,255),0])
 						PlayerBulletList.Remove(bullet)
-						
-						
+						' On fait clignoter l'ennemi
+						If enemy.hspeed > 0
+							If enemy.dir = 0
+								SetRotation -mapY
+							Else 
+								SetRotation mapY
+							EndIf
+						EndIf 
+						SetColor Rand(100,255),Rand(0,255),0
+						SetAlpha 0.3
+						DrawImage Enemy.image,Enemy.x,Enemy.y
+						SetAlpha 1
+						SetRotation 0
 					EndIf
 				Else If tBomb(bullet)
 					If bullet.y < enemy.y Then enemy.hitpoints:-1000
@@ -774,7 +807,7 @@ Type TBonus Extends TGameObject
 	Field yv = 30 'override
 	Field speed# = 1
 	Field dir%  '0 = gauche, 1 = droite
-	Field lifeTime% = 500 'tours de boucle
+	Field lifeTime% = 250 'tours de boucle
 	
 	Function spawn(x%,y%) 'Abstract
 	End Function
@@ -827,7 +860,7 @@ Type TBonusSlowMo Extends TBonus
 		Local Player:TPlayer = TPlayer(PlayerList.Last()) 
 		Local bonusCount% = 0
 		For Local bonus:TBonusSlowMo = EachIn BonusList
-			Local c# = bonus.lifeTime*255/500
+			Local c# = bonus.lifeTime*255/250
 			SetColor c,c,c
 			Local bonusFrame# = mapy/(mapSpeed*3) Mod 15
 			If bonusFrame >7 Then bonusFrame = 15 - bonusFrame
@@ -860,7 +893,7 @@ Type TBonusOneUp Extends TBonus
 		Local Player:TPlayer = TPlayer(PlayerList.Last()) 
 		Local bonusCount% = 0
 		For Local bonus:TBonusOneUp = EachIn BonusList
-			Local c# =bonus.lifeTime*255/500
+			Local c# =bonus.lifeTime*255/250
 			SetColor c,c,c
 			Local bonusFrame# = mapy/(mapSpeed*3) Mod 15
 			If bonusFrame >7 Then bonusFrame = 15 - bonusFrame
@@ -893,7 +926,7 @@ Type TBonusWidth Extends TBonus
 		Local Player:TPlayer = TPlayer.getPlayer()
 		Local bonusCount% = 0
 		For Local bonus:TBonusWidth = EachIn BonusList
-			Local c# = bonus.lifeTime*255/500
+			Local c# = bonus.lifeTime*255/250
 			SetColor c,c,c
 			Local bonusFrame# = mapy/(mapSpeed*3) Mod 15
 			If bonusFrame >7 Then bonusFrame = 15 - bonusFrame
@@ -932,7 +965,7 @@ Type TBonusBomb Extends TBonus
 		Local Player:TPlayer = TPlayer.getPlayer()
 		Local bonusCount% = 0
 		For Local bonus:TBonusBomb= EachIn BonusList
-			Local c# = bonus.lifeTime*255/500
+			Local c# = bonus.lifeTime*255/250
 			SetColor c,c,c
 			Local bonusFrame# = mapy/(mapSpeed*3) Mod 15
 			If bonusFrame >7 Then bonusFrame = 15 - bonusFrame
