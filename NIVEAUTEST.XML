@@ -70,21 +70,21 @@
 		</bloc>
 
 
-		<bloc time="8500" num="1.1">
+		<bloc time="3500" num="1.1">
 			<ennemi name="red1">
 				<bezPts num="1" posX="700" posY="250"></bezPts>
 				<bezPts num="2" posX="500" posY="150"></bezPts>
 				<bezPts num="3" posX="400" posY="-100"></bezPts>
 			</ennemi>
 		</bloc>
-		<bloc time="8700" num="1.1">
+		<bloc time="3700" num="1.1">
 			<ennemi name="red2">
 				<bezPts num="1" posX="700" posY="250"></bezPts>
 				<bezPts num="2" posX="500" posY="150"></bezPts>
 				<bezPts num="3" posX="400" posY="-100"></bezPts>
 			</ennemi>
 		</bloc>
-		<bloc time="8900" num="1.1">
+		<bloc time="3900" num="1.1">
 			<ennemi name="red1">
 				<bezPts num="1" posX="700" posY="250"></bezPts>
 				<bezPts num="2" posX="500" posY="150"></bezPts>
@@ -92,7 +92,7 @@
 			</ennemi>
 		</bloc>
 		
-		<bloc time="10000" num="1.1">
+		<bloc time="6000" num="1.1">
 			<ennemi name="blue2">
 				<bezPts num="1" posX="200" posY="100"></bezPts>
 				<bezPts num="2" posX="250" posY="50"></bezPts>
@@ -111,7 +111,7 @@
 			</ennemi>
 		</bloc>
 		
-		<bloc time="13500" num="1.1">
+		<bloc time="9500" num="1.1">
 			<ennemi name="boss1">
 				<bezPts num="1" posX="200" posY="100"></bezPts>
 				<bezPts num="2" posX="250" posY="50"></bezPts>
@@ -122,7 +122,7 @@
 			</ennemi>
 		</bloc>
 		
-		<bloc time="14000" num="end">
+		<bloc time="10000" num="end">
 		</bloc>
 	</niveau>
 	

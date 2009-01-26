@@ -60,7 +60,8 @@ Type TPlayer Extends TShip
 		'This grabs the last object in the list, which happens to be the the player object
 		'that was created.  That's you!
 		Local Player:TPlayer = TPlayer.getPlayer()
-                
+       If Player.slowMoStock > maxSlowMo Then Player.slowMoStock = maxSlowMo ' on fixe le maximum de stock de ralenti
+
 		' Ralenti
 		If KeyDown(KEY_LSHIFT) And Player.slowMoStock > 0
 			player.slowMoStock:-1
@@ -302,7 +303,7 @@ Type TEnemy Extends TShip
 		Enemy.shoot = shoot
 		EnemyList.AddLast(Enemy)
 	End Function
-	
+	 
 	Function bossUpdate(enemy:TEnemy) 'présente pour les boss ... obligé de la mettre là aussi 
 	End Function
 	
@@ -310,7 +311,14 @@ Type TEnemy Extends TShip
 		For Local Enemy:TEnemy = EachIn EnemyList
 			Local shootAngle=0
 			
-			If TBoss(enemy) Then enemy.bossUpdate(enemy)
+			If TBoss(enemy)
+				enemy.bossUpdate(enemy)
+					SetAlpha 0.5
+					SetColor 255,255,255
+					DrawRect leftEdge + 10, 10, enemy.hitpoints/5000,10
+					SetAlpha 1		
+				
+			EndIf
 			
 			If loopsCount Mod (enemy.shoot.freq*2/Difficulty) = 0
            	If enemy.shootSequence = Null
