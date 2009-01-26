@@ -1,5 +1,6 @@
 Incbin "pulse.png"
 Incbin "backgd.png"
+Incbin "backgdaide.png"
 Incbin "boomer.png"
 Incbin "vib.png"
 Incbin "Z4.png"
@@ -18,6 +19,7 @@ Incbin "../sound/SmoothFull.ogg"
 
 Global lightImage:TImage = LoadImage("incbin::pulse.png")
 Global backgd:TImage = LoadImage("incbin::backgd.png")
+Global backgdaide:TImage = LoadImage("incbin::backgdaide.png")
 Global boomer:TImage = LoadImage("incbin::boomer.png")
 Global vib:TImage = LoadImage("incbin::vib.png")
 Global zImg:TImage = LoadImage("incbin::Z4.png")
@@ -171,7 +173,7 @@ Function createMainButtons()
 	TButton.Create (50,270,playButtonImg,"play")
 	TButton.Create (120,350,aideButtonImg,"aide")
 	TButton.Create (190,430,optionsButtonImg,"options")
-	TButton.Create (250,510,quitButtonImg,"quit")
+	TButton.Create (260,510,quitButtonImg,"quit")
 End Function 
 
 createMainButtons() ' Création des boutons du menu principal
@@ -354,14 +356,18 @@ End Function
 
 
 Function help()
+	
 	SetScale 1,1
-	SetAlpha loopsCount/300
+	'SetAlpha loopsCount/300
 	SetColor 255,255,255
 	SetRotation 0
 	
 	'Dessin du background
-	DrawImage backgd,0,0
+	DrawImage backgdaide,0,0
+	'TButton.Create (550,480,retourButtonImg,"retour")
+
 	'Dessin du cadre
+	Rem
 	If loopscount Mod Rand(500) = 0
 		SetScale 2+RndDouble()*3,1+RndDouble()*2
 		DrawImage frameImg,310+Rand(-20,2),300-Rand(50)
@@ -370,20 +376,20 @@ Function help()
 		SetAlpha 0.9
 		DrawImage frameImg,310+Rand(-1,1),300+Rand(-1,1)
 	EndIf
-	
+	End Rem
 	
 	'Dessin des contrôles
 	SetScale 1,1
 	SetAlpha 1
-	DrawImage controlImg,0,0
+	'DrawImage controlImg,0,0
 	
-
+Rem
 	'Dessin boomer
 	MidHandleImage boomer
 	SetBlend alphablend
 	SetAlpha 0.5
 	SetRotation rotvalue
-
+EndRem
 	If pulseFlag = 1
 		pulseValue:+1
 		SetScale 0.35+pulseValue*0.005,0.35+pulseValue*0.005
