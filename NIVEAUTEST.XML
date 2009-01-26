@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<niveaux title="descriptif de tous les niveaux du jeu">
+	<niveau num="1" name="niv1">
+		<bloc time="1000" num="1.1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="120" posY="100"></bezPts>
+				<bezPts num="2" posX="1200" posY="100"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="70" posY="100"></bezPts>
+				<bezPts num="2" posX="1150" posY="100"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="20" posY="100"></bezPts>
+				<bezPts num="2" posX="1100" posY="100"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="1250" num="1.1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="770" posY="150"></bezPts>
+				<bezPts num="2" posX="-310" posY="150"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="820" posY="150"></bezPts>
+				<bezPts num="2" posX="-260" posY="150"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="870" posY="150"></bezPts>
+				<bezPts num="2" posX="-210" posY="150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="1500" num="1.1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="120" posY="200"></bezPts>
+				<bezPts num="2" posX="1200" posY="200"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="70" posY="200"></bezPts>
+				<bezPts num="2" posX="1150" posY="200"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="20" posY="200"></bezPts>
+				<bezPts num="2" posX="1100" posY="200"></bezPts>
+			</ennemi>
+		</bloc>
+
+		<bloc time="2000" num="1.1">
+			<ennemi name="red2">
+				<bezPts num="1" posX="100" posY="-20"></bezPts>
+				<bezPts num="2" posX="700" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2250" num="1.1">
+			<ennemi name="red2">
+				<bezPts num="1" posX="700" posY="-20"></bezPts>
+				<bezPts num="2" posX="100" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2500" num="1.1">
+			<ennemi name="red2">
+				<bezPts num="1" posX="100" posY="-20"></bezPts>
+				<bezPts num="2" posX="700" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2750" num="1.1">
+			<ennemi name="red2">
+				<bezPts num="1" posX="700" posY="-20"></bezPts>
+				<bezPts num="2" posX="100" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+
+
+		<bloc time="8500" num="1.1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="700" posY="250"></bezPts>
+				<bezPts num="2" posX="500" posY="150"></bezPts>
+				<bezPts num="3" posX="400" posY="-100"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="8700" num="1.1">
+			<ennemi name="red2">
+				<bezPts num="1" posX="700" posY="250"></bezPts>
+				<bezPts num="2" posX="500" posY="150"></bezPts>
+				<bezPts num="3" posX="400" posY="-100"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="8900" num="1.1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="700" posY="250"></bezPts>
+				<bezPts num="2" posX="500" posY="150"></bezPts>
+				<bezPts num="3" posX="400" posY="-100"></bezPts>
+			</ennemi>
+		</bloc>
+		
+		<bloc time="10000" num="1.1">
+			<ennemi name="blue2">
+				<bezPts num="1" posX="200" posY="100"></bezPts>
+				<bezPts num="2" posX="250" posY="50"></bezPts>
+				<bezPts num="3" posX="350" posY="150"></bezPts>
+				<bezPts num="4" posX="600" posY="200"></bezPts>
+				<bezPts num="5" posX="600" posY="300"></bezPts>
+				<bezPts num="6" posX="200" posY="100"></bezPts>
+			</ennemi>
+			<ennemi name="blue2">
+				<bezPts num="1" posX="600" posY="100"></bezPts>
+				<bezPts num="2" posX="550" posY="50"></bezPts>
+				<bezPts num="3" posX="450" posY="150"></bezPts>
+				<bezPts num="4" posX="200" posY="200"></bezPts>
+				<bezPts num="5" posX="200" posY="300"></bezPts>
+				<bezPts num="6" posX="600" posY="100"></bezPts>
+			</ennemi>
+		</bloc>
+		
+		<bloc time="13500" num="1.1">
+			<ennemi name="boss1">
+				<bezPts num="1" posX="200" posY="100"></bezPts>
+				<bezPts num="2" posX="250" posY="50"></bezPts>
+				<bezPts num="3" posX="350" posY="150"></bezPts>
+				<bezPts num="4" posX="600" posY="150"></bezPts>
+				<bezPts num="5" posX="600" posY="50"></bezPts>
+				<bezPts num="6" posX="200" posY="100"></bezPts>
+			</ennemi>
+		</bloc>
+		
+		<bloc time="14000" num="end">
+		</bloc>
+	</niveau>
+	
+</niveaux>
