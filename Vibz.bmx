@@ -12,7 +12,7 @@ Global Difficulty = 2 ' mode de difficulté : change la fréquence des tirs ennemi
 
 Global maxLives% = 3 'vies du joueur au début
 Global maxPowerLevel% = 5 'puissance maximale du joueur
-Global maxBombs% = 5 'nombre maximum de bombes du joueur
+Global maxBombs% = 99 'nombre maximum de bombes du joueur
 Global maxSlowMo# = 2000 ' temps maximum de slow motion, en tours de boucle
 Global BulletTimer 'We'll use this to put a timer on bullets used in the game.
 Global FreqTimer 'pour le délai de changement de fréquence de tir
@@ -63,11 +63,13 @@ Incbin "C:\WINDOWS\Fonts\arial.ttf"
 Incbin "fonts/BLOCKUP_.ttf"
 Incbin "C:\WINDOWS\Fonts\chiller.ttf"
 Incbin "C:\WINDOWS\Fonts\HarlowSI.ttf"
+Incbin "fonts/quantrnd.ttf"
 
 Global arial16:timagefont = LoadImageFont("incbin::C:\WINDOWS\Fonts\arial.ttf",16)
 Global blockup:timagefont = LoadImageFont("incbin::fonts/BLOCKUP_.ttf",50)
 Global chiller:timagefont = LoadImageFont("incbin::C:\WINDOWS\Fonts\chiller.ttf",46)
 Global harlow:timagefont = LoadImageFont("incbin::C:\WINDOWS\Fonts\HarlowSI.ttf",32)
+Global quantum:timagefont = LoadImageFont("incbin::fonts/quantrnd.ttf",22)
 
 'Global 
 
@@ -294,20 +296,35 @@ Repeat ' This is the main loop!!!!
 		For Local n = 0 Until player.powerLevel
        		DrawText "-",rightEdge+40,550-(n*40)
 		Next
-		SetColor 200,0,255
-		SetImageFont arial16
+		SetColor 255,255,255
+		SetImageFont quantum
 		'vies et bombes
-		For Local k=1 To Lives
-			DrawImage noteImage,23*k,380
-		Next 
-		For Local k=1 To Player.Bombs
-			DrawImage cleDeSolImage,23*k,480
-		Next 
+		If Lives < 4
+			For Local k=1 To Lives
+				DrawImage lifeStockImage,40*k - 10,380
+			Next 
+		Else
+			DrawImage lifeStockImage,70,380
+			SetColor 200,40,180
+			DrawText "x " + Lives,87,370
+			SetColor 255,255,255 
+			SetScale 1,1
+		EndIf
+		If Player.Bombs < 4
+			For Local k=1 To Player.Bombs
+				DrawImage bombStockImage,40*k - 10,480
+			Next 
+		Else
+			DrawImage bombStockImage,70,480
+			SetColor 200,40,180
+			DrawText "x " + Player.Bombs,87,470 
+		EndIf
+		SetColor 200,40,180
 		'DrawImage cleDeSolImage
 		'DrawText Lives,65,375
 		'DrawText player.bombs,65,470
-		DrawText kills,65,565
-		If KeyHit(key_escape) Then play =0
+		DrawText kills,60,565
+		If KeyHit(key_escape) Then play = 0
 		
 		
 		
