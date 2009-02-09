@@ -39,6 +39,8 @@ Global soundWin:TSound = LoadSound("incbin::sound/distoWin.ogg") 'son de fin de 
 Global soundToHF:TSound = LoadSound("incbin::sound/tohf.ogg") 'son de changement de fréquence
 Global soundToBF:TSound = LoadSound("incbin::sound/tobf.ogg")
 
+Global channelsRate# = 1
+
 'Channels
 Global channelMusic:TChannel = AllocChannel()
 Global channelBass:TChannel = AllocChannel()
