@@ -15,7 +15,7 @@ Type TPlayer Extends TShip
 	Field powerLevel% = 1 ' le niveau de puissance du vaisseau
 	Field frame# = 0 ' la frame courante de l'animation du vaisseau
 	Field scale# = 1.2 ' l'échelle de l'image du vaisseau
-	Field bombs = 1 'on récupère une bombe quand on meurt/apparaît
+	Field bombs = 5 'on récupère une bombe quand on meurt/apparaît
 	Field shootFreq = HIGH_FREQ 'par défaut on tire en haute fréquence
 	Field slowMoStock = 50 ' on commence avec un tout petit peu de stock de ralenti
 	'Field lives ' à remplacer de partout
@@ -900,7 +900,7 @@ Type TBonusOneUp Extends TBonus
 			DrawImage (bonusLifeImage,bonus.x,bonus.y,bonusFrame)
 			If bonus.x > Player.x-Player.xv*2 And bonus.x < Player.x+Player.xv*2 And bonus.y > Player.y-player.yv*2 And bonus.y < Player.y+player.yv*2
 				BonusList.Remove(bonus)
-				If Lives < 5 Then lives:+1
+				If Lives < 99 Then lives:+1
 			EndIf 
 			bonuscount:+1
 		Next
