@@ -25,6 +25,8 @@ Incbin "images/bordgauche.png"
 Incbin "images/borddroit.png"
 Incbin "images/jauge.png"
 Incbin "images/explosion2.png"
+Incbin "images/logolife.png"
+Incbin "images/logobomb.png"
 
 
 ' Gestion des images
@@ -66,6 +68,8 @@ Global bg2:TImage = LoadImage("incbin::images/fondVibzGrungeBig.png")
 Global leftImage:TImage = LoadImage("incbin::images/bordgauche.png")
 Global rightImage:TImage = LoadImage("incbin::images/borddroit.png")
 Global jaugeImage:TImage = LoadImage("incbin::images/jauge.png",mipmappedimage)
+Global lifeStockImage:TImage = LoadImage("incbin::images/logolife.png")
+Global bombStockImage:TImage = LoadImage("incbin::images/logobomb.png")
 
 Global sprites:TList = CreateList()
 Global animations:TList = CreateList()
