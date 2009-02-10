@@ -140,15 +140,19 @@ SetScale 1,1
 	DrawImage noSoundImg,670,100
 	
 	'Gestion de la souris 
-	If MouseX()>560 And MouseX()<560+soundImg.width And MouseY()>100 And MouseY()<100+soundImg.height
-			SetScale 0.5,0.5
+	SetScale 0.5,0.5
+	If MouseX()>560 And MouseX()<560+soundImg.width And MouseY()>100 And MouseY()<100+soundImg.height	
 			DrawImage rectImg,550,90
 			If MouseDown(1) Then soundOff = False
-	Else If MouseX()>670 And MouseX()<670+noSoundImg.width And MouseY()>100 And MouseY()<100+noSoundImg.height
-			SetScale 0.5,0.5
+	Else If MouseX()>670 And MouseX()<670+noSoundImg.width And MouseY()>100 And MouseY()<100+noSoundImg.height	
 			DrawImage rectImg,660,90
 			If MouseDown(1) Then soundOff = True
 	End If
+	If soundOff 
+		DrawImage rectImg,660,90
+	Else
+		DrawImage rectImg,550,90
+	EndIf
 		
 	'AFFICHAGE
 	
@@ -158,18 +162,20 @@ SetScale 1,1
 	DrawImage windowImg,665,320
 	
 	'Gestion de la souris 
-	If MouseX()>555 And MouseX()<550+screenImg.width And MouseY()>320 And MouseY()<320+screenImg.height
-			SetScale 0.5,0.5
+	SetScale 0.5,0.5
+	If MouseX()>555 And MouseX()<550+screenImg.width And MouseY()>320 And MouseY()<320+screenImg.height		
 			DrawImage rectImg,545,310
 			If MouseDown(1) And windowed Then Graphics 800,600,32,60 ; windowed = False
 	Else If MouseX()>665 And MouseX()<665+windowImg.width And MouseY()>320 And MouseY()<320+windowImg.height
-			SetScale 0.5,0.5
 			DrawImage rectImg,655,310
 			If MouseDown(1) And Not windowed Then Graphics 800,600,0,60 ; windowed = True
 	End If
-	
-	SetColor 255,255,255
-	SetScale 1,1
+	If windowed
+		DrawImage rectImg,655,310
+	Else
+		DrawImage rectImg,545,310
+	EndIf
+
 	
 	'Dessin souris
 	SetColor 255,255,255
@@ -178,16 +184,13 @@ SetScale 1,1
 
 	MidHandleImage lightimage
 	SetScale 0.5,0.5
-
 	If pulseFlag = 1
 		SetScale 0.4+pulseValue*0.01,0.4+pulseValue*0.01
 		DrawImage lightimage,MouseX(),MouseY()
 	ElseIf pulseFlag = 0
 		SetScale 0.4+pulseValue*0.01,0.4+pulseValue*0.01
 		DrawImage lightimage,MouseX(),MouseY()
-
 	EndIf 
-
 
 	'Dessin particules flottantes
 	partNumber = Rnd(3)
