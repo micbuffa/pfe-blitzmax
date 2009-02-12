@@ -4,22 +4,54 @@ Type TBSplines
 	Field rCurve:Int =Rand(0, 255)
 	Field gCurve:Int =Rand(0, 255)
 	Field bCurve:Int =255 -rCurve
-	Field curvStep:Float =.05
+	Field curvStep:Float = .05
+	Field constSpeed:Int = True
+	Field lastTChange:Int = MilliSecs() 
+	Field pixelPerSecond:Float =200
+
 	
 	Field tPos:Float =1
-	Field lastTChange:Int =MilliSecs()
 	Field setNewCurve:Int =False
 		
 	Function Create:TBSplines(newDataT:Int[], newDataX:Int[], newDataY:Int[])
 		Local splines:TBSplines = New TBSplines
 		splines.curKubSplineX.GetDataInt(newDataT, newDataX)
-		splines.curKubSplineY.GetDataInt(newDataT, newDataY)
+		splines.curKubSplineY.GetDataInt(newDataT , newDataY) 
 		Return splines
 	End Function
 	
+	
 	Method update:Int[](speed:Float)
-		'tPos :+.002 *Float(curKubSplineX.dataCount)
-		tPos :+speed *Float(curKubSplineX.dataCount)
+		If constSpeed Then
+		    If KeyHit(KEY_V) Then
+		      constSpeed =False
+		    End If
+		    Local nextTPos:Float
+		    Local curDist:Float = 0
+		
+		    nextTPos = tPos
+		    While nextTPos < curKubSplineX.dataX[curKubSplineX.dataCount -1] -.001
+		
+		    'For nextTPos =tPos To tPos +curKubSplineX.dataX[curKubSplineX.dataCount -1] -.001 Step .001
+		      curDist :+Sqr((curKubSplineX.Value(nextTPos + .001) -curKubSplineX.Value(nextTPos)) ^2 +(curKubSplineY.Value(nextTPos +.001) -curKubSplineY.Value(nextTPos)) ^2) 
+		      If curDist => pixelPerSecond Then
+			   Exit
+		      End If
+			 nextTPos :+ .001
+			Wend
+		    'Next
+		    tPos :+(nextTPos -tPos) *(MilliSecs() -lastTChange) /1000 
+		    lastTChange =MilliSecs()
+		Else 
+		    If KeyHit(KEY_C) Then
+		      constSpeed =True
+		      lastTChange =MilliSecs()
+		    End If
+		    tPos :+speed *Float(curKubSplineX.dataCount)
+		End If
+
+
+		'tPos :+speed *Float(curKubSplineX.dataCount)
 		Return [curKubSplineX.ValueInt(tPos), curKubSplineY.ValueInt(tPos)]
 	End Method
 

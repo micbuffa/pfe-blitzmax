@@ -250,7 +250,7 @@ Repeat ' This is the main loop!!!!
 			mapY:+mapSpeed 
 			If slowmo Then mapY:-mapSpeed/2
 			'affichages principaux
-			endStage = TStages.Update(mapY)
+			endStage = TStages.Update(mapY, EnemyList.count())
 			If EnemyList.count() <> 0
 				endStage = 0
 			EndIf
