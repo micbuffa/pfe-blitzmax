@@ -85,7 +85,11 @@ Type TStages
 					Else If enemyName = "red2"
 						TEnemyRed2.spawnDefault(traj) 'nouvelle version des spawns
 					Else If enemyName = "red3"
-						TEnemyRed2.spawnDefault(traj) 'nouvelle version des spawns
+						TEnemyRed3.spawnDefault(traj) 'nouvelle version des spawns
+					Else If enemyName = "red4"
+						TEnemyRed4.spawnDefault(traj) 'nouvelle version des spawns
+					Else If enemyName = "red5"
+						TEnemyRed5.spawnDefault(traj) 'nouvelle version des spawns
 					Else If enemyName = "blue2"
 						TEnemyBlue2.spawnDefault(traj) 'nouvelle version des spawns
 					Else If enemyName = "blue2reverse"
@@ -94,11 +98,14 @@ Type TStages
 						TEnemyBlue3.spawnDefault(traj) 'nouvelle version des spawns
 					Else If enemyName = "blue4"
 						TEnemyBlue4.spawnDefault(traj) 'nouvelle version des spawns	
-				
+					Else If enemyName = "blue5"					
+						TEnemyBlue5.spawnDefault(traj) 'nouvelle version des spawns	
 					Else If enemyName = "boss1"
 						TBoss1.spawnDefault(traj)
 					Else If enemyName = "boss2"
-						TBoss2.spawnDefault(traj)						
+						TBoss2.spawnDefault(traj)
+					Else If enemyName = "bossMulti"
+						TBossMultiC.spawnDefault(traj)							
 					EndIf						
 					ennemi = ennemi.NextSibling()
 				Wend
