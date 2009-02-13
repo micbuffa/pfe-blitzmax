@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<niveaux title="descriptif de tous les niveaux du jeu">
+	<niveau num="1" name="niv1">
+		<bloc time="2000" wave="1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="300"></bezPts>
+				<bezPts num="2" posX="1200" posY="300"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="200"></bezPts>
+				<bezPts num="2" posX="2000" posY="200"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2100" wave="1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="300"></bezPts>
+				<bezPts num="2" posX="1200" posY="300"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="200"></bezPts>
+				<bezPts num="2" posX="2000" posY="200"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2200" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="300"></bezPts>
+				<bezPts num="2" posX="1200" posY="300"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="200"></bezPts>
+				<bezPts num="2" posX="2000" posY="200"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2300" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="300"></bezPts>
+				<bezPts num="2" posX="1200" posY="300"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="200"></bezPts>
+				<bezPts num="2" posX="2000" posY="200"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2500" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="300"></bezPts>
+				<bezPts num="2" posX="1200" posY="300"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="200"></bezPts>
+				<bezPts num="2" posX="2000" posY="200"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2600" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="300"></bezPts>
+				<bezPts num="2" posX="1200" posY="300"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="200"></bezPts>
+				<bezPts num="2" posX="2000" posY="200"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2700" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="300"></bezPts>
+				<bezPts num="2" posX="1200" posY="300"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="200"></bezPts>
+				<bezPts num="2" posX="2000" posY="200"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2800" wave="3">
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="300"></bezPts>
+				<bezPts num="2" posX="1200" posY="300"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="200"></bezPts>
+				<bezPts num="2" posX="2000" posY="200"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2850" wave="3">
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="300"></bezPts>
+				<bezPts num="2" posX="1200" posY="300"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="200"></bezPts>
+				<bezPts num="2" posX="2000" posY="200"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2900" wave="3">
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="300"></bezPts>
+				<bezPts num="2" posX="1200" posY="300"></bezPts>
+			</ennemi>
+			<ennemi name="red1">
+				<bezPts num="1" posX="0" posY="200"></bezPts>
+				<bezPts num="2" posX="2000" posY="200"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="5000" wave="end">
+		</bloc>
+	</niveau>
+	
+</niveaux>

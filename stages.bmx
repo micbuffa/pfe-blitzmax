@@ -9,6 +9,9 @@ Type TStages
 	Field block:xmlNode
 	Field testEnd
 	Field endStage 'différent de testEnd ?
+	Field numWave:Int
+	Field nextNumWave:Int
+	Field lateTimeWave:Int
 	
 	Function Create()
 		Local Stage:TStages = New TStages
@@ -17,10 +20,14 @@ Type TStages
 		Stage.rootStages = Stage.XMLStages.Root()
 		Stage.testEnd = 0
 		Stage.endStage = 0
+		Stage.numWave = 1
+		Stage.nextNumWave = 1
+		Stage.lateTimeWave = 0
 		
 		Stage.nodeStages = Stage.rootStages.FirstChild()
 		Stage.block = Stage.nodeStages.FirstChild()
-		Stage.nextWave = Stage.block.Attribute("time").Value.ToInt()
+		Stage.nextWave = Stage.block.Attribute("time").Value.ToInt() 
+		Stage.numWave = Stage.block.Attribute("wave").Value.ToInt()
 		StagesList.AddLast(Stage) 
 	End Function
 	
@@ -31,18 +38,22 @@ Type TStages
 		Stage.rootStages = Stage.XMLStages.Root()
 		Stage.testEnd = 0
 		Stage.endStage = 0
+		Stage.numWave = 1
+		Stage.nextNumWave = 1
+		Stage.lateTimeWave = 0
 		
 		Stage.nodeStages = Stage.rootStages.FirstChild()
 		Stage.block = Stage.nodeStages.FirstChild()
-		Stage.nextWave = Stage.block.Attribute("time").Value.ToInt()
+		Stage.nextWave = Stage.block.Attribute("time").Value.ToInt() 
+		Stage.numWave = Stage.block.Attribute("wave").Value.ToInt()
 		StagesList.AddLast(Stage) 
 	End Function 
 	
-	Function Update%(mapY)
+	Function Update%(mapY, nbEnemy)
 		Local Stage:TStages = TStages(StagesList.First())
 		
 		
-		If mapY >= Stage.nextWave
+		If mapY >= (Stage.nextWave + Stage.lateTimeWave) And (nbEnemy = 0 Or Stage.numWave = Stage.nextNumWave)
 			Local enemyName$
 			Local ennemi:xmlNode
 			Local ptsBez:xmlNode
@@ -58,8 +69,8 @@ Type TStages
 					ptsBez = ennemi.FirstChild()
 					While ptsBez <> Null
 						newDataT =newDataT[..newDataT.Length +1]
-				    	newDataX =newDataX[..newDataT.Length]
-				    	newDataY =newDataY[..newDataT.Length]
+				    		newDataX =newDataX[..newDataT.Length]
+				    		newDataY =newDataY[..newDataT.Length]
 						newDataT[newDataT.Length -1] =newDataT.Length
 						newDataX[newDataT.Length -1] =ptsBez.attribute("posX").Value.ToInt()
 						newDataY[newDataT.Length -1] =ptsBez.attribute("posY").Value.ToInt()
@@ -102,8 +113,12 @@ Type TStages
 					ennemi = ennemi.NextSibling()
 				Wend
 				
-				Stage.block = Stage.block.NextSibling()
+				Stage.block = Stage.block.NextSibling() 
+				Stage.lateTimeWave = mapY - Stage.nextWave
 				Stage.nextWave = Stage.block.Attribute("time").Value.ToInt()
+				Stage.numWave = Stage.nextNumWave
+				Stage.nextNumWave = Stage.block.Attribute("wave").Value.ToInt()
+
 				If(Stage.block.Attribute("num").Value = "end")
 					Stage.testEnd = 1
 				EndIf

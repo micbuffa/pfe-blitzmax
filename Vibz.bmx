@@ -119,6 +119,7 @@ End Function
 ' Inclusions ----------------------------------- l'ordre est important ? 
 ' Classes et Firepaint utilisent des éléments d'Effets et Souns
 
+Incbin "niveauMaman.xml"
 Incbin "NIVEAUTEST.XML"
 Incbin "niveau0bez.xml"
 Incbin "niveau1bez.xml"
@@ -203,6 +204,7 @@ Repeat ' This is the main loop!!!!
 			TPlayer.Spawn() 'création du joueur
 			'TStages.Create()	'création du niveau
 			TStages.CreateFromFile("incbin::NIVEAUTEST.XML")
+			TStages.CreateFromFile("incbin::niveauMaman.xml")
 			TStages.CreateFromFile("incbin::niveau2bez.xml")
 			TStages.CreateFromFile("incbin::niveau0bez.xml")
 			TStages.CreateFromFile("incbin::niveau1bez.xml")
@@ -250,7 +252,7 @@ Repeat ' This is the main loop!!!!
 			mapY:+mapSpeed 
 			If slowmo Then mapY:-mapSpeed/2
 			'affichages principaux
-			endStage = TStages.Update(mapY)
+			endStage = TStages.Update(mapY, EnemyList.count())
 			If EnemyList.count() <> 0
 				endStage = 0
 			EndIf
