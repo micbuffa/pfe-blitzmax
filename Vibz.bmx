@@ -12,7 +12,7 @@ Global Difficulty = 2 ' mode de difficulté : change la fréquence des tirs ennemi
 
 Global maxLives% = 3 'vies du joueur au début
 Global maxPowerLevel% = 5 'puissance maximale du joueur
-Global maxBombs% = 5 'nombre maximum de bombes du joueur
+Global maxBombs% = 99 'nombre maximum de bombes du joueur
 Global maxSlowMo# = 2000 ' temps maximum de slow motion, en tours de boucle
 Global BulletTimer 'We'll use this to put a timer on bullets used in the game.
 Global FreqTimer 'pour le délai de changement de fréquence de tir
@@ -63,11 +63,13 @@ Incbin "C:\WINDOWS\Fonts\arial.ttf"
 Incbin "fonts/BLOCKUP_.ttf"
 Incbin "C:\WINDOWS\Fonts\chiller.ttf"
 Incbin "C:\WINDOWS\Fonts\HarlowSI.ttf"
+Incbin "fonts/quantrnd.ttf"
 
 Global arial16:timagefont = LoadImageFont("incbin::C:\WINDOWS\Fonts\arial.ttf",16)
 Global blockup:timagefont = LoadImageFont("incbin::fonts/BLOCKUP_.ttf",50)
 Global chiller:timagefont = LoadImageFont("incbin::C:\WINDOWS\Fonts\chiller.ttf",46)
 Global harlow:timagefont = LoadImageFont("incbin::C:\WINDOWS\Fonts\HarlowSI.ttf",32)
+Global quantum:timagefont = LoadImageFont("incbin::fonts/quantrnd.ttf",22)
 
 'Global 
 
@@ -117,8 +119,10 @@ End Function
 ' Inclusions ----------------------------------- l'ordre est important ? 
 ' Classes et Firepaint utilisent des éléments d'Effets et Souns
 
+Incbin "NIVEAUTEST.XML"
 Incbin "niveau0bez.xml"
 Incbin "niveau1bez.xml"
+Incbin "niveau2bez.xml"
 
 Include "Sound.bmx"
 Include "Effets.bmx"
@@ -198,6 +202,8 @@ Repeat ' This is the main loop!!!!
 			clearLists() 'réinitialisation de toutes les listes du jeu
 			TPlayer.Spawn() 'création du joueur
 			'TStages.Create()	'création du niveau
+			TStages.CreateFromFile("incbin::NIVEAUTEST.XML")
+			TStages.CreateFromFile("incbin::niveau2bez.xml")
 			TStages.CreateFromFile("incbin::niveau0bez.xml")
 			TStages.CreateFromFile("incbin::niveau1bez.xml")
 			'TStages.CreateFromFile("niveau0.xml")
@@ -244,7 +250,7 @@ Repeat ' This is the main loop!!!!
 			mapY:+mapSpeed 
 			If slowmo Then mapY:-mapSpeed/2
 			'affichages principaux
-			endStage = TStages.Update(mapY, EnemyList.count())
+			endStage = TStages.Update(mapY)
 			If EnemyList.count() <> 0
 				endStage = 0
 			EndIf
@@ -290,20 +296,35 @@ Repeat ' This is the main loop!!!!
 		For Local n = 0 Until player.powerLevel
        		DrawText "-",rightEdge+40,550-(n*40)
 		Next
-		SetColor 200,0,255
-		SetImageFont arial16
+		SetColor 255,255,255
+		SetImageFont quantum
 		'vies et bombes
-		For Local k=1 To Lives
-			DrawImage noteImage,23*k,380
-		Next 
-		For Local k=1 To Player.Bombs
-			DrawImage cleDeSolImage,23*k,480
-		Next 
+		If Lives < 4
+			For Local k=1 To Lives
+				DrawImage lifeStockImage,40*k - 10,380
+			Next 
+		Else
+			DrawImage lifeStockImage,70,380
+			SetColor 200,40,180
+			DrawText "x " + Lives,87,370
+			SetColor 255,255,255 
+			SetScale 1,1
+		EndIf
+		If Player.Bombs < 4
+			For Local k=1 To Player.Bombs
+				DrawImage bombStockImage,40*k - 10,480
+			Next 
+		Else
+			DrawImage bombStockImage,70,480
+			SetColor 200,40,180
+			DrawText "x " + Player.Bombs,87,470 
+		EndIf
+		SetColor 200,40,180
 		'DrawImage cleDeSolImage
 		'DrawText Lives,65,375
 		'DrawText player.bombs,65,470
-		DrawText kills,65,565
-		If KeyHit(key_escape) Then play =0
+		DrawText kills,60,565
+		If KeyHit(key_escape) Then play = 0
 		
 		
 		
@@ -314,7 +335,7 @@ Repeat ' This is the main loop!!!!
 				'attention cinématique de début oulala
 				Local appColor# = 255 - (timer-MilliSecs()) * 255/3000
 				'SetColor 255 - appColor,255 - appColor,255 - appColor
-				
+				channelsRate = 1 ' on s'assure que la musique est à vitesse normale
 				mapY:+mapSpeed
 				SetColor 255,255,255
 				SetScale player.scale,player.scale
@@ -327,7 +348,7 @@ Repeat ' This is the main loop!!!!
 				DrawImage shieldImage,Player.x,Player.y
 				SetScale 1,1
 				'compte à rebours			
-				DrawText "Début du niveau dans ",300,300 
+				DrawText "Ship launch in ",300,300 
 				DrawText (1+timer-MilliSecs())/1000,400,350
 				focusFire(focusImage,Player,36,20,300,[255,255,255])
 				UpdateEntities(sparks)
@@ -342,6 +363,7 @@ Repeat ' This is the main loop!!!!
 				pause = True
 				pauseGameChannels()
 				setAllyChannelsVolume(0)
+				channelsRate = 1 ' on s'assure que la musique est à vitesse normale
 				Local fade# = GraphicsHeight()+(GraphicsHeight()*(MilliSecs()+2000-timer))/4000
 				SetColor 0,0,0
 				DrawRect leftedge,0,GraphicsWidth()-leftEdge*2,fade
@@ -364,6 +386,7 @@ Repeat ' This is the main loop!!!!
 				pause = True
 				pauseGameChannels()
 				setAllyChannelsVolume(0)
+				channelsRate = 1 ' on s'assure que la musique est à vitesse normale
 				Local fade# = GraphicsHeight()+(GraphicsHeight()*(MilliSecs()+2000-timer))/4000
 				SetColor 0,0,0
 				DrawRect leftedge,0,GraphicsWidth()-leftEdge*2,fade
@@ -371,7 +394,7 @@ Repeat ' This is the main loop!!!!
 				DrawRect rightEdge,GraphicsHeight(),leftEdge,GraphicsHeight()-fade-500
 				UpdateEntities(sparks)
 				SetColor 0,(timer-MilliSecs())/20,0
-				DrawText "Fin du niveau !", 300,300
+				DrawText "Level completed !", 300,300
 				DrawText "Score :",300,350
 				DrawText kills,390,350
 				If timer -1000 < MilliSecs()
@@ -399,7 +422,9 @@ Repeat ' This is the main loop!!!!
 			'todo : faire en sorte que le slowmotimer s'arrête pendant la pause - ok mais sale
 			If Not (timer > MilliSecs() )
 				SetImageFont harlow
-				DrawText "Jeu en pause",250,300
+				DrawText "Pause mode",350,200
+				DrawText "Press escape to quit (coward ...)",250,300
+				DrawText "Press P to get back to the fight",250,400
 			EndIf
 		EndIf 
 		
@@ -421,3 +446,8 @@ Until AppTerminate()
 ' arranger les fins de niveaux 
 ' bug aperçu : des fois on perd plusieurs vies d'un coup :/
 ' faire un truc qui coupe tous les sons
+
+
+' donner une premiere trajectoire aux boss pour qu'ils arrivent par le haut progressivement puis une fois
+' arrivés dans la scène, leur donner leur vraie trajectoire
+
