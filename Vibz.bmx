@@ -44,11 +44,13 @@ Global play = 0 'état du jeu : 0 -> menu, 1 -> début du jeu, 2 -> jeu, etc
 Const MAIN_MENU = 0
 Const HELP_MENU = 1
 Const OPTIONS_MENU = 6
+Const CREDITS_MENU = 7
 Const INIT_GAME = 10
 Const GAMEOVER_GAME = 3
 Const LEVELSTART_GAME = 5
 Const LEVELEND_GAME = 4
 Const PLAY_GAME = 2
+
 
 Global pause = False 'pause pendant le jeu -> à passer en état peut-être ?
 Global windowed = False
@@ -133,6 +135,7 @@ Include "lib/firepaint.bmx"
 AutoMidHandle(False)
 Include "background/menu.bmx"
 Include "background/optionmenu.bmx"
+Include "background/credits.bmx"
 Include "stages.bmx"
 Include "Shoot.bmx"
 
@@ -153,7 +156,7 @@ Repeat ' This is the main loop!!!!
 	SetAlpha 1
 'Menu ------------	
 
-	If play = MAIN_MENU Or play = HELP_MENU Or play = OPTIONS_MENU 'Or endStage  = 1
+	If play = MAIN_MENU Or play = HELP_MENU Or play = OPTIONS_MENU Or play = CREDITS_MENU
 		StagesList.clear() 'suppression du niveau en cours (inutile ?)
 		If Not soundOff 
 			ResumeChannel channelBG 'mise en route de la musique du menu
@@ -169,20 +172,22 @@ Repeat ' This is the main loop!!!!
 			help()
 			If KeyHit(KEY_ESCAPE) Or KeyHit(KEY_ENTER) 
 				play = MAIN_MENU ' retour au menu principal
-				TButton.Create (50,270,playButtonImg,"play")
-				TButton.Create (120,350,aideButtonImg,"aide")
-				TButton.Create (190,430,optionsButtonImg,"options")
-				TButton.Create (250,510,quitButtonImg,"quit")
+				ClearList buttonList
+				createMainButtons() ' on remet les boutons du menu
 			EndIf
 		Else If play = OPTIONS_MENU
 			optionsMenu()
 			If KeyHit(KEY_ESCAPE) 'Or KeyHit(KEY_ENTER) 
 				play = MAIN_MENU ' retour au menu principal
 				ClearList buttonList
-				TButton.Create (50,270,playButtonImg,"play")
-				TButton.Create (120,350,aideButtonImg,"aide")
-				TButton.Create (190,430,optionsButtonImg,"options")
-				TButton.Create (250,510,quitButtonImg,"quit")
+				createMainButtons()
+			EndIf
+		Else If play = CREDITS_MENU	
+			creditsMenu()
+			If KeyHit(KEY_ESCAPE) 'Or KeyHit(KEY_ENTER) 
+				play = MAIN_MENU ' retour au menu principal
+				ClearList buttonList
+				createMainButtons()
 			EndIf
 		EndIf 
 		SetAlpha 1
