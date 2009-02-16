@@ -32,9 +32,6 @@ Global sea2001:timagefont = LoadImageFont("incbin::sea2001.ttf",100)
 Function optionsMenu()
 
 SetScale 1,1
-	SetAlpha 1
-	SetColor 255,255,255
-	SetRotation 0
 	
 	'Dessin du background
 	DrawImage backgdOption,0,0
@@ -56,12 +53,8 @@ SetScale 1,1
 		EndIf
 	EndIf 
 
-	SetBlend alphablend
 	SetAlpha 1
-	SetRotation 0
-	'SetBlend SOLIDBLEND
 	SetBlend MASKBLEND
-	SetMaskColor 0,0,0
 	TButton.update()
 	SetImageFont ancreon
 	For Local lButton:TButton = EachIn buttonList
@@ -113,7 +106,7 @@ SetScale 1,1
 		DrawImage middleCircleImg, 50,180
 		SetScale 0.3,0.3
 		SetColor 50,45,255
-		If difficulty = 2 Then DrawText "MIDD",125,200
+		If difficulty = 2 Then DrawText "MID",125,200
 		If MouseDown(1) Then Difficulty = 2
 	EndIf
 	If MouseX()>125 And MouseX()<300 And MouseY()>270 And MouseY()<300 Or difficulty = 3
@@ -129,7 +122,6 @@ SetScale 1,1
 	EndIf
 			
 	SetColor 255,255,255
-	SetScale 1,1
 	SetAlpha 1
 	
 	'SON

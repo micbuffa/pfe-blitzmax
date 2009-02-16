@@ -16,6 +16,7 @@ Incbin "partblue.png"
 Incbin "partblue2.png"
 Incbin "partpurple.png"
 Incbin "../sound/SmoothFull.ogg"
+Incbin "credits.png"
 
 Global lightImage:TImage = LoadImage("incbin::pulse.png")
 Global backgd:TImage = LoadImage("incbin::backgd.png")
@@ -30,6 +31,7 @@ Global playButtonImg:TImage = LoadImage ("incbin::jouer.png")
 Global optionsButtonImg:TImage = LoadImage ("incbin::options.png")
 Global quitButtonImg:TImage = LoadImage ("incbin::quitter.png")
 Global aideButtonImg:TImage = LoadImage ("incbin::aide.png")
+Global creditsButtonImg:TImage = LoadImage ("incbin::credits.png")
 
 '----------LOAD FONT
 Global hybrid:timagefont = LoadImageFont("incbin::Hybrid_b.ttf",250)
@@ -97,29 +99,21 @@ Type TButton
 		Return False
 	End Method
 	
-	Function upDate()
+	Function update()
 		For Local lButton:TButton = EachIn buttonList
-		SetScale 0.5,0.5
-		DrawImage lButton.img,lButton.x,lButton.y
-		SetImageFont ancreon
-		SetScale 0.3,0.3
-		SetColor 0,0,0
-		DrawText "{",lButton.x-30,lButton.y
-		DrawText "}",lButton.x+ImageWidth(lButton.img)/2,lButton.y
-		SetColor 255,255,255
-			'SetImageFont ancreon
-			'SetColor 100,100,100
-			'DrawText "{",lButton.x-30,lButton.y
-			'DrawText "}",lButton.x+ImageWidth(lButton.img)/2,lButton.y
-			'SetColor 255,255,255
+			SetScale 0.5,0.5
+			DrawImage lButton.img,lButton.x,lButton.y
+			SetImageFont ancreon
+			SetScale 0.3,0.3
+			SetColor 0,0,0
+			DrawText "{",lButton.x-30,lButton.y
+			DrawText "}",lButton.x+ImageWidth(lButton.img)/2,lButton.y
+			SetColor 255,255,255
 		Next
 	End Function
 	
 	Function clicked()
 		If MouseDown(1)
-'			If( name = "play") Then SetColor 255,0,0
-'			Else If (name = "options") Then SetColor 0,255,0
-			'DrawRect(0,0,100,100)
 			Return True
 		Else 
 			Return False
@@ -170,10 +164,11 @@ End Type
 
 
 Function createMainButtons()
-	TButton.Create (50,270,playButtonImg,"play")
-	TButton.Create (120,350,aideButtonImg,"aide")
-	TButton.Create (190,430,optionsButtonImg,"options")
-	TButton.Create (260,510,quitButtonImg,"quit")
+	TButton.Create (40,200,playButtonImg,"play")
+	TButton.Create (90,280,optionsButtonImg,"options")
+	TButton.Create (140,360,aideButtonImg,"aide")
+	TButton.Create (190,440,creditsButtonImg,"credits")
+	TButton.Create (240,520,quitButtonImg,"quit")
 End Function 
 
 createMainButtons() ' Création des boutons du menu principal
@@ -256,10 +251,6 @@ Function menu()
 	For Local lButton:TButton = EachIn buttonList
 		If (lbutton.moveOn(lbutton))
 			SetImageFont ancreon
-			'SetColor 255,255,255
-			'SetBlend LIGHTBLEND
-			'DrawText "{",lButton.x-30,lButton.y
-			'DrawText "}",lButton.x+ImageWidth(lButton.img)/2,lButton.y
 			SetBlend LIGHTBLEND
 			SetColor 245,245,255
 			
@@ -272,16 +263,14 @@ Function menu()
 				Else If lbutton.name="options"
 					play = OPTIONS_MENU ; ClearList buttonList
 					TButton.Create (500,500,retourButtonImg,"retour")
-					Rem If windowed 
-						Graphics 800,600,32,60 ; windowed = False
-					Else
-						Graphics 800,600,0,60 ; windowed = True
-					EndIf
-					End Rem
 				Else If lbutton.name="quit"
 					End 'stops the program at once
 				Else If lbutton.name="aide"
 					play = HELP_MENU ; ClearList buttonList
+					TButton.Create (500,500,retourButtonImg,"retour")
+				Else If lbutton.name="credits"
+					play = CREDITS_MENU ; ClearList buttonList
+					TButton.Create (500,50,retourButtonImg,"retour")
 				EndIf
 			EndIf
 		EndIf
@@ -358,49 +347,25 @@ End Function
 Function help()
 	
 	SetScale 1,1
-	'SetAlpha loopsCount/300
 	SetColor 255,255,255
 	SetRotation 0
 	
 	'Dessin du background
 	DrawImage backgdaide,0,0
-	'TButton.Create (550,480,retourButtonImg,"retour")
-
-	'Dessin du cadre
-	Rem
-	If loopscount Mod Rand(500) = 0
-		SetScale 2+RndDouble()*3,1+RndDouble()*2
-		DrawImage frameImg,310+Rand(-20,2),300-Rand(50)
-	Else
-		SetScale 2.5,1
-		SetAlpha 0.9
-		DrawImage frameImg,310+Rand(-1,1),300+Rand(-1,1)
-	EndIf
-	End Rem
 	
 	'Dessin des contrôles
 	SetScale 1,1
 	SetAlpha 1
-	'DrawImage controlImg,0,0
-	
-Rem
-	'Dessin boomer
-	MidHandleImage boomer
-	SetBlend alphablend
-	SetAlpha 0.5
-	SetRotation rotvalue
-EndRem
+
 	If pulseFlag = 1
 		pulseValue:+1
 		SetScale 0.35+pulseValue*0.005,0.35+pulseValue*0.005
-		'DrawImage boomer,650,450
 		If pulseValue > 10
 			pulseFlag = 0
 		EndIf
 	ElseIf pulseFlag = 0
 		pulseValue:-1
 		SetScale 0.35+pulseValue*0.005,0.35+pulseValue*0.005
-		'DrawImage boomer,650,450
 		If pulseValue < 0
 			pulseFlag = 1
 		EndIf
@@ -421,12 +386,11 @@ EndRem
 			SetColor 255,255,255
 			If (lbutton.clicked())
 				If lbutton.name="retour"
-					play = 0
-					' à complèter
+					play = MAIN_MENU ; ClearList buttonList
+					createMainButtons()
 				EndIf
 			EndIf
 		EndIf
-
 	Next
 
 	'Dessin souris
