@@ -20,10 +20,11 @@ Type TPlayer Extends TShip
 	Field slowMoStock = 50 ' on commence avec un tout petit peu de stock de ralenti
 	'Field lives ' à remplacer de partout
 					
-	Function Spawn(spawnx# = 400, spawny# = 400)
+	Function Spawn(spawnx# = 400, spawny# = 400, freq = HIGH_FREQ)
 		Local Player:TPlayer = New TPlayer  'Create a new TPlayer Object
 		Player.InvincibleTimer=MilliSecs()+3000 '3 Seconds
 		If debugMode Then Player.InvincibleTimer = MilliSecs()+100000000000
+		Player.shootFreq = freq
 		Player.x = spawnx'400 'center
 		Player.y = spawny'400 'bottom
 		Player.image = PlayerImage
@@ -40,7 +41,7 @@ Type TPlayer Extends TShip
 		Return TPlayer(PlayerList.Last()) 
 	EndFunction
 	
-	Function hit(px#,py#) ' le joueur est touché // plus besoin de passer les coordonnées en ref peut-être
+	Function hit(px#,py#, freq) ' le joueur est touché // plus besoin de passer les coordonnées en ref peut-être
 		'TExplosion.Make(px,py,100)
 		Lives:-1 'un deuxième test pour éviter de perdre plusieurs vies d'un coup
 		If lives >1  
@@ -49,7 +50,7 @@ Type TPlayer Extends TShip
 			
 		EndIf 
 		If Not soundOff Then PlaySound(soundExplosion,channelExplosion)			
-		TPlayer.Spawn(px,py)
+		TPlayer.Spawn(px,py, freq)
 		For Local Ally:TAlly = EachIn AllyList
 			Ally.mothership = TPlayer(PlayerList.Last()) 
 		Next
@@ -407,7 +408,7 @@ Type TEnemy Extends TShip
 						TBonusWidth.spawn(px-pwup*10,py-pwup*30)
 					Next
 					PlayerList.Remove(Player)
-					If MilliSecs() > Player.InvincibleTimer Then TPlayer.hit(px,py)
+					If MilliSecs() > Player.InvincibleTimer Then TPlayer.hit(px,py, player.shootFreq)
 					'on double le test pour éviter de perdre plusieurs vies d'un coup
 				EndIf
 			EndIf
@@ -687,7 +688,7 @@ Type TBullet Extends TGameObject
 						TBonusWidth.spawn(px-pwup*3,py-pwup*3)
 					Next
 					PlayerList.Remove(Player)
-					If MilliSecs() > Player.InvincibleTimer Then TPlayer.hit(px,py)
+					If MilliSecs() > Player.InvincibleTimer Then TPlayer.hit(px,py,player.shootFreq)
 				EndIf
 			EndIf
 		Next
