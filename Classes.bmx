@@ -392,10 +392,10 @@ Type TEnemy Extends TShip
 			EndIf
 			'If Enemy.x < leftedge Then Enemy.dir = 1-Enemy.dir '; Enemy.x = GraphicsHeight() + 64 
 			'If Enemy.x > rightedge Then Enemy.dir = 1-Enemy.dir 'Enemy.x = -70 ; 
-			If Enemy.x > 1000  Then EnemyList.remove(enemy)		
-			If Enemy.x < -200 Then EnemyList.remove(enemy)
+			If Enemy.x > rightEdge+60  Then EnemyList.remove(enemy)		
+			If Enemy.x < leftEdge-60 Then EnemyList.remove(enemy)
 			If Enemy.y > GraphicsHeight() + 60 Then EnemyList.remove(enemy)		
-			If Enemy.y < -200 Then EnemyList.remove(enemy)
+			If Enemy.y < -60 Then EnemyList.remove(enemy)
 			If Enemy.hitpoints < 1 Then Enemy.explode
 			Local player:TPlayer = TPlayer.getPlayer()
 			
