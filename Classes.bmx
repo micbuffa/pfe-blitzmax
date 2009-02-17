@@ -15,7 +15,7 @@ Type TPlayer Extends TShip
 	Field powerLevel% = 1 ' le niveau de puissance du vaisseau
 	Field frame# = 0 ' la frame courante de l'animation du vaisseau
 	Field scale# = 1.2 ' l'échelle de l'image du vaisseau
-	Field bombs = 5 'on récupère une bombe quand on meurt/apparaît
+	Field bombs = 3 'on récupère une bombe quand on meurt/apparaît
 	Field shootFreq = HIGH_FREQ 'par défaut on tire en haute fréquence
 	Field slowMoStock = 50 ' on commence avec un tout petit peu de stock de ralenti
 	'Field lives ' à remplacer de partout
@@ -532,15 +532,15 @@ Type TBullet Extends TGameObject
 '                bullet.shoot=shoot         
     End Function
 
-	
+	' Arguments : le projectile, les coefficients de déplacements en x et y
 	Function computeAngle(bullet:TBullet,coeffX#=1,coeffY#=1)
-		If bullet.bouncing
-			If bullet.x <= leftedge Then bullet.angle = 360-bullet.angle  
-			If bullet.x >= rightedge Then bullet.angle = 360-bullet.angle
+		If bullet.bouncing ' Si le projectile rebondit ...
+			If bullet.x <= leftedge Then bullet.angle = 360-bullet.angle  ' Collision avec le bord gauche
+			If bullet.x >= rightedge Then bullet.angle = 360-bullet.angle ' Collision avec le droit
 		EndIf
-		bullet.x :+ Sin(bullet.angle)*coeffX
+		bullet.x :+ Sin(bullet.angle)*coeffX ' Déplacement du projectile
 		bullet.y :+ Cos(bullet.angle)*coeffY
-		SetRotation bullet.angle
+		SetRotation bullet.angle ' Change l'angle de l'image
 	End Function
 
 	Function Update()
