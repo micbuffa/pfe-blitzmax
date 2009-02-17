@@ -1,28 +1,3 @@
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-'Incbin "images/noteLittle.png"
-
-
 
 Type TBSplines
 	Field curKubSplineX:appKubSpline =New appKubSpline

@@ -38,6 +38,7 @@ Repeat
 	DrawRect 112, 84, 150, 600 
 	DrawRect 762 , 84 , 150 , 600
 	SetColor 200 , 200 , 200
+	SetLineWidth(1)
 	DrawLine 202, 24, 820, 24
 	DrawLine 820, 24, 820, 744
 	DrawLine 202, 744, 820, 744
@@ -144,7 +145,15 @@ Repeat
 		DrawText t, 750, 10
 	End If
 	
-	
+	' draw the curve
+	SetColor rCurve, gCurve, bCurve
+	SetLineWidth(3)
+	Local curT:Float = 1 - curvStep
+	While curT < (initDataT.Length - 2*curvStep)
+	  curT :+ curvStep
+	  DrawLine traj.getCurKubSplineX().ValueInt(curT), traj.getCurKubSplineY().ValueInt(curT), traj.getCurKubSplineX().ValueInt(curT +curvStep), traj.getCurKubSplineY().ValueInt(curT +curvStep)
+	Wend
+
 	traj.update(speed)
 	
 	Flip
