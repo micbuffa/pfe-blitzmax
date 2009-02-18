@@ -121,16 +121,15 @@ End Function
 ' Inclusions ----------------------------------- l'ordre est important ? 
 ' Classes et Firepaint utilisent des éléments d'Effets et Souns
 
-Incbin "niveauMaman.xml"
-Incbin "NIVEAUTEST.XML"
-Incbin "niveau0bez.xml"
-Incbin "niveau1bez.xml"
-Incbin "niveau2bez.xml"
+Incbin "lvl2.xml"
+Incbin "lvl3.xml"
 
 Include "Sound.bmx"
 Include "Effets.bmx"
 Include "Classes.bmx"
 Include "Enemies.bmx"
+Include "Enemieslvl2.bmx"
+Include "Enemieslvl3.bmx"
 Include "lib/firepaint.bmx"
 AutoMidHandle(False)
 Include "background/menu.bmx"
@@ -207,16 +206,8 @@ Repeat ' This is the main loop!!!!
 			PauseChannel channelBG 'musique du menu en pause
 			clearLists() 'réinitialisation de toutes les listes du jeu
 			TPlayer.Spawn() 'création du joueur
-			'TStages.Create()	'création du niveau
-			TStages.CreateFromFile("incbin::NIVEAUTEST.XML")
-			TStages.CreateFromFile("incbin::niveauMaman.xml")
-			TStages.CreateFromFile("incbin::niveau2bez.xml")
-			TStages.CreateFromFile("incbin::niveau0bez.xml")
-			TStages.CreateFromFile("incbin::niveau1bez.xml")
-			'TStages.CreateFromFile("niveau0.xml")
-			'TStages.CreateFromFile("niveau1.xml")	
-			'TStages.CreateFromFile("niveau2.xml")
-			'TStages.CreateFromFile("niveau3.xml")
+			TStages.CreateFromFile("incbin::lvl2.xml")
+			TStages.CreateFromFile("incbin::lvl3.xml")
 			endStage = 0 'le niveau n'est pas fini
 			kills = 0 'le score est à 0
 			mapY = 0 ' remise à 0 de la variable de scrolling
@@ -327,9 +318,6 @@ Repeat ' This is the main loop!!!!
 			DrawText "x " + Player.Bombs,87,470 
 		EndIf
 		SetColor 200,40,180
-		'DrawImage cleDeSolImage
-		'DrawText Lives,65,375
-		'DrawText player.bombs,65,470
 		DrawText kills,60,565
 		If KeyHit(key_escape) Then play = 0
 		

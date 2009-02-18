@@ -17,7 +17,7 @@ Type TPlayer Extends TShip
 	Field scale# = 1.2 ' l'échelle de l'image du vaisseau
 	Field bombs = 3 'on récupère une bombe quand on meurt/apparaît
 	Field shootFreq = HIGH_FREQ 'par défaut on tire en haute fréquence
-	Field slowMoStock = 50 ' on commence avec un tout petit peu de stock de ralenti
+	Field slowMoStock = 75 ' on commence avec un tout petit peu de stock de ralenti
 	'Field lives ' à remplacer de partout
 					
 	Function Spawn(spawnx# = 400, spawny# = 400, freq = HIGH_FREQ)
@@ -315,10 +315,10 @@ Type TEnemy Extends TShip
 			If enemy.hspeed > 0
 				If enemy.dir = 0
 					SetRotation -mapY
-					shootAngle = -mapY
+					shootAngle = -mapY * enemy.hSpeed
 				Else 
 					SetRotation mapY
-					shootAngle = mapY
+					shootAngle = mapY  * enemy.hSpeed
 				EndIf
 			EndIf 				
 				
@@ -332,8 +332,9 @@ Type TEnemy Extends TShip
 			If TBoss(enemy)
 				enemy.bossUpdate(enemy)
 					SetAlpha 0.5
+					SetRotation 0
 					SetColor 255,255,255
-					DrawRect leftEdge + 10, 10, enemy.hitpoints/5000,10
+					DrawRect leftEdge + 10, 30, enemy.hitpoints/5000,10
 					SetAlpha 1	
 			Else 	
 				' Calcul de la nouvelle position en fonction de la trajectoire donnée
@@ -583,9 +584,9 @@ Type TBullet Extends TGameObject
 				Else If bullet.speed > 10
 					bullet.speed = 10
 				EndIf
-				SetColor 255,0,0
+				SetColor 255,255,255
 				SetScale 0.08,0.5
-				DrawImage bulletbassImage,bullet.x,bullet.y
+				DrawImage bulletMidImage,bullet.x,bullet.y
 				SetScale 1,1
 			EndIf
 			
@@ -615,7 +616,7 @@ Type TBullet Extends TGameObject
 								SetRotation mapY
 							EndIf
 						EndIf 	
-						SetColor 0,Rand(0,255),Rand(100,255)
+						SetColor Rand(100,255),Rand(0,255),Rand(100,255)
 						SetAlpha 0.3
 						DrawImage Enemy.image,Enemy.x,Enemy.y
 						SetAlpha 1
@@ -641,12 +642,12 @@ Type TBullet Extends TGameObject
 						' On fait clignoter l'ennemi
 						If enemy.hspeed > 0
 							If enemy.dir = 0
-								SetRotation -mapY
+								SetRotation -mapY * enemy.hSpeed
 							Else 
-								SetRotation mapY
+								SetRotation mapY  * enemy.hSpeed
 							EndIf
 						EndIf 
-						SetColor Rand(100,255),Rand(0,255),0
+						SetColor Rand(100,255),Rand(0,255),Rand(100,255)
 						SetAlpha 0.3
 						DrawImage Enemy.image,Enemy.x,Enemy.y
 						SetAlpha 1
