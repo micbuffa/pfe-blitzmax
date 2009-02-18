@@ -1,6 +1,7 @@
 Incbin "images/vaisseaumatricelittle.png"
 Incbin "images/ally2.png"
 Incbin "images/tirBF.png"
+Incbin "images/tirMF.png"
 'Incbin "images/tirHF2.png"
 Incbin "images/TIRHFMatrice.png"
 Incbin "images/TIRHFLaserMatrice.png"
@@ -35,6 +36,7 @@ AutoMidHandle(True)
 Global PlayerImage:TImage = LoadAnimImage("incbin::images/vaisseaumatricelittle.png",70,50,0,6)
 Global Ship2B:Timage = LoadImage("incbin::images/ally2.png",mipmappedimage)
 Global BulletBassImage:Timage = LoadImage("incbin::images/tirBF.png")
+Global BulletMidImage:Timage = LoadImage("incbin::images/tirMF.png")
 'Global BulletTrebleImage:Timage = LoadImage("incbin::images/tirHF.png")
 'Global BulletTrebleImage2:Timage = LoadImage("incbin::images/tirHF2.png")
 Global BulletTrebleBaseImage:TImage = LoadAnimImage("incbin::images/TIRHFMatrice.png",100,100,0,14,mipmappedimage)
@@ -130,15 +132,13 @@ Function motionBlur(coordsList:TList, image:TImage, scale# = 1, frame#=0, maxIma
 			SetBlend alphablend
 			Local csurmax# = c/maxImages
 			SetAlpha(1-csurmax)
-			'SetColor(0,255-255*csurdix,255-255*csurdix)
 			SetColor (100,100,100)
 			SetScale scale,scale
 			DrawImage image, coord.a, coord.b,frame 'on affiche une fois sur deux et seulement en slow mode
 			SetScale 1,1
-			'DrawText "ça devrait marcher", coord.a, coord.b
 		EndIf
 		c:+1
-		If c=maxImages Then ListRemove(coordsList,coord)'; Print "test"
+		If c=maxImages Then ListRemove(coordsList,coord)'
 	Next
 	SetAlpha 1
 End Function
