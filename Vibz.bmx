@@ -317,7 +317,7 @@ Repeat ' This is the main loop!!!!
 			SetColor 200,40,180
 			DrawText "x " + Player.Bombs,87,470 
 		EndIf
-		SetColor 200,40,180
+		SetColor 150,20,135
 		DrawText kills,60,565
 		If KeyHit(key_escape) Then play = 0
 		
@@ -417,9 +417,9 @@ Repeat ' This is the main loop!!!!
 			'todo : faire en sorte que le slowmotimer s'arrête pendant la pause - ok mais sale
 			If Not (timer > MilliSecs() )
 				SetImageFont harlow
-				DrawText "Pause mode",350,200
-				DrawText "Press escape to quit (coward ...)",250,300
-				DrawText "Press P to get back to the fight",250,400
+				DrawText "Pause mode",310,200
+				DrawText "Press escape to quit (coward ...)",210,300
+				DrawText "Press P to get back to the fight",210,400
 			EndIf
 		EndIf 
 		

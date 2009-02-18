@@ -334,7 +334,7 @@ Type TEnemy Extends TShip
 					SetAlpha 0.5
 					SetRotation 0
 					SetColor 255,255,255
-					DrawRect leftEdge + 10, 30, enemy.hitpoints/5000,10
+					DrawRect leftEdge + 10, 10, enemy.hitpoints/5000,25
 					SetAlpha 1	
 			Else 	
 				' Calcul de la nouvelle position en fonction de la trajectoire donnée
