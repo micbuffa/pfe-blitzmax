@@ -84,7 +84,7 @@ SetScale 1,1
 	SetColor 25,25,25
 	SetScale 0.3,0.3
 	DrawText "EASY",125,130
-	DrawText "MIDD",125,200
+	DrawText "MID",125,200
 	DrawText "HARD",120,270
 	
 	If MouseX()>125 And MouseX()<300 And MouseY()>130 And MouseY()<160 Or difficulty = 1
