@@ -222,12 +222,13 @@ Type TAlly Extends TShip
 	End Function
 	
 	Function Update()
-		If kills >= 100/2 And CountList(allylist) < 1 Then TAlly.spawn(30,20);SetChannelVolume channelAlly1,0.5
-		If kills >= 200/2 And CountList(allylist) < 2 Then TAlly.spawn(-30,20);SetChannelVolume channelAlly3,0.2
-		If kills >= 300/2 And CountList(allylist) < 3 Then TAlly.spawn(-20,-5);SetChannelVolume channelAlly2,0.1
-		If kills >= 400/2 And CountList(allylist) < 4 Then TAlly.spawn(-10,-30);SetChannelVolume channelAlly4,0.1
-		If kills >= 500/2 And CountList(allylist) < 5 Then TAlly.spawn(10,-30)
-		If kills >= 600/2 And CountList(allylist) < 6 Then TAlly.spawn(20,-5)
+		Local killsForAllies = 4000000
+		If kills >= killsForAllies/6 And CountList(allylist) < 1 Then TAlly.spawn(30,20);SetChannelVolume channelAlly1,0.5
+		If kills >= killsForAllies/5 And CountList(allylist) < 2 Then TAlly.spawn(-30,20);SetChannelVolume channelAlly3,0.2
+		If kills >= killsForAllies/4 And CountList(allylist) < 3 Then TAlly.spawn(-20,-5);SetChannelVolume channelAlly2,0.1
+		If kills >= killsForAllies/3 And CountList(allylist) < 4 Then TAlly.spawn(-10,-30);SetChannelVolume channelAlly4,0.1
+		If kills >= killsForAllies/2 And CountList(allylist) < 5 Then TAlly.spawn(10,-30)
+		If kills >= killsForAllies And CountList(allylist) < 6 Then TAlly.spawn(20,-5)
 		
 		Local player:TPlayer = TPlayer.getPlayer()
 		For Local Ally:TAlly = EachIn AllyList
@@ -272,6 +273,7 @@ Type TEnemy Extends TShip
 	Field shootSequence:TShootSequence
 	Field shootNumber = 0
 	Field traj:TBSplines
+	Field score
 
 	
 	Function CreateEnemy:TEnemy(traj:TBSplines, speed, shipType, hitpoints, dir)
@@ -334,7 +336,7 @@ Type TEnemy Extends TShip
 					SetAlpha 0.5
 					SetRotation 0
 					SetColor 255,255,255
-					DrawRect leftEdge + 10, 10, enemy.hitpoints/5000,25
+					DrawRect leftEdge + 10, 10, enemy.hitpoints/5000,20
 					SetAlpha 1	
 			Else 	
 				' Calcul de la nouvelle position en fonction de la trajectoire donnée
@@ -419,7 +421,7 @@ Type TEnemy Extends TShip
 	End Function
 	
 	Method explode()
-		kills:+1
+		kills :+ Self.Score
 		TPlayer.getPlayer().slowMoStock:+10
 		TEnemyExplosion.Make(Self.x,Self.y)
 		Rem For Local explosions = 1 To 10
@@ -624,7 +626,7 @@ Type TBullet Extends TGameObject
 					EndIf
 				Else If tbulletmid(bullet)
 					If bullet.x > Enemy.x-enemy.xv And bullet.x < Enemy.x+enemy.xv And bullet.y > Enemy.y-enemy.yv And bullet.y < Enemy.y+enemy.yv
-						Enemy.hitpoints:-100
+						Enemy.hitpoints:-300
 						PlayerBulletList.Remove(bullet)
 						TExplosion.Make(bullet.x,bullet.y,30)
 					EndIf
@@ -935,12 +937,15 @@ Type TBonusWidth Extends TBonus
 			DrawImage (bonusWidthImage,bonus.x,bonus.y,bonusFrame)  
 			'DrawRect Bonus.x,Bonus.y,Bonus.xv,Bonus.yv
 			If bonus.x > Player.x-Player.xv*2 And bonus.x < Player.x+Player.xv*2 And bonus.y > Player.y-player.yv*2 And bonus.y < Player.y+player.yv*2
-				BonusList.Remove(bonus)
 				If Player.powerLevel < maxPowerLevel 
 					Player.powerLevel:+1
 					reverseFocusFire(ligthPartBlueImg,player,5,1,30,[0,0,255]);
 					reverseFocusFire(ligthPartPurpleImg,player,5,1,30,[255,0,0])
+				Else 
+					kills :+ 1000
+					DrawText "Bonus +1000", bonus.x, bonus.y
 				EndIf
+				BonusList.Remove(bonus)
 			EndIf 
 			bonuscount:+1
 		Next

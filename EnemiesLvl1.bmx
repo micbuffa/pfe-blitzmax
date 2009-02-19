@@ -63,7 +63,7 @@ Type TEnemyBlue11 Extends TEnemy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 End Type
@@ -83,11 +83,11 @@ Type TEnemyBlue12 Extends TEnemy
 		Enemy.image = EnemyBlue2
 		Enemy.shoot = New TShootArroz3 
 		Enemy.shoot.setFreq(15)
-		Enemy.hitpoints = 4000
+		Enemy.hitpoints = 2000
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints; enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 End Type
@@ -111,7 +111,7 @@ Type TEnemyBlue13 Extends TEnemy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 End Type
@@ -131,11 +131,11 @@ Type TEnemyBlue14 Extends TEnemy
 		Enemy.image = EnemyBlue4
 		Enemy.shoot = New TShootSimple4
 		Enemy.shoot.setFreq(100)
-		Enemy.hitpoints = 5000
+		Enemy.hitpoints = 3000
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 End Type
@@ -160,7 +160,7 @@ Type TEnemyBlue15 Extends TEnemy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 End Type
@@ -181,11 +181,11 @@ Type TEnemyBlue16 Extends TEnemy
 		Enemy.shoot = New TShootSimple5
 		Enemy.shoot.setFreq(30)
 		Enemy.shootSequence = New TShootSeqTornado 
-		Enemy.hitpoints = 10000
+		Enemy.hitpoints = 5000
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 End Type
@@ -211,7 +211,7 @@ Type TEnemyBlue17 Extends TEnemy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 End Type
@@ -243,7 +243,7 @@ Type TEnemyRed11 Extends TEnemy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 End Type
@@ -266,7 +266,7 @@ Type TEnemyRed12 Extends TEnemy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 
@@ -289,7 +289,7 @@ Type TEnemyRed13 Extends TEnemy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 
@@ -311,11 +311,11 @@ Type TEnemyRed14 Extends TEnemy
 		Enemy.shoot = New TshootSimple0
 		Enemy.shoot.setFreq(80) 
 		Enemy.shootSequence = New TshootSeqCloud
-		Enemy.hitpoints = 50000
+		Enemy.hitpoints = 20000
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 
@@ -341,7 +341,7 @@ Type TEnemyRed15 Extends TEnemy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 
@@ -367,7 +367,7 @@ Type TEnemyRed16 Extends TEnemy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 
@@ -389,11 +389,11 @@ Type TEnemyRed17 Extends TEnemy
 		Enemy.shoot = New TshootSimple0
 		Enemy.shoot.setFreq(30) 
 		Enemy.shootSequence = New TshootSeqPyramid
-		Enemy.hitpoints = 20000
+		Enemy.hitpoints = 10000
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 
@@ -419,7 +419,7 @@ Type TEnemyRed18 Extends TEnemy
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 
@@ -441,23 +441,16 @@ Type TEnemyRed19 Extends TEnemy
 		Enemy.shoot = New TshootSimple0
 		Enemy.shoot.setFreq(10) 
 		Enemy.shootSequence = New TShootSeqHalfCircle
-		Enemy.hitpoints = 5000
+		Enemy.hitpoints = 3000
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 
 End Type
 
-
-
-Type TBoss Extends TEnemy
-
-Function bossUpdate(enemy:TEnemy) Abstract 
-
-End Type
 
 Type TBoss11 Extends TBoss
 
@@ -478,7 +471,7 @@ Function spawnDefault:TBoss11(traj:TBSplines, dir = 0)
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy
 	End Function
 
@@ -547,7 +540,7 @@ Function spawnDefault:TBoss12(traj:TBSplines, dir = 0)
 
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		' Spawn des adds
 		TBossMultiCL1.spawnDefault(traj)
 		TBossMultiCR1.spawnDefault(traj)		
@@ -603,7 +596,7 @@ Function spawnDefault:TBossMultiCL1(traj:TBSplines, dir = 0)
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)		
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)		
 		Return Enemy
 End Function
 
@@ -611,7 +604,7 @@ Function bossUpdate(boss:TEnemy)
 
 	Local realSpeed:Float = boss.speed/1000
 	Local newpos:Int[] = boss.traj.update(realSpeed)
-	boss.x = Int(newpos[0] - 100 - 10 * Cos(mapY) + Rand (-5,5))
+	boss.x = Int(newpos[0] - 110 * Cos(mapY*1.2) + Rand (-5,5))
 	boss.y = Int(newpos[1] - 50 - 10 * Sin(mapY) + Rand (-5,5))	
 
 End Function
@@ -638,14 +631,14 @@ Function spawnDefault:TBossMultiCR1(traj:TBSplines, dir = 0)
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)		
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)		
 		Return Enemy
 End Function
 
 Function bossUpdate(boss:TEnemy) 
 	Local realSpeed:Float = boss.speed/1000
 	Local newpos:Int[] = boss.traj.update(realSpeed)	
-	boss.x = Int(newpos[0] + 100 + 10 * Cos(mapY) + Rand (-5,5))
+	boss.x = Int(newpos[0] + 110 * Cos(mapY*1.2) + Rand (-5,5))
 	boss.y = Int(newpos[1] - 50 - 10 * Sin(mapY) + Rand (-5,5))
 
 End Function

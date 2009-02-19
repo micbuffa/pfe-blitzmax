@@ -29,22 +29,21 @@ Incbin "images/explosion2.png"
 Incbin "images/logolife.png"
 Incbin "images/logobomb.png"
 
+Incbin "images/scrolling21.png"
+Incbin "images/scrolling22.png"
+Incbin "images/scrolling11.png"
+Incbin "images/scrolling12.png"
+
+Incbin "images/logobomb.png"
 
 ' Gestion des images
 AutoMidHandle(True)
-'Global PlayerImage:TImage = LoadImage("images/vaisseau1.png")
 Global PlayerImage:TImage = LoadAnimImage("incbin::images/vaisseaumatricelittle.png",70,50,0,6)
 Global Ship2B:Timage = LoadImage("incbin::images/ally2.png",mipmappedimage)
 Global BulletBassImage:Timage = LoadImage("incbin::images/tirBF.png")
 Global BulletMidImage:Timage = LoadImage("incbin::images/tirMF.png")
-'Global BulletTrebleImage:Timage = LoadImage("incbin::images/tirHF.png")
-'Global BulletTrebleImage2:Timage = LoadImage("incbin::images/tirHF2.png")
 Global BulletTrebleBaseImage:TImage = LoadAnimImage("incbin::images/TIRHFMatrice.png",100,100,0,14,mipmappedimage)
 Global BulletTrebleImage:TImage = LoadAnimImage("incbin::images/TIRHFLaserMatrice.png",50,15,0,14,mipmappedimage)
-'Global BulletTrebleImage:TImage = LoadAnimImage("incbin::images/TIRHFLaserMatrice.png",64,19,0,14,mipmappedimage)
-'Global BulletTrebleImageLight:TImage = LoadAnimImage("incbin::images/TIRHFLaserMatriceLight.png",50,15,0,14,mipmappedimage)
-'Global bulletTrebleBasePath$ = "incbin::images/TIRHFMatrice.png"
-'Global BulletTrebleBaseImage2:TImage = LoadImage("incbin::images/tirHFbase2.png")
 Global EnemyBulletImageBF:TImage = LoadImage("incbin::images/enemyBullet1.png")
 Global EnemyBulletImageHF:TImage = LoadImage("incbin::images/enemyBullet2.png")
 Global ExplosionImage:TImage = LoadImage("incbin::images/light.png")
@@ -65,8 +64,23 @@ Global bonusSlowImage:TImage = LoadAnimImage("incbin::images/bonusSlow.png",50,5
 Global bonusBombImage:TImage = LoadAnimImage("incbin::images/bonusBombe.png",50,50,0,8)
 Global bonusLifeImage:TImage = LoadAnimImage("incbin::images/bonusLife.png",50,50,0,8)
 
-Global bg1:TImage = LoadImage("incbin::images/fondVibzGrunge.png")
-Global bg2:TImage = LoadImage("incbin::images/fondVibzGrungeBig.png")
+AutoMidHandle(False)
+Global bg31:TImage = LoadImage("incbin::images/fondVibzGrunge.png")
+Global bg32:TImage = LoadImage("incbin::images/fondVibzGrungeBig.png")
+Global bg21:TImage = LoadImage("incbin::images/scrolling21.png")
+Global bg22:TImage = LoadImage("incbin::images/scrolling22.png")
+Global bg11:TImage = LoadImage("incbin::images/scrolling11.png")
+Global bg12:TImage = LoadImage("incbin::images/scrolling12.png")
+Global BG1:TImage[3] 
+Global BG2:TImage[3]
+bg1[0] = bg31 
+bg1[1] = bg21
+bg1[2] = bg31
+bg2[0] = bg12
+bg2[1] = bg22
+bg2[2] = bg32
+
+AutoMidHandle(True)
 Global leftImage:TImage = LoadImage("incbin::images/bordgauche.png")
 Global rightImage:TImage = LoadImage("incbin::images/borddroit.png")
 Global jaugeImage:TImage = LoadImage("incbin::images/jauge.png",mipmappedimage)
@@ -149,15 +163,9 @@ Function background()
 	SetColor 205,205,205
 	If slowmo Then SetColor 150+Sin(mapY)*50,150+Sin(mapY)*50,150+Sin(mapY)*50'SetColor 0,0,155
 	If pause Then SetColor 130,130,130
-	'SetScale 0.8,0.8
-	TileImage(bg1,200+mapx,mapY)
-	'SetScale 2,2
+	TileImage(BG1[currentLevel-1],leftEdge,mapY)
 	SetAlpha 0.5
-	TileImage bg2,200+mapx-Player.x/5,mapY-player.y/5
-	'SetScale 4,4
-	'SetAlpha 0.3
-	'SetBlend lightblend
-	'TileImage bg1,mapX+200, mapy*5
+	TileImage BG2[currentLevel-1],leftEdge+mapx-Player.x/5,mapY-player.y/5
 	SetAlpha 1
 	SetScale 1,1
 	SetBlend alphablend

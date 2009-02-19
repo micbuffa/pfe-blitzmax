@@ -55,7 +55,7 @@ Type TEnemyBlue31 Extends TEnemy
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 			Return Enemy
 	End Function
 
@@ -79,7 +79,7 @@ Type TEnemyBlue32 Extends TEnemy
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 			Return Enemy
 	End Function
 
@@ -108,7 +108,7 @@ Type TEnemyBlue33 Extends TEnemy
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 			Return Enemy
 	End Function
 
@@ -133,7 +133,7 @@ Type TEnemyBlue34 Extends TEnemy
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 			Return Enemy
 	End Function
 
@@ -158,7 +158,7 @@ Type TEnemyRed31 Extends TEnemy
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 			Return Enemy
 	End Function
 
@@ -187,7 +187,7 @@ Type TEnemyRed32 Extends TEnemy
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 			Return Enemy
 	End Function
 
@@ -211,7 +211,7 @@ Type TEnemyRed33 Extends TEnemy
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 			Return Enemy
 	End Function
 
@@ -235,7 +235,7 @@ Type TEnemyRed34 Extends TEnemy
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 			Return Enemy
 	End Function
 
@@ -263,7 +263,7 @@ Type TBoss31 Extends TBoss
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy	
 	End Function
 	
@@ -316,7 +316,7 @@ Type TBoss32 Extends TBoss
 		Enemy.xv = ImageWidth(Enemy.image)/2
 		Enemy.yv = ImageHeight(Enemy.image)/2
 		Enemy.dir = dir
-		enemyList.addLast(Enemy)
+		Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)
 		Return Enemy	
 	End Function
 	
@@ -335,13 +335,13 @@ Type TBoss32 Extends TBoss
 			Local traj:TBSplines = TBSplines.Create([1,2,3,4,5],[currentX,260,450,540,currentX], [currentY,150,50,150,currentY])
 			boss.shootSequence = New TShootSeqCloud
 			boss.traj = traj
-			boss.shoot.setFreq(15)
+			boss.shoot.setFreq(10)
 			TBonusOneUp.spawn(boss.x,boss.y) ' on donne un bonus de vie
 			TBoss32CL.spawnDefault(traj)
 			TBoss32CR.spawnDefault(traj) 
-			For Local i = 0 To 10
-				TExplosion.make(boss.x+Rand(-20,20), boss.y+Rand(-40,40), 40 + i*5)
-			Next
+			
+			TExplosion.make(boss.x, boss.y, 400, 10)
+			
 		EndIf
 		
 		'2ème transformation
@@ -349,16 +349,16 @@ Type TBoss32 Extends TBoss
 			boss.speed = 4
 			channelsRate = 1.6
 			boss.shootSequence = New TShootSeqSpirale
-			boss.shoot.setFreq(15)
-			For Local i = 0 To 10
-				TExplosion.make(boss.x+Rand(-20,20), boss.y+Rand(-40,40), 40 + i*5)
-			Next
+			boss.shoot.setFreq(25)
+			'For Local i = 0 To 10
+			'	TExplosion.make(boss.x+Rand(-20,20), boss.y+Rand(-40,40), 40 + i*5)
+			'Next
+			TExplosion.make(boss.x, boss.y, 400, 10)
 		EndIf
 		
 		'3ème transformation
 		If boss.hitpoints < 1000000 And boss.speed = 4
 			boss.speed = 6
-			
 			boss.image = Boss32bis
 			channelsRate = 1.8
 			boss.shootSequence = New TShootSeqSpirale
@@ -368,9 +368,10 @@ Type TBoss32 Extends TBoss
 			boss.traj = traj
 			TBoss32FL.spawnDefault(traj)
 			TBoss32FR.spawnDefault(traj)
-			For Local i = 0 To 10
-				TExplosion.make(boss.x+Rand(-20,20), boss.y+Rand(-40,40), 40 + i*5)
-			Next
+			'For Local i = 0 To 10
+			'	TExplosion.make(boss.x+Rand(-20,20), boss.y+Rand(-40,40), 40 + i*5)
+			'Next
+			TExplosion.make(boss.x, boss.y, 400, 10)
 		EndIf
 		
 		'Tir de vaisseaux sur le joueur
@@ -382,7 +383,7 @@ Type TBoss32 Extends TBoss
 			TEnemyRed23.spawnDefault(traj)
 		EndIf
 		
-		If boss.hitpoints < 600000 And loopsCount Mod 1500 = 0
+		If boss.hitpoints < 800000 And loopsCount Mod 1500 = 0
 			boss.shipType = 1 - boss.shipType ' le boss change de fréquence !
 			If boss.shipType = HIGH_FREQ 
 				boss.image = Boss32bis
@@ -419,7 +420,7 @@ Type TBoss32CL Extends TBoss
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)		
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)		
 			Return Enemy
 	End Function
 	
@@ -452,7 +453,7 @@ Type TBoss32CR Extends TBoss
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)		
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)		
 			Return Enemy
 	End Function
 	
@@ -480,11 +481,11 @@ Type TBoss32FL Extends TBoss
 			Enemy.image = Boss32Far
 			Enemy.shoot = New TShootCircle
 			Enemy.shoot.setFreq(150) 
-			Enemy.hitpoints = 100000
+			Enemy.hitpoints = 200000
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)		
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)		
 			Return Enemy
 	End Function
 	
@@ -513,11 +514,11 @@ Type TBoss32FR Extends TBoss
 			Enemy.shoot = New TShootArroz2
 			Enemy.shoot.setFreq(20) 
 			'Enemy.shootSequence = New TShootSeqRafaleG
-			Enemy.hitpoints = 100000
+			Enemy.hitpoints = 200000
 			Enemy.xv = ImageWidth(Enemy.image)/2
 			Enemy.yv = ImageHeight(Enemy.image)/2
 			Enemy.dir = dir
-			enemyList.addLast(Enemy)		
+			Enemy.score=Enemy.hitpoints;enemyList.addLast(Enemy)		
 			Return Enemy
 	End Function
 	

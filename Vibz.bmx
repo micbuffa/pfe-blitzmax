@@ -30,6 +30,9 @@ Global explosionlist:TList	= CreateList() ' liste des effets d'explosion
 Global BonusList:TList = CreateList() 'liste des bonus
 Global StagesList:TList = CreateList() 'liste des niveaux
 
+Global currentLevel = 1
+' TODO : faire un système pour démarrer au niveau qu'on veut
+
 'Global maxShips = 15 ' le nombre de maximum de vaisseaux ennemis à l'écran
 Const LOW_FREQ = 1 'le type des vaisseaux
 Const HIGH_FREQ = 0
@@ -121,6 +124,7 @@ End Function
 ' Inclusions ----------------------------------- l'ordre est important ? 
 ' Classes et Firepaint utilisent des éléments d'Effets et Souns
 
+Incbin "lvl1.xml"
 Incbin "lvl2.xml"
 Incbin "lvl3.xml"
 
@@ -128,6 +132,7 @@ Include "Sound.bmx"
 Include "Effets.bmx"
 Include "Classes.bmx"
 Include "Enemies.bmx"
+Include "Enemieslvl1.bmx"
 Include "Enemieslvl2.bmx"
 Include "Enemieslvl3.bmx"
 Include "lib/firepaint.bmx"
@@ -201,11 +206,12 @@ Repeat ' This is the main loop!!!!
 		If KeyHit(KEY_2) Then Difficulty = 2 '; Print difficulty
 		If KeyHit(KEY_3) Then Difficulty = 3 '; Print difficulty
 		
-		If play = 10 ' correspond à l'initialisation du jeu
+		If play = INIT_GAME ' correspond à l'initialisation du jeu
 			Lives = maxLives 'le nombre de vies du joueur
 			PauseChannel channelBG 'musique du menu en pause
 			clearLists() 'réinitialisation de toutes les listes du jeu
 			TPlayer.Spawn() 'création du joueur
+			TStages.CreateFromFile("incbin::lvl1.xml")
 			TStages.CreateFromFile("incbin::lvl2.xml")
 			TStages.CreateFromFile("incbin::lvl3.xml")
 			endStage = 0 'le niveau n'est pas fini
@@ -224,14 +230,14 @@ Repeat ' This is the main loop!!!!
 		
 	End If
  
-'Phase de jeu -------
+'Phase de jeu ---------------------------------------------------
 
 	If play = PLAY_GAME Or play = GAMEOVER_GAME Or play = LEVELSTART_GAME Or play = LEVELEND_GAME 'And endStage  = 0
 		Local Player:TPlayer = TPlayer.getPlayer()
 		' lancement : fin du niveau
-		If endStage = 1 And play = 2 Then timer = MilliSecs()+5000; play = 4; If Not soundOff Then PlaySound(soundWin)
+		If endStage = 1 And play = PLAY_GAME Then timer=MilliSecs()+5000; play=LEVELEND_GAME;If Not soundOff Then PlaySound(soundWin)
 		' lancement : gameover
-		If lives <= 0 And play = 2 Then timer = MilliSecs()+5000; play = 3 ; If Not soundOff Then PlaySound(soundGameOver)
+		If lives <= 0 And play = PLAY_GAME Then timer=MilliSecs()+5000; play=GAMEOVER_GAME;If Not soundOff Then PlaySound(soundGameOver)
 			
 			If soundOff 
 				pauseGameChannels 
@@ -318,15 +324,18 @@ Repeat ' This is the main loop!!!!
 			DrawText "x " + Player.Bombs,87,470 
 		EndIf
 		SetColor 150,20,135
-		DrawText kills,60,565
+		DrawText kills,5,565
 		If KeyHit(key_escape) Then play = 0
 		
 		
 		
-		If timer > MilliSecs() ' phases spéciales
+		If timer > MilliSecs() ' phases spéciales --------------------------------
+		
 			slowmo = False ' ralenti désactivé
+			
 			SetImageFont harlow
-			If play = 2 'début du jeu ---------------------------------------------
+			
+			If play = PLAY_GAME 'début du jeu ---------------------------------------------
 				'attention cinématique de début oulala
 				Local appColor# = 255 - (timer-MilliSecs()) * 255/3000
 				'SetColor 255 - appColor,255 - appColor,255 - appColor
@@ -350,7 +359,8 @@ Repeat ' This is the main loop!!!!
 				pause = True
 				SetAlpha 1
 				time=0
-			Else If play = 3 'gameover --------------------------------------------
+				
+			Else If play = GAMEOVER_GAME 'gameover --------------------------------------------
 			' une sorte de rideau qui descend puis deux qui montent 
 			 	Local effectObject1:TGameObject = New TGameObject
 			effectObject1.x = GraphicsWidth()/2 ; effectObject1.y = GraphicsHeight()/2
@@ -374,7 +384,7 @@ Repeat ' This is the main loop!!!!
 					play = 0 ; loopsCount = 0
 				EndIf 
 				
-			Else If play = 4 'victoire du niveau ----------------------------------
+			Else If play = LEVELEND_GAME 'victoire du niveau ----------------------------------
 				Local effectObject1:TGameObject = New TGameObject
 				effectObject1.x = GraphicsWidth()/2 ; effectObject1.y = GraphicsHeight()/2
 				reverseFocusFire(ligthPartBlueImg,effectObject1,1,1,30,[0,255,0])
@@ -397,8 +407,10 @@ Repeat ' This is the main loop!!!!
 					If StagesList.count() = 0  
 						play = 0 ; loopsCount = 0
 						clearLists()
+						currentLevel = 1
 					Else 
-						play = 2
+						currentLevel :+ 1
+						play = PLAY_GAME
 						mapY = 0
 						endStage = 0
 						timer = MilliSecs() + 3000
