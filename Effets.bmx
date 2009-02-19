@@ -163,9 +163,9 @@ Function background()
 	SetColor 205,205,205
 	If slowmo Then SetColor 150+Sin(mapY)*50,150+Sin(mapY)*50,150+Sin(mapY)*50'SetColor 0,0,155
 	If pause Then SetColor 130,130,130
-	TileImage(BG1[currentLevel-1],leftEdge,mapY)
+	TileImage(BG1[currentLevel-1],leftEdge,mapY/2)
 	SetAlpha 0.5
-	TileImage BG2[currentLevel-1],leftEdge+mapx-Player.x/5,mapY-player.y/5
+	TileImage BG2[currentLevel-1],leftEdge+mapx-Player.x/5,mapY/2-player.y/5
 	SetAlpha 1
 	SetScale 1,1
 	SetBlend alphablend
