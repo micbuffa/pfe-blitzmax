@@ -82,6 +82,43 @@ Type TStages
 
 					enemyName = ennemi.attribute("name").Value
 					Select enemyName
+						'Ennemis du premier niveau
+						Case "blue1"
+							TEnemyBlue11.spawnDefault(traj)	
+						Case "blue2"
+							TEnemyBlue12.spawnDefault(traj)	
+						Case "blue3"
+							TEnemyBlue13.spawnDefault(traj)
+						Case "blue4"
+							TEnemyBlue14.spawnDefault(traj)
+						Case "blue5"
+							TEnemyBlue15.spawnDefault(traj)
+						Case "blue6"
+							TEnemyBlue16.spawnDefault(traj)
+						Case "blue7"
+							TEnemyBlue17.spawnDefault(traj)
+						Case "red1"
+							TEnemyRed11.spawnDefault(traj)	
+						Case "red2"
+							TEnemyRed12.spawnDefault(traj)
+						Case "red3"
+							TEnemyRed13.spawnDefault(traj)
+						Case "red4"
+							TEnemyRed14.spawnDefault(traj)
+						Case "red5"
+							TEnemyRed15.spawnDefault(traj)
+						Case "red6"
+							TEnemyRed16.spawnDefault(traj)
+						Case "red7"
+							TEnemyRed17.spawnDefault(traj)
+						Case "red8"
+							TEnemyRed18.spawnDefault(traj)
+						Case "red9"
+							TEnemyRed19.spawnDefault(traj)
+						Case "boss1"
+							TBoss11.spawnDefault(traj)
+						Case "boss2"
+							TBoss12.spawnDefault(traj)
 						'Ennemis du second niveau
 						Case "blue21"
 							TEnemyBlue21.spawnDefault(traj)	

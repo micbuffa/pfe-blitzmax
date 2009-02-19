@@ -1,0 +1,1196 @@
+<?xml version="1.0"?>
+<niveaux title="descriptif de tous les niveaux du jeu">
+	<niveau num="1" name="niv1">
+	
+		
+		<bloc time="2000" num="end">
+		</bloc>
+		<bloc time="2000" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2200" wave="1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2400" wave="1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2600" wave="1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2800" wave="1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="1">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="2000" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2200" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2400" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2600" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2800" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="2">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="3500" wave="3">
+			<ennemi name="red3">
+				<bezPts num="1" posX="270" posY="-50"></bezPts>
+				<bezPts num="2" posX="270" posY="400"></bezPts>
+				<bezPts num="3" posX="270" posY="-200"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="4200" wave="3">
+			<ennemi name="red3">
+				<bezPts num="1" posX="530" posY="-50"></bezPts>
+				<bezPts num="2" posX="530" posY="400"></bezPts>
+				<bezPts num="3" posX="530" posY="-200"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="4900" wave="3">
+			<ennemi name="red3">
+				<bezPts num="1" posX="270" posY="-50"></bezPts>
+				<bezPts num="2" posX="270" posY="400"></bezPts>
+				<bezPts num="3" posX="270" posY="-200"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="5600" wave="3">
+			<ennemi name="red3">
+				<bezPts num="1" posX="530" posY="-50"></bezPts>
+				<bezPts num="2" posX="530" posY="400"></bezPts>
+				<bezPts num="3" posX="530" posY="-200"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="2000" wave="4">
+			<ennemi name="blue5">
+				<bezPts num="1" posX="170" posY="-50"></bezPts>
+				<bezPts num="2" posX="320" posY="330"></bezPts>
+				<bezPts num="3" posX="900" posY="-50"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="3000" wave="4">
+			<ennemi name="blue5">
+				<bezPts num="1" posX="630" posY="-50"></bezPts>
+				<bezPts num="2" posX="480" posY="330"></bezPts>
+				<bezPts num="3" posX="-10" posY="-50"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="2000" wave="5">
+			<ennemi name="blue5">
+				<bezPts num="1" posX="170" posY="-50"></bezPts>
+				<bezPts num="2" posX="320" posY="330"></bezPts>
+				<bezPts num="3" posX="900" posY="-50"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="2200" wave="5">
+			<ennemi name="blue1">
+				<bezPts num="1" posX="170" posY="-50"></bezPts>
+				<bezPts num="2" posX="320" posY="330"></bezPts>
+				<bezPts num="3" posX="900" posY="-50"></bezPts>
+			</ennemi>
+			<ennemi name="blue1">
+				<bezPts num="1" posX="100" posY="-50"></bezPts>
+				<bezPts num="2" posX="250" posY="330"></bezPts>
+				<bezPts num="3" posX="830" posY="-50"></bezPts>
+			</ennemi>
+			<ennemi name="blue1">
+				<bezPts num="1" posX="240" posY="-50"></bezPts>
+				<bezPts num="2" posX="390" posY="330"></bezPts>
+				<bezPts num="3" posX="970" posY="-50"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="3000" wave="5">
+			<ennemi name="blue5">
+				<bezPts num="1" posX="630" posY="-50"></bezPts>
+				<bezPts num="2" posX="480" posY="330"></bezPts>
+				<bezPts num="3" posX="-10" posY="-50"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="3200" wave="5">
+			<ennemi name="blue1">
+				<bezPts num="1" posX="630" posY="-50"></bezPts>
+				<bezPts num="2" posX="480" posY="330"></bezPts>
+				<bezPts num="3" posX="-10" posY="-50"></bezPts>
+			</ennemi>
+			<ennemi name="blue1">
+				<bezPts num="1" posX="560" posY="-50"></bezPts>
+				<bezPts num="2" posX="410" posY="330"></bezPts>
+				<bezPts num="3" posX="-80" posY="-50"></bezPts>
+			</ennemi>
+			<ennemi name="blue1">
+				<bezPts num="1" posX="670" posY="-50"></bezPts>
+				<bezPts num="2" posX="550" posY="330"></bezPts>
+				<bezPts num="3" posX="60" posY="-50"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2000" wave="6">
+			<ennemi name="red5">
+				<bezPts num="1" posX="100" posY="-30"></bezPts>
+				<bezPts num="2" posX="630" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="170" posY="330"></bezPts>
+				<bezPts num="5" posX="800" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2200" wave="6">
+			<ennemi name="red5">
+				<bezPts num="1" posX="100" posY="-30"></bezPts>
+				<bezPts num="2" posX="630" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="170" posY="330"></bezPts>
+				<bezPts num="5" posX="800" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2400" wave="6">
+			<ennemi name="red5">
+				<bezPts num="1" posX="100" posY="-30"></bezPts>
+				<bezPts num="2" posX="630" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="170" posY="330"></bezPts>
+				<bezPts num="5" posX="800" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2600" wave="6">
+			<ennemi name="red5">
+				<bezPts num="1" posX="100" posY="-30"></bezPts>
+				<bezPts num="2" posX="630" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="170" posY="330"></bezPts>
+				<bezPts num="5" posX="800" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2800" wave="6">
+			<ennemi name="red5">
+				<bezPts num="1" posX="100" posY="-30"></bezPts>
+				<bezPts num="2" posX="630" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="170" posY="330"></bezPts>
+				<bezPts num="5" posX="800" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="6">
+			<ennemi name="red5">
+				<bezPts num="1" posX="100" posY="-30"></bezPts>
+				<bezPts num="2" posX="630" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="170" posY="330"></bezPts>
+				<bezPts num="5" posX="800" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2000" wave="7">
+			<ennemi name="red5">
+				<bezPts num="1" posX="700" posY="-30"></bezPts>
+				<bezPts num="2" posX="170" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="630" posY="330"></bezPts>
+				<bezPts num="5" posX="0" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2200" wave="7">
+			<ennemi name="red5">
+				<bezPts num="1" posX="700" posY="-30"></bezPts>
+				<bezPts num="2" posX="170" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="630" posY="330"></bezPts>
+				<bezPts num="5" posX="0" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2400" wave="7">
+			<ennemi name="red5">
+				<bezPts num="1" posX="700" posY="-30"></bezPts>
+				<bezPts num="2" posX="170" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="630" posY="330"></bezPts>
+				<bezPts num="5" posX="0" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2600" wave="7">
+			<ennemi name="red5">
+				<bezPts num="1" posX="700" posY="-30"></bezPts>
+				<bezPts num="2" posX="170" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="630" posY="330"></bezPts>
+				<bezPts num="5" posX="0" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2800" wave="7">
+			<ennemi name="red5">
+				<bezPts num="1" posX="700" posY="-30"></bezPts>
+				<bezPts num="2" posX="170" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="630" posY="330"></bezPts>
+				<bezPts num="5" posX="0" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="7">
+			<ennemi name="red5">
+				<bezPts num="1" posX="700" posY="-30"></bezPts>
+				<bezPts num="2" posX="170" posY="300"></bezPts>
+				<bezPts num="3" posX="400" posY="30"></bezPts>
+				<bezPts num="4" posX="630" posY="330"></bezPts>
+				<bezPts num="5" posX="0" posY="-150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="8">
+			<ennemi name="blue4">
+				<bezPts num="1" posX="120" posY="-50"></bezPts>
+				<bezPts num="2" posX="325" posY="270"></bezPts>
+				<bezPts num="3" posX="400" posY="60"></bezPts>
+				<bezPts num="4" posX="180" posY="100"></bezPts>
+				<bezPts num="5" posX="250" posY="400"></bezPts>
+				<bezPts num="6" posX="-100" posY="660"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3200" wave="8">
+			<ennemi name="blue3">
+				<bezPts num="1" posX="120" posY="-50"></bezPts>
+				<bezPts num="2" posX="325" posY="270"></bezPts>
+				<bezPts num="3" posX="400" posY="60"></bezPts>
+				<bezPts num="4" posX="180" posY="100"></bezPts>
+				<bezPts num="5" posX="250" posY="400"></bezPts>
+				<bezPts num="6" posX="-100" posY="660"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3400" wave="8">
+			<ennemi name="blue3">
+				<bezPts num="1" posX="120" posY="-50"></bezPts>
+				<bezPts num="2" posX="325" posY="270"></bezPts>
+				<bezPts num="3" posX="400" posY="60"></bezPts>
+				<bezPts num="4" posX="180" posY="100"></bezPts>
+				<bezPts num="5" posX="250" posY="400"></bezPts>
+				<bezPts num="6" posX="-100" posY="660"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3600" wave="8">
+			<ennemi name="blue3">
+				<bezPts num="1" posX="120" posY="-50"></bezPts>
+				<bezPts num="2" posX="325" posY="270"></bezPts>
+				<bezPts num="3" posX="400" posY="60"></bezPts>
+				<bezPts num="4" posX="180" posY="100"></bezPts>
+				<bezPts num="5" posX="250" posY="400"></bezPts>
+				<bezPts num="6" posX="-100" posY="660"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4000" wave="8">
+			<ennemi name="blue4">
+				<bezPts num="1" posX="680" posY="-50"></bezPts>
+				<bezPts num="2" posX="475" posY="270"></bezPts>
+				<bezPts num="3" posX="400" posY="60"></bezPts>
+				<bezPts num="4" posX="620" posY="100"></bezPts>
+				<bezPts num="5" posX="250" posY="400"></bezPts>
+				<bezPts num="6" posX="-100" posY="660"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4200" wave="8">
+			<ennemi name="blue3">
+				<bezPts num="1" posX="680" posY="-50"></bezPts>
+				<bezPts num="2" posX="475" posY="270"></bezPts>
+				<bezPts num="3" posX="400" posY="60"></bezPts>
+				<bezPts num="4" posX="620" posY="100"></bezPts>
+				<bezPts num="5" posX="250" posY="400"></bezPts>
+				<bezPts num="6" posX="-100" posY="660"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4400" wave="8">
+			<ennemi name="blue3">
+				<bezPts num="1" posX="680" posY="-50"></bezPts>
+				<bezPts num="2" posX="475" posY="270"></bezPts>
+				<bezPts num="3" posX="400" posY="60"></bezPts>
+				<bezPts num="4" posX="620" posY="100"></bezPts>
+				<bezPts num="5" posX="250" posY="400"></bezPts>
+				<bezPts num="6" posX="-100" posY="660"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4600" wave="8">
+			<ennemi name="blue3">
+				<bezPts num="1" posX="680" posY="-50"></bezPts>
+				<bezPts num="2" posX="475" posY="270"></bezPts>
+				<bezPts num="3" posX="400" posY="60"></bezPts>
+				<bezPts num="4" posX="620" posY="100"></bezPts>
+				<bezPts num="5" posX="250" posY="400"></bezPts>
+				<bezPts num="6" posX="-100" posY="660"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="9">
+			<ennemi name="red6">
+				<bezPts num="1" posX="250" posY="-50"></bezPts>
+				<bezPts num="2" posX="200" posY="90"></bezPts>
+				<bezPts num="3" posX="0" posY="110"></bezPts>
+			</ennemi>
+			<ennemi name="red6">
+				<bezPts num="1" posX="550" posY="-50"></bezPts>
+				<bezPts num="2" posX="600" posY="90"></bezPts>
+				<bezPts num="3" posX="800" posY="110"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3500" wave="9">
+			<ennemi name="red6">
+				<bezPts num="1" posX="350" posY="-50"></bezPts>
+				<bezPts num="2" posX="300" posY="200"></bezPts>
+				<bezPts num="3" posX="0" posY="250"></bezPts>
+			</ennemi>
+			<ennemi name="red6">
+				<bezPts num="1" posX="450" posY="-50"></bezPts>
+				<bezPts num="2" posX="500" posY="200"></bezPts>
+				<bezPts num="3" posX="800" posY="250"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4000" wave="9">
+			<ennemi name="red7">
+				<bezPts num="1" posX="300" posY="150"></bezPts>
+				<bezPts num="2" posX="630" posY="200"></bezPts>
+				<bezPts num="3" posX="400" posY="450"></bezPts>
+				<bezPts num="4" posX="630" posY="50"></bezPts>
+				<bezPts num="5" posX="300" posY="150"></bezPts>
+			</ennemi>
+			<ennemi name="red7">
+				<bezPts num="1" posX="500" posY="150"></bezPts>
+				<bezPts num="2" posX="170" posY="200"></bezPts>
+				<bezPts num="3" posX="400" posY="450"></bezPts>
+				<bezPts num="4" posX="170" posY="50"></bezPts>
+				<bezPts num="5" posX="500" posY="150"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2000" wave="10">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2200" wave="10">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2400" wave="10">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2600" wave="10">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2800" wave="10">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="10">
+			<ennemi name="red1">
+				<bezPts num="1" posX="200" posY="-55"></bezPts>
+				<bezPts num="2" posX="154" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="2000" wave="11">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2200" wave="11">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2400" wave="11">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2600" wave="11">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2800" wave="11">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="11">
+			<ennemi name="red1">
+				<bezPts num="1" posX="600" posY="-55"></bezPts>
+				<bezPts num="2" posX="646" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2000" wave="12">
+			<ennemi name="red8">
+				<bezPts num="1" posX="103" posY="-7"></bezPts>
+				<bezPts num="2" posX="636" posY="90"></bezPts>
+				<bezPts num="3" posX="165" posY="176"></bezPts>
+				<bezPts num="4" posX="636" posY="284"></bezPts>
+				<bezPts num="5" posX="-100" posY="406"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2300" wave="12">
+			<ennemi name="red8">
+				<bezPts num="1" posX="103" posY="-7"></bezPts>
+				<bezPts num="2" posX="636" posY="90"></bezPts>
+				<bezPts num="3" posX="165" posY="176"></bezPts>
+				<bezPts num="4" posX="636" posY="284"></bezPts>
+				<bezPts num="5" posX="-100" posY="406"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2600" wave="12">
+			<ennemi name="red8">
+				<bezPts num="1" posX="103" posY="-7"></bezPts>
+				<bezPts num="2" posX="636" posY="90"></bezPts>
+				<bezPts num="3" posX="165" posY="176"></bezPts>
+				<bezPts num="4" posX="636" posY="284"></bezPts>
+				<bezPts num="5" posX="-100" posY="406"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2900" wave="12">
+			<ennemi name="red8">
+				<bezPts num="1" posX="103" posY="-7"></bezPts>
+				<bezPts num="2" posX="636" posY="90"></bezPts>
+				<bezPts num="3" posX="165" posY="176"></bezPts>
+				<bezPts num="4" posX="636" posY="284"></bezPts>
+				<bezPts num="5" posX="-100" posY="406"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3200" wave="12">
+			<ennemi name="red8">
+				<bezPts num="1" posX="103" posY="-7"></bezPts>
+				<bezPts num="2" posX="636" posY="90"></bezPts>
+				<bezPts num="3" posX="165" posY="176"></bezPts>
+				<bezPts num="4" posX="636" posY="284"></bezPts>
+				<bezPts num="5" posX="-100" posY="406"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3500" wave="12">
+			<ennemi name="red8">
+				<bezPts num="1" posX="103" posY="-7"></bezPts>
+				<bezPts num="2" posX="636" posY="90"></bezPts>
+				<bezPts num="3" posX="165" posY="176"></bezPts>
+				<bezPts num="4" posX="636" posY="284"></bezPts>
+				<bezPts num="5" posX="-100" posY="406"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="1500" wave="13">
+		</bloc>
+		<bloc time="2000" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2250" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2500" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2750" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3250" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3500" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3750" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4000" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4250" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4500" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4750" wave="13">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="1500" wave="14">
+		</bloc>
+		<bloc time="2000" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+			<ennemi name="red2">
+				<bezPts num="1" posX="200" posY="-35"></bezPts>
+				<bezPts num="2" posX="215" posY="460"></bezPts>
+				<bezPts num="3" posX="300" posY="900"></bezPts>
+			</ennemi>
+			<ennemi name="red2">
+				<bezPts num="1" posX="600" posY="-35"></bezPts>
+				<bezPts num="2" posX="585" posY="460"></bezPts>
+				<bezPts num="3" posX="500" posY="900"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2250" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2500" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2750" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+			<ennemi name="red2">
+				<bezPts num="1" posX="250" posY="-35"></bezPts>
+				<bezPts num="2" posX="265" posY="460"></bezPts>
+				<bezPts num="3" posX="350" posY="900"></bezPts>
+			</ennemi>
+			<ennemi name="red2">
+				<bezPts num="1" posX="550" posY="-35"></bezPts>
+				<bezPts num="2" posX="535" posY="460"></bezPts>
+				<bezPts num="3" posX="450" posY="900"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3250" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3500" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3750" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4000" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+			<ennemi name="red2">
+				<bezPts num="1" posX="300" posY="-35"></bezPts>
+				<bezPts num="2" posX="315" posY="460"></bezPts>
+				<bezPts num="3" posX="400" posY="900"></bezPts>
+			</ennemi>
+			<ennemi name="red2">
+				<bezPts num="1" posX="500" posY="-35"></bezPts>
+				<bezPts num="2" posX="485" posY="460"></bezPts>
+				<bezPts num="3" posX="400" posY="900"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4250" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4500" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="110" posY="-43"></bezPts>
+				<bezPts num="2" posX="300" posY="100"></bezPts>
+				<bezPts num="3" posX="165" posY="240"></bezPts>
+				<bezPts num="4" posX="300" posY="375"></bezPts>
+				<bezPts num="5" posX="165" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4750" wave="14">
+			<ennemi name="blue7">
+				<bezPts num="1" posX="690" posY="-43"></bezPts>
+				<bezPts num="2" posX="500" posY="100"></bezPts>
+				<bezPts num="3" posX="635" posY="240"></bezPts>
+				<bezPts num="4" posX="500" posY="375"></bezPts>
+				<bezPts num="5" posX="635" posY="500"></bezPts>
+				<bezPts num="6" posX="400" posY="800"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="5000" wave="14">
+			<ennemi name="blue6">
+				<bezPts num="1" posX="400" posY="15"></bezPts>
+				<bezPts num="2" posX="525" posY="100"></bezPts>
+				<bezPts num="3" posX="625" posY="15"></bezPts>
+				<bezPts num="4" posX="625" posY="100"></bezPts>
+				<bezPts num="5" posX="525" posY="15"></bezPts>
+				<bezPts num="6" posX="400" posY="100"></bezPts>
+				<bezPts num="7" posX="275" posY="15"></bezPts>
+				<bezPts num="8" posX="175" posY="100"></bezPts>
+				<bezPts num="9" posX="175" posY="15"></bezPts>
+				<bezPts num="10" posX="275" posY="100"></bezPts>
+				<bezPts num="11" posX="400" posY="15"></bezPts>
+			</ennemi>
+		</bloc>
+
+		<bloc time="2000" wave="15">
+		</bloc>
+		<bloc time="5000" wave="15">
+			<ennemi name="boss1">
+				<bezPts num="1" posX="400" posY="200"></bezPts>
+				<bezPts num="2" posX="400" posY="200"></bezPts>
+			</ennemi>
+		</bloc>
+
+		<bloc time="1500" wave="16">
+		</bloc>
+		<bloc time="2000" wave="16">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2200" wave="16">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2400" wave="16">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2600" wave="16">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2800" wave="16">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="16">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="2000" wave="17">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2200" wave="17">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2400" wave="17">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2600" wave="17">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2800" wave="17">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="17">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="1500" wave="18">
+		</bloc>
+		<bloc time="2000" wave="18">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2200" wave="18">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+			<ennemi name="red9">
+				<bezPts num="1" posX="110" posY="85"></bezPts>
+				<bezPts num="2" posX="250" posY="150"></bezPts>
+				<bezPts num="3" posX="-100" posY="300"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2400" wave="18">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2600" wave="18">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+			<ennemi name="red9">
+				<bezPts num="1" posX="110" posY="85"></bezPts>
+				<bezPts num="2" posX="250" posY="150"></bezPts>
+				<bezPts num="3" posX="-100" posY="300"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2800" wave="18">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="18">
+			<ennemi name="red1">
+				<bezPts num="1" posX="300" posY="-55"></bezPts>
+				<bezPts num="2" posX="254" posY="390"></bezPts>
+				<bezPts num="3" posX="-92" posY="383"></bezPts>
+			</ennemi>
+			<ennemi name="red9">
+				<bezPts num="1" posX="110" posY="85"></bezPts>
+				<bezPts num="2" posX="250" posY="150"></bezPts>
+				<bezPts num="3" posX="-100" posY="300"></bezPts>
+			</ennemi>
+		</bloc>			
+		<bloc time="2000" wave="19">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2200" wave="19">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+			<ennemi name="red9">
+				<bezPts num="1" posX="690" posY="85"></bezPts>
+				<bezPts num="2" posX="550" posY="150"></bezPts>
+				<bezPts num="3" posX="900" posY="300"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2400" wave="19">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2600" wave="19">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+			<ennemi name="red9">
+				<bezPts num="1" posX="690" posY="85"></bezPts>
+				<bezPts num="2" posX="550" posY="150"></bezPts>
+				<bezPts num="3" posX="900" posY="300"></bezPts>
+			</ennemi>
+		</bloc>		
+		<bloc time="2800" wave="19">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="19">
+			<ennemi name="red1">
+				<bezPts num="1" posX="500" posY="-55"></bezPts>
+				<bezPts num="2" posX="546" posY="390"></bezPts>
+				<bezPts num="3" posX="892" posY="383"></bezPts>
+			</ennemi>
+			<ennemi name="red9">
+				<bezPts num="1" posX="690" posY="85"></bezPts>
+				<bezPts num="2" posX="550" posY="150"></bezPts>
+				<bezPts num="3" posX="900" posY="300"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2000" wave="20">
+			<ennemi name="blue6">
+				<bezPts num="1" posX="400" posY="15"></bezPts>
+				<bezPts num="2" posX="525" posY="100"></bezPts>
+				<bezPts num="3" posX="625" posY="15"></bezPts>
+				<bezPts num="4" posX="625" posY="100"></bezPts>
+				<bezPts num="5" posX="525" posY="15"></bezPts>
+				<bezPts num="6" posX="400" posY="100"></bezPts>
+				<bezPts num="7" posX="275" posY="15"></bezPts>
+				<bezPts num="8" posX="175" posY="100"></bezPts>
+				<bezPts num="9" posX="175" posY="15"></bezPts>
+				<bezPts num="10" posX="275" posY="100"></bezPts>
+				<bezPts num="11" posX="400" posY="15"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2500" wave="20">
+			<ennemi name="red3">
+				<bezPts num="1" posX="100" posY="275"></bezPts>
+				<bezPts num="2" posX="900" posY="275"></bezPts>
+			</ennemi>
+			<ennemi name="red3">
+				<bezPts num="1" posX="700" posY="200"></bezPts>
+				<bezPts num="2" posX="-100" posY="200"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2650" wave="20">
+			<ennemi name="red3">
+				<bezPts num="1" posX="100" posY="275"></bezPts>
+				<bezPts num="2" posX="900" posY="275"></bezPts>
+			</ennemi>
+			<ennemi name="red3">
+				<bezPts num="1" posX="700" posY="200"></bezPts>
+				<bezPts num="2" posX="-100" posY="200"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2800" wave="20">
+			<ennemi name="red3">
+				<bezPts num="1" posX="100" posY="275"></bezPts>
+				<bezPts num="2" posX="900" posY="275"></bezPts>
+			</ennemi>
+			<ennemi name="red3">
+				<bezPts num="1" posX="700" posY="200"></bezPts>
+				<bezPts num="2" posX="-100" posY="200"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4000" wave="20">
+			<ennemi name="red3">
+				<bezPts num="1" posX="100" posY="275"></bezPts>
+				<bezPts num="2" posX="900" posY="275"></bezPts>
+			</ennemi>
+			<ennemi name="red3">
+				<bezPts num="1" posX="700" posY="200"></bezPts>
+				<bezPts num="2" posX="-100" posY="200"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4150" wave="20">
+			<ennemi name="red3">
+				<bezPts num="1" posX="100" posY="275"></bezPts>
+				<bezPts num="2" posX="900" posY="275"></bezPts>
+			</ennemi>
+			<ennemi name="red3">
+				<bezPts num="1" posX="700" posY="200"></bezPts>
+				<bezPts num="2" posX="-100" posY="200"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4300" wave="20">
+			<ennemi name="red3">
+				<bezPts num="1" posX="100" posY="275"></bezPts>
+				<bezPts num="2" posX="900" posY="275"></bezPts>
+			</ennemi>
+			<ennemi name="red3">
+				<bezPts num="1" posX="700" posY="200"></bezPts>
+				<bezPts num="2" posX="-100" posY="200"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2000" wave="21">
+			<ennemi name="red8">
+				<bezPts num="1" posX="110" posY="500"></bezPts>
+				<bezPts num="2" posX="300" posY="400"></bezPts>
+				<bezPts num="3" posX="500" posY="-100"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2500" wave="21">
+			<ennemi name="red8">
+				<bezPts num="1" posX="690" posY="500"></bezPts>
+				<bezPts num="2" posX="500" posY="400"></bezPts>
+				<bezPts num="3" posX="300" posY="-100"></bezPts>
+			</ennemi>
+			<ennemi name="blue2">
+				<bezPts num="1" posX="100" posY="200"></bezPts>
+				<bezPts num="2" posX="1000" posY="200"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3000" wave="21">
+			<ennemi name="red8">
+				<bezPts num="1" posX="110" posY="500"></bezPts>
+				<bezPts num="2" posX="300" posY="400"></bezPts>
+				<bezPts num="3" posX="500" posY="-100"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="3500" wave="21">
+			<ennemi name="red8">
+				<bezPts num="1" posX="690" posY="500"></bezPts>
+				<bezPts num="2" posX="500" posY="400"></bezPts>
+				<bezPts num="3" posX="300" posY="-100"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4000" wave="21">
+			<ennemi name="red8">
+				<bezPts num="1" posX="110" posY="500"></bezPts>
+				<bezPts num="2" posX="300" posY="400"></bezPts>
+				<bezPts num="3" posX="500" posY="-100"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="4500" wave="21">
+			<ennemi name="red8">
+				<bezPts num="1" posX="690" posY="500"></bezPts>
+				<bezPts num="2" posX="500" posY="400"></bezPts>
+				<bezPts num="3" posX="300" posY="-100"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="5000" wave="21">
+			<ennemi name="red8">
+				<bezPts num="1" posX="110" posY="500"></bezPts>
+				<bezPts num="2" posX="300" posY="400"></bezPts>
+				<bezPts num="3" posX="500" posY="-100"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="5500" wave="21">
+			<ennemi name="red8">
+				<bezPts num="1" posX="690" posY="500"></bezPts>
+				<bezPts num="2" posX="500" posY="400"></bezPts>
+				<bezPts num="3" posX="300" posY="-100"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2000" wave="22">
+		</bloc>
+		<bloc time="5000" wave="22">
+			<ennemi name="boss2">
+				<bezPts num="1" posX="400" posY="200"></bezPts>
+				<bezPts num="2" posX="400" posY="200"></bezPts>
+			</ennemi>
+		</bloc>
+		<bloc time="2000" num="end">
+		</bloc>
+	</niveau>
+	
+</niveaux>
