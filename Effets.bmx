@@ -73,7 +73,7 @@ Global bg11:TImage = LoadImage("incbin::images/scrolling11.png")
 Global bg12:TImage = LoadImage("incbin::images/scrolling12.png")
 Global BG1:TImage[3] 
 Global BG2:TImage[3]
-bg1[0] = bg31 
+bg1[0] = bg11 
 bg1[1] = bg21
 bg1[2] = bg31
 bg2[0] = bg12
@@ -232,6 +232,36 @@ Type TLaserAnimation Extends TAnimation
 		Return anim
 	End Function
 End Type
+
+Type TInfo Extends TGameObject
+
+	Field text$
+	Field life#
+	
+	Function make(x#,y#,t$, l# = 255)
+		Local info:TInfo = New TInfo
+		info.x = x
+		info.y = y
+		info.text = t
+		info.life = l
+		infoList.addLast(info)
+	End Function
+	
+	Function update()
+		SetScale 0.5,0.5
+		For Local info:TInfo = EachIn infoList
+			If info.life <= 0
+				infoList.remove(info)			
+			Else
+				SetColor info.life,info.life,info.life
+				DrawText info.text, info.x, info.y
+				info.life :- 10
+			EndIf
+		Next
+		SetScale 1,1
+	End Function
+End Type
+
 
 
 

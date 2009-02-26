@@ -117,6 +117,8 @@ Type TStages
 							TEnemyRed19.spawnDefault(traj)
 						Case "boss1"
 							TBoss11.spawnDefault(traj)
+							'TInfo.make(200,200,"Boss 1 - 1", 3000)
+							'TInfo.make(200,300,"Let's see what you got, kid!", 2000)
 						Case "boss2"
 							TBoss12.spawnDefault(traj)
 						'Ennemis du second niveau

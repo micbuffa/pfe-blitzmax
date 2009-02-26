@@ -1,6 +1,6 @@
 
 Type TGameObject
-	Field x#,y#,xv,yv
+	Field x#,y#,xv#,yv#
 End Type
 
 Type TShip Extends TGameObject
@@ -433,9 +433,10 @@ Type TEnemy Extends TShip
 			Self.Bonus.y = y ' Also carried over
 			Self.Bonus.xv = 20
 			Self.Bonus.yv = 20
-			Self.Bonus.dir = Rand(0,1)
+			'Self.Bonus.dir = Rand(0,1)
 			BonusList.AddLast(Bonus)
 		EndIf
+		TInfo.make(Self.x, Self.y, "+" + Self.score)
 		EnemyList.Remove(Self)
 	End Method
 	
@@ -501,13 +502,13 @@ End Type
 
 
 Type TBullet Extends TGameObject
-	Field Owner ' specify who shot the bullet
+	'Field Owner ' specify who shot the bullet
 	Field image:TImage 'image du projectile
 	'Field animation:TAnimation
 	Field scale# ' échelle de l'image
 	Field angle% = 0
 	Field bouncing = False ' est-ce que les projectiles rebondissent ?
-	Field maxY=0
+	'Field maxY=0
 	Field dec
 	Field shoot:TShoot
 	Field freqType
@@ -520,7 +521,7 @@ Type TBullet Extends TGameObject
        bullet.y = y  'Also carried over, but adjusted to be below the firing enemy
        bullet.angle=angle
 		bullet.scale = 0.4
-       Bullet.Owner = Enemy 'The bullet collision detection will know whose is whose
+       'Bullet.Owner = Enemy 'The bullet collision detection will know whose is whose
 		bullet.freqtype = freqType
 		If freqType = LOW_FREQ
 			bullet.image = EnemyBulletImageBF
@@ -707,7 +708,7 @@ Type TBulletBass Extends TBullet
 		Local Bullet:TBulletBass = New TBulletBass
 		Bullet.x = x  'That's carried over from the function call, was player.x
 		Bullet.y = y - 34 ' Also carried over, but adjusted to be above the player
-		Bullet.Owner = Player 'The bullet collision detection will know whose is whose
+		'Bullet.Owner = Player 'The bullet collision detection will know whose is whose
 		Bullet.image = BulletBassImage
 		Bullet.scale = 0.3
 		Bullet.speed = 8
@@ -720,7 +721,7 @@ Type TBulletBass Extends TBullet
 		Local Bullet:TBulletBass = New TBulletBass
 		Bullet.x = x  'That's carried over from the function call, was player.x
 		Bullet.y = y - 10 ' Also carried over, but adjusted to be above the player
-		Bullet.Owner = Ally 'The bullet collision detection will know whose is whose
+		'Bullet.Owner = Ally 'The bullet collision detection will know whose is whose
 		Bullet.angle = angle
 		PlayerBulletList.AddLast(Bullet)
 		'AllyBulletTimer = MilliSecs()+200
@@ -751,7 +752,7 @@ Type TBulletTreble Extends TBullet
 		Local Bullet:TBulletTreble = New TBulletTreble
 		Bullet.x = x  'That's carried over from the function call, was player.x
 		Bullet.y = y - 33 ' Also carried over, but adjusted to be above the player
-		Bullet.Owner = Player 'The bullet collision detection will know whose is whose
+		'Bullet.Owner = Player 'The bullet collision detection will know whose is whose
 		Bullet.image = bulletTrebleImage
 		'Bullet.animation = TAnimation.make()
 		Bullet.angle = angle
@@ -768,7 +769,7 @@ Type TBulletTreble Extends TBullet
 		Local Bullet:TBulletTreble = New TBulletTreble
 		Bullet.x = x  'That's carried over from the function call, was player.x
 		Bullet.y = y - 10 ' Also carried over, but adjusted to be above the player
-		Bullet.Owner = Ally 'The bullet collision detection will know whose is whose
+		'Bullet.Owner = Ally 'The bullet collision detection will know whose is whose
 		Bullet.angle = angle
 		Bullet.dec = dec
 		Bullet.image = bulletTrebleImage
@@ -783,7 +784,7 @@ Type TBulletMid Extends TBullet
 		Local Bullet:TBulletMid = New TBulletMid
 		Bullet.x = x  'That's carried over from the function call, was player.x
 		Bullet.y = y - 34 ' Also carried over, but adjusted to be above the player
-		Bullet.Owner = Player 'The bullet collision detection will know whose is whose
+		'Bullet.Owner = Player 'The bullet collision detection will know whose is whose
 		
 		PlayerBulletList.AddLast(Bullet)
 		BulletTimer = MilliSecs()+200
@@ -794,7 +795,7 @@ Type TBulletMid Extends TBullet
 		Local Bullet:TBulletMid = New TBulletMid
 		Bullet.x = x  'That's carried over from the function call, was player.x
 		Bullet.y = y - 10 ' Also carried over, but adjusted to be above the player
-		Bullet.Owner = Ally 'The bullet collision detection will know whose is whose
+		'Bullet.Owner = Ally 'The bullet collision detection will know whose is whose
 		Bullet.angle = angle
 		Bullet.speed = 1
 		Bullet.dec = dec
@@ -810,7 +811,7 @@ Type TBonus Extends TGameObject
 	Field xv = 30 'override
 	Field yv = 30 'override
 	Field speed# = 1
-	Field dir%  '0 = gauche, 1 = droite
+	'Field dir%  '0 = gauche, 1 = droite
 	Field lifeTime% = 250 'tours de boucle
 	
 	Function spawn(x%,y%) 'Abstract
@@ -852,7 +853,7 @@ Type TBonusSlowMo Extends TBonus
 			Bonus.y = y ' Also carried over
 			'Bonus.xv = 20
 			'Bonus.yv = 20
-			Bonus.dir = Rand(0,1)
+			'Bonus.dir = Rand(0,1)
 			BonusList.AddLast(Bonus)
 	End Function 
 	
@@ -888,7 +889,7 @@ Type TBonusOneUp Extends TBonus
 			Bonus.y = y ' Also carried over
 			'Bonus.xv = 20
 			'Bonus.yv = 20
-			Bonus.dir = Rand(0,1)
+			'Bonus.dir = Rand(0,1)
 			BonusList.AddLast(Bonus)
 	End Function 
 	
@@ -921,7 +922,7 @@ Type TBonusWidth Extends TBonus
 			Bonus.y = y ' Also carried over
 			'Bonus.xv = 20
 			'Bonus.yv = 20
-			Bonus.dir = Rand(0,1)
+			'Bonus.dir = Rand(0,1)
 			BonusList.AddLast(Bonus)
 	End Function 
 	
@@ -942,8 +943,7 @@ Type TBonusWidth Extends TBonus
 					reverseFocusFire(ligthPartBlueImg,player,5,1,30,[0,0,255]);
 					reverseFocusFire(ligthPartPurpleImg,player,5,1,30,[255,0,0])
 				Else 
-					kills :+ 1000
-					DrawText "Bonus +1000", bonus.x, bonus.y
+					TInfo.make(bonus.x, bonus.y, "+1000")
 				EndIf
 				BonusList.Remove(bonus)
 			EndIf 
@@ -963,7 +963,7 @@ Type TBonusBomb Extends TBonus
 			Bonus.y = y ' Also carried over
 			'Bonus.xv = 20
 			'Bonus.yv = 20
-			Bonus.dir = Rand(0,1)
+			'Bonus.dir = Rand(0,1)
 			BonusList.AddLast(Bonus)
 	End Function 
 	

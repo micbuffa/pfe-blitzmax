@@ -1,49 +1,40 @@
-Import pub.MaXML
-
+Import pub.MaXML ' XML module
 
 Strict
 SeedRnd MilliSecs()
 Graphics 800,600,32,60
 
-Global Kills       'We're going to store how many kills we get instead of a score on this game.
-Global Lives       'This is a variable storing how many lives the player has left.
-Global debugMode = False 'mode invincible - marche plus très bien
-Global Difficulty = 2 ' mode de difficulté : change la fréquence des tirs ennemis (pour l'instant)
+Global Kills       ' The score of this game
+Global Lives       ' This is a variable storing how many lives the player has left
+Global debugMode = False 
+Global Difficulty = 2 ' Difficulty level 1-3 : modifies the shoot frequence of the enemies
 
-Global maxLives% = 3 'vies du joueur au début
-Global maxPowerLevel% = 5 'puissance maximale du joueur
-Global maxBombs% = 99 'nombre maximum de bombes du joueur
-Global maxSlowMo# = 2000 ' temps maximum de slow motion, en tours de boucle
-Global BulletTimer 'We'll use this to put a timer on bullets used in the game.
-Global FreqTimer 'pour le délai de changement de fréquence de tir
-'Global AllyBulletTimer
-Const Player = 1  'This is a constant, which will always be the number 1 'inutile pour l'instant
-Const Enemy  = 2  'This is also a constant, which will always be the number 2
-Const Ally = 3 
-Global PlayerList:TList		= CreateList() ' liste des joueurs ' un seul pour l'instant
-Global PlayerBulletList:TList	= CreateList() ' liste des tirs du joueur et des alliés
-Global AllyList:TList = CreateList() ' liste des alliés
-Global AllyBulletList:TList = CreateList() ' inutile pour l'instant
-Global EnemyList:TList		= CreateList() ' liste des ennemis
-Global EnemyBulletList:TList	= CreateList() ' liste des tirs ennemis
-Global explosionlist:TList	= CreateList() ' liste des effets d'explosion
-Global BonusList:TList = CreateList() 'liste des bonus
-Global StagesList:TList = CreateList() 'liste des niveaux
+Global maxLives% = 3 ' Lives of the player at the beginning
+Global maxPowerLevel% = 5 ' Max power
+Global maxBombs% = 99 ' Max bombs
+Global maxSlowMo# = 2000 ' Max slow motion stock
+Global BulletTimer ' We'll use this to put a timer on bullets used by the player
+Global FreqTimer ' Delay to switch fire modes
+Global PlayerList:TList		= CreateList() ' List of players (maybe 2 to come)
+Global PlayerBulletList:TList	= CreateList() ' List of player's bullets
+Global AllyList:TList = CreateList() ' List of allies
+Global EnemyList:TList		= CreateList() ' List of enemies
+Global EnemyBulletList:TList	= CreateList() ' List of enemies' bullets
+Global explosionlist:TList	= CreateList() ' List of explosions
+Global BonusList:TList = CreateList() ' List of bonuses
+Global StagesList:TList = CreateList() ' List of stages
+Global InfoList:TList = CreateList() ' List of info texts
 
 Global currentLevel = 1
-' TODO : faire un système pour démarrer au niveau qu'on veut
+' TODO : make a system to start from another level
 
-'Global maxShips = 15 ' le nombre de maximum de vaisseaux ennemis à l'écran
-Const LOW_FREQ = 1 'le type des vaisseaux
+Const LOW_FREQ = 1 ' Type of ship/bullets LOW - blue, HIGH - red
 Const HIGH_FREQ = 0
 
-Global slowMo = False 'mode ralenti
-Global slowMoTimer% 'le moment où le mode slow s'arrête
+Global slowMo = False ' Slow mode activated / not activated
+Global slowMoTimer% ' Timer for the slow mode
 
-Global time% 'pour compter le temps de survie du joueur
-Global timeorigine 'le début de la partie
-
-Global play = 0 'état du jeu : 0 -> menu, 1 -> début du jeu, 2 -> jeu, etc
+Global play = 0 'state of the game
 Const MAIN_MENU = 0
 Const HELP_MENU = 1
 Const OPTIONS_MENU = 6
@@ -55,14 +46,14 @@ Const LEVELEND_GAME = 4
 Const PLAY_GAME = 2
 
 
-Global pause = False 'pause pendant le jeu -> à passer en état peut-être ?
-Global windowed = False
-Global rightEdge% = 650
-Global leftEdge% = 150
+Global pause = False ' pause in game -> make it a state ?
+Global windowed = False ' window mode activated / not activated
+Global rightEdge% = 650 ' Right edge of the game area
+Global leftEdge% = 150 ' Left edge of the game area
 
-Global loopsCount# = 0'compte les tours de boucle, utile pour beaucoup de tests
+Global loopsCount# = 0 ' counter for loops / useful for many tests
 
-'polices de caractères, tout inclure ou bien tout mettre en chemin relatif
+' Fonts 
 
 Incbin "C:\WINDOWS\Fonts\arial.ttf"
 Incbin "fonts/BLOCKUP_.ttf"
@@ -76,15 +67,12 @@ Global chiller:timagefont = LoadImageFont("incbin::C:\WINDOWS\Fonts\chiller.ttf"
 Global harlow:timagefont = LoadImageFont("incbin::C:\WINDOWS\Fonts\HarlowSI.ttf",32)
 Global quantum:timagefont = LoadImageFont("incbin::fonts/quantrnd.ttf",22)
 
-'Global 
 
-'End Function
-
+' Clears all lists
 Function clearLists()
 	ClearList AllyList
 	ClearList EnemyList
 	ClearList PlayerList
-	ClearList AllyBulletList
 	ClearList PlayerBulletList
 	ClearList ExplosionList
 	ClearList EnemyBulletList
@@ -94,8 +82,8 @@ Function clearLists()
 	tbomb.bombing = False ; 
 End Function 
 
+' Clears in-game lists
 Function clearLevelLists()
-	ClearList AllyBulletList
 	ClearList PlayerBulletList
 	ClearList ExplosionList
 	ClearList EnemyBulletList
@@ -104,25 +92,7 @@ Function clearLevelLists()
 	tbomb.bombing = False ;
 End Function
 
-Function printTests()
-	If timer < MilliSecs()
-		Print "-------"
-		Print "enemy " + CountList(enemylist)
-		Print "player " + CountList(playerlist)
-		Print "enemybullet " + CountList(enemybulletlist)
-		Print "stage " + CountList(StagesList)
-		Print "playerbullet " + CountList(playerbulletlist)
-		'Print "coord " + SizeOf enemylist
-		timer = MilliSecs() + 5000
-		Local Player:TPlayer = TPlayer(PlayerList.Last()) 
-		Print "coords " + CountList(Player.lastcoords)
-	EndIf
-End Function
-
-'init()
-
-' Inclusions ----------------------------------- l'ordre est important ? 
-' Classes et Firepaint utilisent des éléments d'Effets et Souns
+' Inclusions ----------------------------------- 
 
 Incbin "lvl1.xml"
 Incbin "lvl2.xml"
@@ -145,12 +115,12 @@ Include "Shoot.bmx"
 
 ' Main -----------------------------------------
 
-initChannels() 'initialisation des sons
+initChannels() ' Initialisation of the sounds
 
-Global timer% = MilliSecs() + 5000 ' sert pour les phases de début et de fin de niveau
-Local endStage = 0	
+Global timer% = MilliSecs() + 5000 ' Useful for special phases 
+Local endStage = 0 ' Level finished ?	
 
-Repeat ' This is the main loop!!!!
+Repeat ' This is the main loop
 
 	Cls
 	
@@ -158,128 +128,134 @@ Repeat ' This is the main loop!!!!
 	If KeyHit(KEY_S) Then soundOff = Not soundOff
 
 	SetAlpha 1
-'Menu ------------	
+	
+	'Menu ------------	
 
 	If play = MAIN_MENU Or play = HELP_MENU Or play = OPTIONS_MENU Or play = CREDITS_MENU
-		StagesList.clear() 'suppression du niveau en cours (inutile ?)
+		StagesList.clear() ' act on this to save the progress
 		If Not soundOff 
-			ResumeChannel channelBG 'mise en route de la musique du menu
+			ResumeChannel channelBG ' Play the music of the menu
 		Else
 			PauseChannel channelBG
 		EndIf
-		AutoMidHandle(False) 'pour le menu, les images sont gérées en fonction de leur coin supérieur gauche
+		AutoMidHandle(False) ' For the menu, images aren't mid-handled
 		If play = MAIN_MENU 
 			menu() 'la fonction qui affiche le menu
-			If KeyHit(KEY_ESCAPE) Then End 'sortie du programme
-			If KeyHit(KEY_ENTER) Then play = 10 'début du jeu
+			If KeyHit(KEY_ESCAPE) Then End ' End of the program
+			If KeyHit(KEY_ENTER) Then play = INIT_GAME ' Start of the game
 		Else If play = HELP_MENU
 			help()
-			If KeyHit(KEY_ESCAPE) Or KeyHit(KEY_ENTER) 
-				play = MAIN_MENU ' retour au menu principal
+			If KeyHit(KEY_ESCAPE) 
+				play = MAIN_MENU ' Back to main menu
 				ClearList buttonList
-				createMainButtons() ' on remet les boutons du menu
+				createMainButtons() ' Sets the main menu buttons
 			EndIf
 		Else If play = OPTIONS_MENU
 			optionsMenu()
-			If KeyHit(KEY_ESCAPE) 'Or KeyHit(KEY_ENTER) 
-				play = MAIN_MENU ' retour au menu principal
+			If KeyHit(KEY_ESCAPE)
+				play = MAIN_MENU ' Back to main menu
 				ClearList buttonList
 				createMainButtons()
 			EndIf
 		Else If play = CREDITS_MENU	
 			creditsMenu()
-			If KeyHit(KEY_ESCAPE) 'Or KeyHit(KEY_ENTER) 
-				play = MAIN_MENU ' retour au menu principal
+			If KeyHit(KEY_ESCAPE)  
+				play = MAIN_MENU ' Back to main menu
 				ClearList buttonList
 				createMainButtons()
 			EndIf
 		EndIf 
 		SetAlpha 1
-		AutoMidHandle(True) 'mais pour le reste, c'est le centre de l'image qui compte
-		pauseGameChannels() 'les sons du jeu sont mis en pause
-		SetBlend lightBlend 'lightblend pour les particules
-		updateentities(sparks) 'mise à jour des particules
+		AutoMidHandle(True) 
+		pauseGameChannels() ' In-game sounds are paused
+		SetBlend lightBlend ' For the particles
+		updateentities(sparks) ' Particles update
 		SetBlend alphaBlend
 		
-		' Difficulté : change la fréquence de tir des ennemis
-		If KeyHit(KEY_1) Then Difficulty = 1 '; Print difficulty
-		If KeyHit(KEY_2) Then Difficulty = 2 '; Print difficulty
-		If KeyHit(KEY_3) Then Difficulty = 3 '; Print difficulty
+		' Difficulty quick keys
+		If KeyHit(KEY_1) Then Difficulty = 1 
+		If KeyHit(KEY_2) Then Difficulty = 2 
+		If KeyHit(KEY_3) Then Difficulty = 3 
 		
-		If play = INIT_GAME ' correspond à l'initialisation du jeu
-			Lives = maxLives 'le nombre de vies du joueur
-			PauseChannel channelBG 'musique du menu en pause
-			clearLists() 'réinitialisation de toutes les listes du jeu
-			TPlayer.Spawn() 'création du joueur
+		If play = INIT_GAME ' Start of the game
+			Lives = maxLives 
+			PauseChannel channelBG ' Pause music of the menu
+			clearLists() ' Clears the lists of the program
+			TPlayer.Spawn() ' Creation of the player
+			' Stages loading -----
 			TStages.CreateFromFile("incbin::lvl1.xml")
 			TStages.CreateFromFile("incbin::lvl2.xml")
 			TStages.CreateFromFile("incbin::lvl3.xml")
-			endStage = 0 'le niveau n'est pas fini
-			kills = 0 'le score est à 0
-			mapY = 0 ' remise à 0 de la variable de scrolling
-			resumeGameChannels() ' activation des sons du jeu 
-			play = 2 ' correspond à la phase de jeu
-			pause = True ' le jeu commence par un compte à rebours, en mode pause
-			If Not soundOff Then PlaySound(soundStart) ' les sons de démarrage
+			endStage = 0 ' The stage's not over
+			kills = 0 ' Score is null
+			mapY = 0 ' Scrolling variable initialized
+			resumeGameChannels() ' Activation of in-game sounds
+			play = PLAY_GAME 
+			pause = True ' The game starts by a special phase
+			If Not soundOff Then PlaySound(soundStart) ' Starting sounds
 			If Not soundOff Then PlaySound(soundStart2)
-			timer = MilliSecs() + 3000 'le timer du compte à rebours
-			timeorigine = MilliSecs()/1000 ' l'instant du démarrage du jeu
+			timer = MilliSecs() + 3000 ' Timer for the special phase
 		EndIf
 
 		
 		
 	End If
  
-'Phase de jeu ---------------------------------------------------
+	' Game phases ---------------------------------------------------
 
-	If play = PLAY_GAME Or play = GAMEOVER_GAME Or play = LEVELSTART_GAME Or play = LEVELEND_GAME 'And endStage  = 0
+	If play = PLAY_GAME Or play = GAMEOVER_GAME Or play = LEVELSTART_GAME Or play = LEVELEND_GAME
 		Local Player:TPlayer = TPlayer.getPlayer()
-		' lancement : fin du niveau
+		
+		' Launch : end of the level
 		If endStage = 1 And play = PLAY_GAME Then timer=MilliSecs()+5000; play=LEVELEND_GAME;If Not soundOff Then PlaySound(soundWin)
-		' lancement : gameover
+		' Launch : game over
 		If lives <= 0 And play = PLAY_GAME Then timer=MilliSecs()+5000; play=GAMEOVER_GAME;If Not soundOff Then PlaySound(soundGameOver)
-			
-			If soundOff 
-				pauseGameChannels 
-			Else 
-				resumeGameChannels
-			'EndIf
+		
+		
+		If soundOff 
+			pauseGameChannels 
+		Else 
+			resumeGameChannels
 		EndIf
-		' Affichage de l'arrière plan
+		
+		' Drawing of the background
 		background()
 		
-		' Déroulement du jeu
+		' Game phase
 		If Not pause
-			time = MilliSecs()/1000-timeorigine
+
 			mapY:+mapSpeed 
 			If slowmo Then mapY:-mapSpeed/2
-			'affichages principaux
+			' Main displays
 			endStage = TStages.Update(mapY, EnemyList.count())
 			If EnemyList.count() <> 0
 				endStage = 0
 			EndIf
-			'les mises à jour des différents objets du jeu
+			
+			' Updates of the different objects of the game
 			TEnemy.Update()
-			TBullet.Update() 
-			TPlayer.Update()	
-			TAlly.Update()
 			TExplosion.Update()
+			TPlayer.Update()
+			TAlly.Update()
+			TBullet.Update() 
 			TBonus.Update()
+			TInfo.Update()
 			TAnimation.Update()
 			TSprite.update_sprite(1)
-			SetBlend lightblend 'lightblend pour les particules
+			SetBlend lightblend 
 			UpdateEntities(sparks)
 			SetBlend alphablend
+			
 		EndIf
 
-		'l'interface de jeu sur les côtés
+		' In-game interface 
 		SetAlpha 1
 		SetColor 255,255,255
 		DrawImage leftImage,75,300
 		DrawImage rightImage,rightedge+75,300
 		
 		
-		'dessin du stock de slowMotion
+		' SlowMotion stock display
 
 		SetImageHandle jaugeImage,0,0
 		Local jaugeScale# = player.slowMoStock/maxSlowMo
@@ -287,13 +263,12 @@ Repeat ' This is the main loop!!!!
 		DrawImage jaugeImage,rightEdge+90,50
 		SetScale 1,1
 		If slowMo
-			'SetColor Sin(mapY*6)*255,Sin(mapY)*255,Sin(mapY*3)*200
 			TSprite.init_sprite(rightEdge+90+ImageWidth(jaugeImage)/2,ImageHeight(jaugeImage)*jaugeScale+61,50,0,150)
 		Else
 			SetColor 155,0,200
 		EndIf
 		
-		' dessin des blocs du niveau de puissance
+		' Power blocks display
 		SetAlpha 1
 		SetColor 82,85,112
 		SetImageFont blockup
@@ -302,7 +277,7 @@ Repeat ' This is the main loop!!!!
 		Next
 		SetColor 255,255,255
 		SetImageFont quantum
-		'vies et bombes
+		' Lives and bombs display
 		If Lives < 4
 			For Local k=1 To Lives
 				DrawImage lifeStockImage,40*k - 10,380
@@ -328,18 +303,17 @@ Repeat ' This is the main loop!!!!
 		If KeyHit(key_escape) Then play = 0
 		
 		
+		If timer > MilliSecs() ' Special phases --------------------------------
 		
-		If timer > MilliSecs() ' phases spéciales --------------------------------
-		
-			slowmo = False ' ralenti désactivé
-			
+			slowmo = False ' Slow mode desactivated
+			channelsRate = 1 ' Music rate back to normal
 			SetImageFont harlow
+			
 			
 			If play = PLAY_GAME 'début du jeu ---------------------------------------------
 				'attention cinématique de début oulala
 				Local appColor# = 255 - (timer-MilliSecs()) * 255/3000
 				'SetColor 255 - appColor,255 - appColor,255 - appColor
-				channelsRate = 1 ' on s'assure que la musique est à vitesse normale
 				mapY:+mapSpeed
 				SetColor 255,255,255
 				SetScale player.scale,player.scale
@@ -358,17 +332,16 @@ Repeat ' This is the main loop!!!!
 				UpdateEntities(sparks)
 				pause = True
 				SetAlpha 1
-				time=0
+				'time=0
 				
 			Else If play = GAMEOVER_GAME 'gameover --------------------------------------------
 			' une sorte de rideau qui descend puis deux qui montent 
 			 	Local effectObject1:TGameObject = New TGameObject
-			effectObject1.x = GraphicsWidth()/2 ; effectObject1.y = GraphicsHeight()/2
+				effectObject1.x = GraphicsWidth()/2 ; effectObject1.y = GraphicsHeight()/2
 				reverseFocusFire(ligthPartPurpleImg,effectObject1,1,1,30,[115,0,0])
 				pause = True
 				pauseGameChannels()
 				setAllyChannelsVolume(0)
-				channelsRate = 1 ' on s'assure que la musique est à vitesse normale
 				Local fade# = GraphicsHeight()+(GraphicsHeight()*(MilliSecs()+2000-timer))/4000
 				SetColor 0,0,0
 				DrawRect leftedge,0,GraphicsWidth()-leftEdge*2,fade
@@ -391,7 +364,6 @@ Repeat ' This is the main loop!!!!
 				pause = True
 				pauseGameChannels()
 				setAllyChannelsVolume(0)
-				channelsRate = 1 ' on s'assure que la musique est à vitesse normale
 				Local fade# = GraphicsHeight()+(GraphicsHeight()*(MilliSecs()+2000-timer))/4000
 				SetColor 0,0,0
 				DrawRect leftedge,0,GraphicsWidth()-leftEdge*2,fade
@@ -425,7 +397,7 @@ Repeat ' This is the main loop!!!!
 		
 		If pause
 			slowmotimer :+  16'le nombre de millisecondes par frame, calculé en fonction du framerate =60
-			timeorigine = MilliSecs()/1000 - time
+			'timeorigine = MilliSecs()/1000 - time
 			'todo : faire en sorte que le slowmotimer s'arrête pendant la pause - ok mais sale
 			If Not (timer > MilliSecs() )
 				SetImageFont harlow
